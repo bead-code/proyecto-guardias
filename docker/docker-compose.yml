@@ -1,7 +1,7 @@
 services:
   mariadb:
     image: mariadb
-    restart: always
+    # restart: always
     environment:
       MARIADB_ROOT_PASSWORD: 1234
       MARIADB_DATABASE: mydb
@@ -9,7 +9,8 @@ services:
       - "3306:3306"
     volumes:
       - mariadb_data:/var/lib/mysql
-      - ../database/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql
+    networks:
+      - backend
 
   fastapi:
     build:
@@ -19,6 +20,10 @@ services:
       - "8000:8000"
     depends_on:
       - mariadb
-
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
 volumes:
   mariadb_data:
