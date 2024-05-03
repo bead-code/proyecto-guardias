@@ -1,9 +1,21 @@
 import PropTypes from 'prop-types';
 
 
-function ItemAsignatura({ asignatura }) {
+function ItemAsignatura({ asignatura, ...props}) {
     return (
-        <li >{asignatura.nombre}</li>
+        <li className="flex justify-between px-5 w-full bg-amber-100 shadow" {...props}>
+            <h2> {asignatura.nombre} </h2>
+            <select className="bg-transparent [&>option]:bg-transparent" name="cars" id="cars">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="opel">Opel</option>
+                <option value="audi">Audi</option>
+            </select>
+            {esHabilitado
+            ? <input type="checkbox" onClick={manejarHabilitado} ></input>
+            : <input type="checkbox" onClick={manejarHabilitado} checked ></input>
+            }
+        </li>
     );
 }
 
