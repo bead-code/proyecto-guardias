@@ -45,7 +45,7 @@ const manejarSubmit = async (event, nombreUsuario, contrasena) => {
         }
 
     }).catch((error) => {
-        console.log(error);
+        mostrarToast('No se ha podido comunicar con el servidor', 'error');
     });
 }
 
