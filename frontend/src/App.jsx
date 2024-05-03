@@ -49,23 +49,6 @@ const manejarSubmit = async (event, nombreUsuario, contrasena) => {
     });
 }
 
-export function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const {
-        decodedToken,
-        isExpired
-    } = useJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
-    const mockAsignaturas = [
-        {
-            id: 1,
-            nombre: "Matemáticas",
-            habilitado: true,
-            horas: [
-                {
-                    dia: 0,
-                    hora: 10
-                }
-            ]
 const mockAsignaturas = [
     {
         id: 2,
@@ -244,6 +227,13 @@ const mockAsignaturas = [
         ]
     },
 ]
+
+export function App() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const {
+        decodedToken,
+        isExpired
+    } = useJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
 
 
 
