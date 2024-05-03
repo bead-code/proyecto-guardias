@@ -66,63 +66,185 @@ export function App() {
                     hora: 10
                 }
             ]
+const mockAsignaturas = [
+    {
+        id: 2,
+        nombre: "Matematicas",
+        habilitado: true,
+        aula: "A001",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
         },
-        {
-            id: 2,
-            nombre: "Lengua",
-            habilitado: false,
-            horas: [
-                {
-                    dia: 1,
-                    hora: 1
-                }
-            ]
+        horas: [
+            {
+                dia: 1,
+                hora: 1
+            },
+            {
+                dia: 2,
+                hora: 2
+            }
+        ]
+    },
+    {
+        id: 3,
+        nombre: "Lengua",
+        habilitado: true,
+        aula: "A002",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
         },
-        {
-            id: 3,
-            nombre: "Inglés",
-            habilitado: true,
-            horas: [
-                {
-                    dia: 1,
-                    hora: 2
-                }
-            ]
+        horas: [
+            {
+                dia: 1,
+                hora: 2
+            },
+            {
+                dia: 2,
+                hora: 1
+            }
+        ]
+    },
+    {
+        id: 4,
+        nombre: "Ingles",
+        habilitado: true,
+        aula: "A003",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
         },
-        {
-            id: 4,
-            nombre: "Historia",
-            habilitado: true,
-            horas: [
-                {
-                    dia: 2,
-                    hora: 3
-                }
-            ]
+        horas: [
+            {
+                dia: 1,
+                hora: 3
+            },
+            {
+                dia: 2,
+                hora: 3
+            }
+        ]
+    },
+    {
+        id: 5,
+        nombre: "Fisica",
+        habilitado: true,
+        aula: "A004",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
         },
-        {
-            id: 5,
-            nombre: "Física",
-            habilitado: true,
-            horas: [
-                {
-                    dia: 3,
-                    hora: 4
-                }
-            ]
+        horas: [
+            {
+                dia: 1,
+                hora: 4
+            },
+            {
+                dia: 2,
+                hora: 4
+            }
+        ]
+    },
+    {
+        id: 6,
+        nombre: "Quimica",
+        habilitado: true,
+        aula: "A005",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
         },
-        {
-            id: 6,
-            nombre: "Química",
-            habilitado: true,
-            horas: [
-                {
-                    dia: 4,
-                    hora: 5
-                }
-            ]
-        }
-    ]
+        horas: [
+            {
+                dia: 1,
+                hora: 5
+            },
+            {
+                dia: 2,
+                hora: 5
+            }
+        ]
+    },
+    {
+        id: 7,
+        nombre: "Biologia",
+        habilitado: true,
+        aula: "A006",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
+        },
+        horas: [
+            {
+                dia: 1,
+                hora: 6
+            },
+            {
+                dia: 2,
+                hora: 6
+            }
+        ]
+    },
+    {
+        id: 8,
+        nombre: "Historia",
+        habilitado: true,
+        aula: "A007",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
+        },
+        horas: [
+            {
+                dia: 1,
+                hora: 7
+            },
+            {
+                dia: 2,
+                hora: 7
+            }
+        ]
+    },
+    {
+        id: 9,
+        nombre: "Geografia",
+        habilitado: true,
+        aula: "A008",
+        curso: "1ESO",
+        profesor: {
+            nick: "profesor1",
+            color: "#FF0000",
+            telefono: "123456789"
+        },
+        horas: [
+            {
+                dia: 1,
+                hora: 8
+            },
+            {
+                dia: 2,
+                hora: 8
+            }
+        ]
+    },
+]
+
 
 
     return (
