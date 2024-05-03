@@ -6,11 +6,12 @@ function ItemAsignatura({ asignatura }) {
         <li >{asignatura.nombre}</li>
     );
 }
+
 export function ListaAsignaturas({asignaturas}) {
-  return (
-      <ul>
-          {asignaturas.map((asignatura) => {
-              return <ItemAsignatura asignatura={asignatura} key={asignatura.id} />
+    return (
+        <ul className="[&>li]:mt-2 max-w-2xl m-auto">
+            {asignaturas.map((asignatura) => {
+                return <ItemAsignatura asignatura={asignatura} key={asignatura.id}/>
           })}
 
       </ul>
