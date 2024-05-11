@@ -7,3 +7,4 @@ bcrypt
 pymysql
 cryptography
 python-multipart
+jose

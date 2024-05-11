@@ -6,6 +6,7 @@ from database import Base
 class Profesor(Base):
     __tablename__ = 'profesores'
     id = Column(String(64), primary_key=True, index=True)
+    hashed_password = Column(String)
     nick = Column(String(64))
     color = Column(String(7))
     rol = Column(String(15))
