@@ -1,53 +1,5 @@
-import './App.css'
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-// import tailwindcss from 'tailwindcss'
-import 'tailwindcss/tailwind.css';
-import {useState} from "react";
-import {useJwt} from "react-jwt";
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
-import {BasicLayout} from "./layouts/BasicLayout.jsx";
-import {ListaAsignaturas} from "./components/asignaturas/usuario/ListaAsignaturas.jsx";
-import {mostrarToast} from "./utils/Notificaciones.js";
-import PropTypes from 'prop-types';
-import {LoginPage} from "./components/login/LoginPage.jsx";
-
-const manejarSubmit = async (event, nombreUsuario, contrasena) => {
-    event.preventDefault();
-    const credentials = {
-        email: nombreUsuario,
-        password: contrasena
-    }
-    if (nombreUsuario === '' || contrasena === '') {
-        mostrarToast('Datos incompletos', 'warning');
-        return
-    }
-    const respuesta = fetch('https://reqres.in/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    });
-    respuesta.then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-            // Guardar el token en el estado global o en local storage
-            localStorage.setItem('tokenAppGuardias', data.token);
-            mostrarToast('Login correcto ' + data.token, 'success');
-        } else {
-            console.error(data.error);
-            mostrarToast('Error en el login', 'error');
-        }
-
-    }).catch((error) => {
-        mostrarToast('No se ha podido comunicar con el servidor', 'error');
-    });
-}
+import {useParams} from "react-router-dom";
+import {ListaAsignaturas} from "../../listas/ListaAsignaturas.jsx";
 
 const mockAsignaturas = [
     {
@@ -97,7 +49,7 @@ const mockAsignaturas = [
     {
         id: 4,
         nombre: "Ingles",
-        habilitado: true,
+        habilitado: false,
         aula: "A003",
         curso: "1ESO",
         profesor: {
@@ -228,39 +180,11 @@ const mockAsignaturas = [
     },
 ]
 
-export function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const {
-        decodedToken,
-        isExpired
-    } = useJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
-
-
-
-    return (
-        <>
-            <BrowserRouter>
-                <BasicLayout>
-                    <Routes>
-                        <Route path="/" element={<ListaAsignaturas asignaturas={mockAsignaturas}/>}/>
-                        <Route path="/Login" element={<LoginPage manejarSubmit={manejarSubmit}/>}/>
-                        <Route path="/signup" element={<h1>me llamo pepe signup</h1>}/>
-                        <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
-                        {/* Ruta protegida */}
-                        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
-                            <Route path="/usuario/:idUsuario/asignaturas" element={<AsignaturasUsuario/>}/>
-                            <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
-                        </Route>
-                        {/* Ruta protegida */}
-                    </Routes>
-                </BasicLayout>
-            </BrowserRouter>
-        </>
-    )
-}
-
-manejarSubmit.propTypes = {
-    event: PropTypes.object.isRequired,
-    nombreUsuario: PropTypes.string.isRequired,
-    contrasena: PropTypes.string.isRequired
+export function AsignaturasUsuario () {
+    const { idUsuario } = useParams()
+    return(
+    <>
+        <h1> Usuario {id}</h1>
+        <ListaAsignaturas asignaturasInicial={mockAsignaturas}/>
+    </>)
 }
