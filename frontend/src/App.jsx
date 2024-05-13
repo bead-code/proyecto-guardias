@@ -246,6 +246,10 @@ export function App() {
                         <Route path="/Login" element={<LoginPage manejarSubmit={manejarSubmit}/>}/>
                         <Route path="/signup" element={<h1>me llamo pepe signup</h1>}/>
                         <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
+                        {/* Ruta protegida */}
+                        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
+                        </Route>
+                        {/* Ruta protegida */}
                     </Routes>
                 </BasicLayout>
             </BrowserRouter>
