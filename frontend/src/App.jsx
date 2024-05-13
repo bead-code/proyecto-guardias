@@ -252,6 +252,7 @@ export function App() {
                             <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
                         </Route>
                         {/* Ruta protegida */}
+                        <Route path="*" element={<h1>404</h1>}/>
                     </Routes>
                 </BasicLayout>
             </BrowserRouter>
