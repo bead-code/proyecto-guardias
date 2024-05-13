@@ -248,6 +248,7 @@ export function App() {
                         <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
                         {/* Ruta protegida */}
                         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
+                            <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
                         </Route>
                         {/* Ruta protegida */}
                     </Routes>
