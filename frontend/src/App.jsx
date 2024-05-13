@@ -15,6 +15,9 @@ import {ListaAsignaturas} from "./components/asignaturas/usuario/ListaAsignatura
 import {mostrarToast} from "./utils/Notificaciones.js";
 import PropTypes from 'prop-types';
 import {LoginPage} from "./components/login/LoginPage.jsx";
+import {AsignaturasUsuario} from "./components/pages/asignaturas/AsignaturasUsuario.jsx";
+import {ProtectedRoute} from "./components/protectedRoute/ProtectedRoute.jsx";
+import {ProximaGuardia} from "./components/pages/guardias/ProximaGuardia.jsx";
 
 const manejarSubmit = async (event, nombreUsuario, contrasena) => {
     event.preventDefault();
