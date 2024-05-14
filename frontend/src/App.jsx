@@ -265,8 +265,3 @@ export function App() {
     )
 }
 
-manejarSubmit.propTypes = {
-    event: PropTypes.object.isRequired,
-    nombreUsuario: PropTypes.string.isRequired,
-    contrasena: PropTypes.string.isRequired
-}
