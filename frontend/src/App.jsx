@@ -1,22 +1,16 @@
 import './App.css'
-import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import tailwindcss from 'tailwindcss'
 import 'tailwindcss/tailwind.css';
 import {useState} from "react";
 import {useJwt} from "react-jwt";
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {BasicLayout} from "./layouts/BasicLayout.jsx";
-import {mostrarToast} from "./utils/Notificaciones.js";
-import PropTypes from 'prop-types';
-import {LoginPage} from "./components/login/LoginPage.jsx";
+import {LoginPage} from "./components/pages/login/LoginPage.jsx";
 import {AsignaturasUsuario} from "./components/pages/asignaturas/AsignaturasUsuario.jsx";
 import {ProtectedRoute} from "./components/protectedRoute/ProtectedRoute.jsx";
 import {ProximaGuardia} from "./components/pages/guardias/ProximaGuardia.jsx";
+import {ListaGuardias} from "./components/listas/ListaGuardias.jsx";
+import {GrupoGuardia} from "./components/pages/gruposGuardias/GrupoGuardia.jsx";
 
 const manejarSubmit = async (event, nombreUsuario, contrasena) => {
     event.preventDefault();
