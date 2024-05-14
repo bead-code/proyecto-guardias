@@ -2,6 +2,7 @@ import {useState} from "react";
 import {AiOutlineClose, AiOutlineMenu} from "react-icons/ai";
 import {Link} from "react-router-dom";
 import react from "../../assets/react.svg";
+
 export function Navbar() {
     // Create navbar for web app
     const [showMenu, setShowMenu] = useState(false);
@@ -13,13 +14,24 @@ export function Navbar() {
         setShowMenu(false);
     }
 
-    const navItems = [
-        {id: 1, url: '/Login', content: 'Login'}
-    ];
+    const navItems = [{id: 1, url: '/login', content: 'Login'}, {id: 2, url: '/signup', content: 'Sign up'}, {
+        id: 3,
+        url: '/dashboard',
+        content: 'Dashboard'
+    }, {id: 4, url: '/usuario/1/asignaturas', content: 'AsignaturasUsuario'}, {
+        id: 5,
+        url: '/proximaguardia',
+        content: 'ProximaGuardia'
+    }, {id: 6, url: '/gruposGuardias', content: 'GruposGuardias'}, {
+        id: 7,
+        url: '/guardias',
+        content: 'Guardias'
+    }, {id: 8, url: '/gruposGuardias/1', content: 'GrupoGuardia'},];
     const estiloBotonHamburguesa = 'md:hidden w-8 h-8 text-white hover:text-blue-950'
-    return (<nav className="bg-blue-800 text-white">
-            <ul className="flex justify-between">
-                <li className=' hover:brightness-75 h-full m-2 mr-auto'>
+    return (
+        <nav className="bg-blue-800 text-white">
+            <ul className="flex flex-wrap justify-end">
+                <li className='hover:brightness-75 h-full m-2 mr-auto'>
                     <Link to="/">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -34,10 +46,9 @@ export function Navbar() {
                         </svg>
                     </Link>
                 </li>
-                {navItems.map((item) => (
-                    <li key={item.id} className='hidden md:flex hover:bg-blue-950'>
-                        <Link to={item.url} className="mx-2 p-3 h-full w-full content-center">{item.content}</Link>
-                    </li>))}
+                {navItems.map((item) => (<li key={item.id} className='hidden md:flex hover:bg-blue-950'>
+                    <Link to={item.url} className="mx-2 p-3 h-full w-full content-center">{item.content}</Link>
+                </li>))}
 
                 <li className='flex md:hidden mr-5'>
                     <button className="md:hidden" onClick={toggleMenu}>
