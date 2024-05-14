@@ -11,7 +11,6 @@ import {
     Route
 } from "react-router-dom";
 import {BasicLayout} from "./layouts/BasicLayout.jsx";
-import {ListaAsignaturas} from "./components/asignaturas/usuario/ListaAsignaturas.jsx";
 import {mostrarToast} from "./utils/Notificaciones.js";
 import PropTypes from 'prop-types';
 import {LoginPage} from "./components/login/LoginPage.jsx";
