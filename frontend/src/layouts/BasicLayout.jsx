@@ -7,7 +7,7 @@ export function BasicLayout({children = ''}) {
     return (
     <>
         <Navbar/>
-        <div className="h-full grow">
+        <div className="h-full">
         {children}
         </div>
         <ToastContainer/>
