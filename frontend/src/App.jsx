@@ -244,12 +244,15 @@ export function App() {
             <BrowserRouter>
                 <BasicLayout>
                     <Routes>
-                        <Route path="/" element={<ListaAsignaturas asignaturas={mockAsignaturas}/>}/>
-                        <Route path="/Login" element={<LoginPage manejarSubmit={manejarSubmit}/>}/>
+                        <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
+                        <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
+                        <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
+                        <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>}/>
                         <Route path="/signup" element={<h1>me llamo pepe signup</h1>}/>
-                        <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
                         {/* Ruta protegida */}
                         <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
+                            <Route path="/" element={<h1>Landing pagee</h1>}/>
+                            <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
                             <Route path="/usuario/:idUsuario/asignaturas" element={<AsignaturasUsuario/>}/>
                             <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
                         </Route>
