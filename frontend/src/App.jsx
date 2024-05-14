@@ -12,33 +12,6 @@ import {ProximaGuardia} from "./components/pages/guardias/ProximaGuardia.jsx";
 import {ListaGuardias} from "./components/listas/ListaGuardias.jsx";
 import {GrupoGuardia} from "./components/pages/gruposGuardias/GrupoGuardia.jsx";
 
-const manejarSubmit = async (event, nombreUsuario, contrasena) => {
-    event.preventDefault();
-    const credentials = {
-        email: nombreUsuario,
-        password: contrasena
-    }
-    if (nombreUsuario === '' || contrasena === '') {
-        mostrarToast('Datos incompletos', 'warning');
-        return
-    }
-    const respuesta = fetch('https://reqres.in/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    });
-    respuesta.then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-            // Guardar el token en el estado global o en local storage
-            localStorage.setItem('tokenAppGuardias', data.token);
-            mostrarToast('Login correcto ' + data.token, 'success');
-        } else {
-            console.error(data.error);
-            mostrarToast('Error en el login', 'error');
-        }
 
     }).catch((error) => {
         mostrarToast('No se ha podido comunicar con el servidor', 'error');
