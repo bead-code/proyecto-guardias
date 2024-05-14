@@ -7,7 +7,41 @@ import { mostrarToast } from "../../utils/Notificaciones.js";
 import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
-export function Login({ manejarSubmit }) {
+const manejarSubmit = async (event, nombreUsuario, contrasena, setIsAuthenticated) => {
+    event.preventDefault();
+    const credentials = {
+        email: nombreUsuario,
+        password: contrasena
+    }
+    if (nombreUsuario === '' || contrasena === '') {
+        mostrarToast('Datos incompletos', 'warning');
+        return
+    }
+    const respuesta = fetch('https://reqres.in/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    });
+    respuesta.then(async (res) => {
+        const data = await res.json();
+        if (res.ok) {
+            // Guardar el token en el estado global o en local storage
+            localStorage.setItem('tokenAppGuardias', data.token);
+            setIsAuthenticated(true);
+            mostrarToast('Login correcto ' + data.token, 'success');
+        } else {
+            console.error(data.error);
+            mostrarToast('Error en el login', 'error');
+        }
+
+    }).catch((error) => {
+        mostrarToast('No se ha podido comunicar con el servidor', 'error');
+    });
+}
+
+export function Login({setIsAuthenticated}) {
     const DEFAULT_USER = "eve.holt@reqres.in";
     const DEFAULT_PASSWORD = "cityslicka";
     let nombreUsuario = DEFAULT_USER;
@@ -24,7 +58,7 @@ export function Login({ manejarSubmit }) {
 
     // componente que devuelve el formulario para iniciar sesion en la aplicacion
     return (
-        <form onSubmit={(event) => manejarSubmit(event, nombreUsuario, contrasena)}
+        <form onSubmit={(event) => manejarSubmit(event, nombreUsuario, contrasena, setIsAuthenticated)}
               className='flex flex-col gap-1 w-full max-w-xs m-auto bg-white shadow-md rounded p-8 items-start '>
             <EtiquetaPersonalizada>Nombre de usuario</EtiquetaPersonalizada>
             <InputTexto type="text" name="nombre" placeholder='Introduce DNI del usuario' onChange={manejarNombre}
@@ -40,4 +74,10 @@ export function Login({ manejarSubmit }) {
 }
 Login.prototype = {
     manejarSubmit: PropTypes.func.isRequired
+}
+manejarSubmit.propTypes = {
+    event: PropTypes.object.isRequired,
+    nombreUsuario: PropTypes.string.isRequired,
+    contrasena: PropTypes.string.isRequired,
+    setIsAuthenticated: PropTypes.func.isRequired
 }
