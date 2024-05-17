@@ -2,9 +2,8 @@ fastapi
 uvicorn
 sqlalchemy
 mysql-connector
-passlib
-bcrypt
+passlib[argon2]
 pymysql
 cryptography
 python-multipart
-jose
+pyjwt

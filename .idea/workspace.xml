@@ -5,15 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29113a3a-7a6e-4bd7-850f-478da010a987" name="Changes" comment="Password encriptado finalizado">
-      <change afterPath="$PROJECT_DIR$/back/db/db_profesor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_asignatura.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_aula.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_ciclo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_horario.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_profesor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/dao/dao_rol.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/db/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routers/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routers/asignatura.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routers/ciclo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/routers/rol.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back/security/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/db438263-2f47-4026-be90-02b21142bdfc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/db438263-2f47-4026-be90-02b21142bdfc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/db/db_profesor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/db/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/db/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/db/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/db/schemas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/docker/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/back/docker/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/hash.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/security/hash.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/oauth2.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/security/oauth2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back/routers/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/routers/authentication.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/back/routers/profesor.py" beforeDir="false" afterPath="$PROJECT_DIR$/back/routers/profesor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/init_db.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +85,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "models",
-    "last_opened_file_path": "C:/Users/trencd/PycharmProjects/proyecto-guardias",
+    "last_opened_file_path": "C:/Users/trencd/PycharmProjects/proyecto-guardias/back/security",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -86,14 +102,17 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\security" />
+      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\dao" />
+      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\routers" />
       <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\security" />
+      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\dao" />
       <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\routers" />
       <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\db" />
       <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back" />
-      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\back\docker" />
-      <recent name="C:\Users\trencd\PycharmProjects\proyecto-guardias\docker" />
     </key>
   </component>
   <component name="RunManager" selected="Python.main">
@@ -203,7 +222,12 @@
       <workItem from="1715166085535" duration="3121000" />
       <workItem from="1715375743464" duration="919000" />
       <workItem from="1715464622128" duration="6587000" />
-      <workItem from="1715471245182" duration="981000" />
+      <workItem from="1715471245182" duration="11510000" />
+      <workItem from="1715691159976" duration="4026000" />
+      <workItem from="1715770961703" duration="11008000" />
+      <workItem from="1715836224761" duration="9000" />
+      <workItem from="1715860564064" duration="2252000" />
+      <workItem from="1715884676339" duration="19373000" />
     </task>
     <task id="LOCAL-00001" summary="Estructura y requererimientos">
       <option name="closed" value="true" />
@@ -261,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715469762219</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Password encriptado finalizado">
+      <option name="closed" value="true" />
+      <created>1715472329438</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715472329438</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,7 +309,7 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/proyecto_guardias$profesor.coverage" NAME="profesor Coverage Results" MODIFIED="1714682842895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/back/routers" />
-    <SUITE FILE_PATH="coverage/proyecto_guardias$main.coverage" NAME="main Coverage Results" MODIFIED="1715471363236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/back" />
+    <SUITE FILE_PATH="coverage/proyecto_guardias$main.coverage" NAME="main Coverage Results" MODIFIED="1715770986070" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/back" />
     <SUITE FILE_PATH="coverage/proyecto_guardias$database.coverage" NAME="database Coverage Results" MODIFIED="1715466020656" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/back" />
   </component>
 </project>

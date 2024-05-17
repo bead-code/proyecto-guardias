@@ -1,0 +1,23 @@
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from dao import dao_ciclo
+from db.database import get_db
+from db.schemas import CicloDb, CicloDto
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+router = APIRouter(
+    prefix="/ciclo",
+    tags=["ciclo"],
+)
+
+@router.post("/", response_model=CicloDb)
+async def create_ciclo(request: CicloDb, db:Session = Depends(get_db)):
+    logging.info(f"Request recibida: {request}")
+    return dao_ciclo.create_ciclo(request, db)
+
+@router.get("/codigo}", response_model=CicloDto)
+async def get_ciclo(codigo: str, db:Session = Depends(get_db)):
+    logging.info(f"Request recibida....")
+    return dao_ciclo.get_ciclo_by_codigo(codigo, db)
