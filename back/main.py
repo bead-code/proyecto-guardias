@@ -5,9 +5,11 @@ from starlette.middleware.cors import CORSMiddleware
 
 from db.database import Base, engine, Session
 from db.models import Rol, Profesor, Aula, Asignatura, Ciclo, Horario
+from routers import authentication, profesor, rol, ciclo, asignatura
 from security.hash import Hash
 
 app = FastAPI()
+app.include_router(rol.router)
 origins = [
     "http://localhost",
     "http://localhost:8000",
