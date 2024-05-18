@@ -89,6 +89,20 @@ class AulaDto(BaseModel):
     nombre: str
 
 #HORARIOS
+class HorarioDb(BaseModel):
+    codigo_profesor: str = Field(..., max_length=64, description="Código del profesor titular")
+    codigo_profesor_sustituto: Optional[str] = Field(None, max_length=64, description="Código del profesor sustituto")
+    codigo_asignatura: str = Field(..., max_length=64, description="Código de la asignatura")
+    codigo_aula: str = Field(..., max_length=64, description="Código del aula")
+    fecha: date = Field(..., description="Fecha del horario")
+    dia_semana: DiaSemanaEnum = Field(..., description="Día de la semana")
+    hora: HoraEnum = Field(..., description="Hora del día")
+    ausencia: bool = Field(False, description="Indica si hay ausencia del profesor")
+
+    class Config:
+        arbitrary_types_allowed = True
+        from_attributes = True
+
 class HorarioDTO(BaseModel):
     profesor: ProfesorHorario
     profesor_sustituto: ProfesorHorario
