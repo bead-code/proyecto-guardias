@@ -10,6 +10,7 @@ from security.hash import Hash
 
 app = FastAPI()
 app.include_router(rol.router)
+app.include_router(ciclo.router)
 app.include_router(asignatura.router)
 origins = [
     "http://localhost",

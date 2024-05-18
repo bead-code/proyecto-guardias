@@ -25,3 +25,17 @@ class AsignaturaDto(BaseModel):
 class AsignaturaHorario(BaseModel):
     nombre: str
 
+
+# CICLOS
+class CicloDb(BaseModel):
+    codigo: str
+    nombre: str
+
+class CicloDto(BaseModel):
+    nombre: str
+
+# AULAS
+class AulaDb(BaseModel):
+    codigo: str
+    nombre: str
+    codigo_ciclo: str
