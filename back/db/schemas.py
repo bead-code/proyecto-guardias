@@ -87,3 +87,19 @@ class AulaDb(BaseModel):
 
 class AulaDto(BaseModel):
     nombre: str
+
+#HORARIOS
+class HorarioDTO(BaseModel):
+    profesor: ProfesorHorario
+    profesor_sustituto: ProfesorHorario
+    asignatura: AsignaturaHorario
+    aula: AulaDto
+    fecha: Date
+    dia_semana: str
+    hora: str
+    aucencia: bool
+
+    class Config:
+        from_attributes = True
+        arbitrary_types_allowed = True
+
