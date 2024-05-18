@@ -14,3 +14,14 @@ class RolDto(BaseModel):
     codigo: str
     class Config:
         orm_mode = True
+# ASIGNATURAS
+class AsignaturaDb(BaseModel):
+    codigo: str
+    nombre: str
+
+class AsignaturaDto(BaseModel):
+    nombre: str
+
+class AsignaturaHorario(BaseModel):
+    nombre: str
+
