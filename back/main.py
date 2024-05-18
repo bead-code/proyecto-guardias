@@ -13,6 +13,7 @@ app.include_router(profesor.router)
 app.include_router(rol.router)
 app.include_router(ciclo.router)
 app.include_router(asignatura.router)
+app.include_router(authentication.router)
 origins = [
     "http://localhost",
     "http://localhost:8000",

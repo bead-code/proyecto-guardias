@@ -6,6 +6,19 @@ from sqlalchemy import Date
 
 from db.models import DiaSemanaEnum, HoraEnum
 
+# LOGIN
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+
+class LoginData(BaseModel):
+    codigo: str
+    password: str
+
+class TokenData(BaseModel):
+    codigo: str
+
+
 # ROLES
 class RolDb(BaseModel):
     codigo: str
