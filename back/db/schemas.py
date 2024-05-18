@@ -84,3 +84,6 @@ class AulaDb(BaseModel):
     codigo: str
     nombre: str
     codigo_ciclo: str
+
+class AulaDto(BaseModel):
+    nombre: str
