@@ -1,0 +1,22 @@
+services:
+  mariadb:
+    image: mariadb
+    # restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_DATABASE: mydb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mariadb_data:/var/lib/mysql
+
+  fastapi:
+    build:
+      context: ../back
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mariadb
+volumes:
+  mariadb_data:
