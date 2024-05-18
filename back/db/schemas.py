@@ -14,6 +14,38 @@ class RolDto(BaseModel):
     codigo: str
     class Config:
         orm_mode = True
+
+
+# PROFESORES
+class ProfesorDTO(BaseModel):
+    codigo: str
+    nick: str
+    color: str
+    rol_codigo: str
+    class Config:
+        orm_mode = True
+
+class ProfesorDb(BaseModel):
+    codigo: str
+    password: str
+    nick: str
+    color: str
+    rol_codigo: str
+
+    class Config:
+        orm_mode = True
+
+class ProfesorHorario(BaseModel):
+    codigo: str
+
+class ProfesorAuth(BaseModel):
+    codigo: str
+    nombre: str
+    rol_codigo: str
+
+    class Config:
+        orm_mode = True
+
 # ASIGNATURAS
 class AsignaturaDb(BaseModel):
     codigo: str
