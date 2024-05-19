@@ -4,9 +4,10 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from db.database import Base, engine, Session
-from db.models import Rol, Profesor, Aula, Asignatura, Ciclo, Horario
+from db.models import Rol, Profesor, Aula, Asignatura, Curso, Horario
 from generador_horarios.generador_aulas import cargar_aula_from_xml
 from generador_horarios.generador_profesores import cargar_profesor_from_xml
+from generador_horarios.generador_cursos import cargar_cursos_from_xml
 from routers import authentication, profesor, rol, ciclo, asignatura
 from security.hash import Hash
 
@@ -79,12 +80,12 @@ def init_data(db: Session):
         )
         db.add(asignatura_mock)
         db.commit()
-    if not db.query(Ciclo).filter(Ciclo.codigo == '2DAM').first():
-        ciclo_mock = Ciclo(
+    if not db.query(Curso).filter(Curso.codigo == '2DAM').first():
+        curso_mock = Curso(
             codigo='2DAM',
             nombre="Segundo de desarollo de aplicacones multimedia"
         )
-        db.add(ciclo_mock)
+        db.add(curso_mock)
         db.commit()
     if not db.query(Horario).filter(Horario.id == 1).first():
         horario_mock = Horario(
@@ -101,6 +102,7 @@ def init_data(db: Session):
 
         cargar_profesor_from_xml()
         cargar_aula_from_xml()
+        cargar_cursos_from_xml()
 
 
 # SE CREAN LOS PERFILES POR DEFECTO
