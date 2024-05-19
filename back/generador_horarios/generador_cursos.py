@@ -8,7 +8,7 @@ dataframes = parse_xml_to_dataframes()
 
 df_cursos = dataframes.get('CURSOS_DEL_CENTRO', pd.DataFrame())
 
-def cargar_cursos_from_xml():
+def load_cursos_from_xml():
     db = Session()
     for index, curso in df_cursos.iterrows():
         new_curso = Curso(
@@ -16,7 +16,7 @@ def cargar_cursos_from_xml():
         )
         db.add(new_curso)
         try:
-            logging.info("Insertando el profesor en la base de datos...")
+            logging.info("Insertando los profesores en la base de datos...")
             db.commit()
             db.refresh(new_curso)
         except Exception as e:
