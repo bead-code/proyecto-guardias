@@ -8,7 +8,7 @@ dataframes = parse_xml_to_dataframes()
 
 df_aulas = dataframes.get('DEPENDENCIAS', pd.DataFrame())
 
-def cargar_aula_from_xml():
+def load_aulas_from_xml():
     db = Session()
     for index, aula in df_aulas.iterrows():
         new_aula = Aula(
@@ -16,7 +16,7 @@ def cargar_aula_from_xml():
         )
         db.add(new_aula)
         try:
-            logging.info("Insertando el profesor en la base de datos...")
+            logging.info("Insertando las aulas en la base de datos...")
             db.commit()
             db.refresh(new_aula)
         except Exception as e:

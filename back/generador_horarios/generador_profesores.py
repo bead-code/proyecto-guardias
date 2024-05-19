@@ -23,7 +23,7 @@ if not df_profesores.empty:
     df_profesores.drop(columns=['X_EMPLEADO', 'F_TOMAPOS', 'D_PUESTO', 'NOMBRE', 'APELLIDO1', 'APELLIDO2'],
                        inplace=True)
 
-def cargar_profesor_from_xml():
+def load_profesores_from_xml():
     db = Session()
     for index, profesor in df_profesores.iterrows():
         new_profesor = Profesor(
@@ -32,7 +32,7 @@ def cargar_profesor_from_xml():
         )
         db.add(new_profesor)
         try:
-            logging.info("Insertando el profesor en la base de datos...")
+            logging.info("Insertando los profesores en la base de datos...")
             db.commit()
             db.refresh(new_profesor)
         except Exception as e:

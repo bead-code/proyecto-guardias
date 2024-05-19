@@ -5,9 +5,10 @@ from starlette.middleware.cors import CORSMiddleware
 
 from db.database import Base, engine, Session
 from db.models import Rol, Profesor, Aula, Asignatura, Curso, Horario
-from generador_horarios.generador_aulas import cargar_aula_from_xml
-from generador_horarios.generador_profesores import cargar_profesor_from_xml
-from generador_horarios.generador_cursos import cargar_cursos_from_xml
+from generador_horarios.generador_asignaturas import load_asignaturas_from_xml
+from generador_horarios.generador_aulas import load_aulas_from_xml
+from generador_horarios.generador_profesores import load_profesores_from_xml
+from generador_horarios.generador_cursos import load_cursos_from_xml
 from routers import authentication, profesor, rol, ciclo, asignatura
 from security.hash import Hash
 
@@ -100,9 +101,10 @@ def init_data(db: Session):
         db.add(horario_mock)
         db.commit()
 
-        cargar_profesor_from_xml()
-        cargar_aula_from_xml()
-        cargar_cursos_from_xml()
+        load_profesores_from_xml()
+        load_aulas_from_xml()
+        load_cursos_from_xml()
+        load_asignaturas_from_xml()
 
 
 # SE CREAN LOS PERFILES POR DEFECTO
