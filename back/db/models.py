@@ -4,6 +4,7 @@ from enum import Enum as PyEnum
 
 
 from db.database import Base
+from security.hash import Hash
 
 
 class DiaSemanaEnum(PyEnum):
@@ -38,9 +39,9 @@ class Rol(Base):
 class Profesor(Base):
     __tablename__ = 'profesores'
     codigo = Column(String(64), primary_key=True, index=True)
-    password = Column(String(255), nullable=False)
-    nick = Column(String(64), nullable=False)
-    color = Column(String(64), nullable=False)
+    password = Column(String(255), nullable=False, default=Hash.argon2("1234"))
+    nick = Column(String(64), nullable=False, default="profesorNick")
+    color = Column(String(64), nullable=False, default="Rojo")
     rol_codigo = Column(String(64), ForeignKey('roles.codigo'))
 
 

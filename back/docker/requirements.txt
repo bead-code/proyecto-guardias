@@ -7,3 +7,4 @@ pymysql
 cryptography
 python-multipart
 pyjwt
+pandas
