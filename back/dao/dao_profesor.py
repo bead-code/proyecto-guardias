@@ -66,3 +66,5 @@ def delete_profesor(codigo: str, db: Session):
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
+
+

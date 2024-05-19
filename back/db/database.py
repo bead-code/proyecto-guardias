@@ -8,7 +8,7 @@ port = 3306
 database = "mydb"
 
 engine = create_engine(
-    f"mysql+pymysql://{username}:{password}@mariadb:{port}/{database}?charset=utf8mb4",
+    f"mysql+pymysql://{username}:{password}@localhost:{port}/{database}?charset=utf8mb4",
     echo=True
 )
 
