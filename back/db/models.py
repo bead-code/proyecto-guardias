@@ -45,8 +45,8 @@ class Profesor(Base):
     rol_codigo = Column(String(64), ForeignKey('roles.codigo'))
 
 
-class Ciclo(Base):
-    __tablename__ = 'ciclos'
+class Curso(Base):
+    __tablename__ = 'cursos'
     codigo = Column(String(64), primary_key=True, index=True)
     nombre = Column(String(64))
 

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from dao import dao_ciclo
+from dao import dao_curso
 from db.database import get_db
 from db.schemas import CicloDb, CicloDto
 import logging

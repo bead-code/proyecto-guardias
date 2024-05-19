@@ -1,14 +1,14 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
-from db.models import Ciclo
+from db.models import Curso
 from db.schemas import CicloDb
 
 
-def create_ciclo(request: CicloDb, db: Session):
-    ciclo = db.query(Ciclo).filter(Ciclo.codigo == request.codigo).first()
+def create_curso(request: CicloDb, db: Session):
+    ciclo = db.query(Curso).filter(Curso.codigo == request.codigo).first()
     if ciclo:
         raise HTTPException(status_code=409, detail="El ciclo ya existe en la base de datos")
-    new_ciclo = Ciclo(
+    new_ciclo = Curso(
         codigo=request.codigo,
         nombre=request.nombre
     )
@@ -23,17 +23,17 @@ def create_ciclo(request: CicloDb, db: Session):
 
 
 
-def get_ciclo_by_codigo(codigo: str, db: Session):
-    ciclo = db.query(Ciclo).filter(Ciclo.codigo == codigo).first()
+def get_curso_by_codigo(codigo: str, db: Session):
+    ciclo = db.query(Curso).filter(Curso.codigo == codigo).first()
     if not ciclo:
         raise HTTPException(status_code=404, detail="Ciclo no encontrado")
     return ciclo
 
-def update_ciclo():
+def update_curso():
     pass
 
-def delete_ciclo(codigo: str, db: Session):
-    ciclo = db.query(Ciclo).filter(Ciclo.codigo == codigo).first()
+def delete_curso(codigo: str, db: Session):
+    ciclo = db.query(Curso).filter(Curso.codigo == codigo).first()
     if not ciclo:
         raise HTTPException(status_code=404, detail="Ciclo no encontrado")
     db.delete(ciclo)
