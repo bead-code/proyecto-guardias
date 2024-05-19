@@ -19,7 +19,7 @@ def create_profesor(request: ProfesorDb, db: Session,):
 
     new_profesor = Profesor(
         codigo=request.codigo,
-        password=Hash.bcrypt(request.password),
+        password=Hash.argon2(request.password),
         nick=request.nick,
         color=request.color,
         rol_codigo=request.rol_codigo
