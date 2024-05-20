@@ -66,6 +66,7 @@ class Horario(Base):
     codigo_profesor = Column(String(64), ForeignKey('profesores.codigo'))
     codigo_profesor_sustituto = Column(String(64), ForeignKey('profesores.codigo'))
     codigo_asignatura = Column(String(64), ForeignKey('asignaturas.codigo'))
+    codigo_curso = Column(String(64), ForeignKey("cursos.codigo"))
     codigo_aula = Column(String(64), ForeignKey('aulas.codigo'))
     fecha = Column(Date)
     dia_semana = Column(SQLAlchemyEnum(DiaSemanaEnum))

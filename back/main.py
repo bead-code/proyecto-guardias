@@ -9,7 +9,7 @@ from generador_horarios.generador_asignaturas import load_asignaturas_from_xml
 from generador_horarios.generador_aulas import load_aulas_from_xml
 from generador_horarios.generador_profesores import load_profesores_from_xml
 from generador_horarios.generador_cursos import load_cursos_from_xml
-from routers import authentication, profesor, rol, ciclo, asignatura
+from routers import authentication, profesor, rol, ciclo, asignatura, horario
 from security.hash import Hash
 
 app = FastAPI()
@@ -18,6 +18,7 @@ app.include_router(rol.router)
 app.include_router(ciclo.router)
 app.include_router(asignatura.router)
 app.include_router(authentication.router)
+app.include_router(horario.router)
 origins = [
     "http://localhost",
     "http://localhost:8000",
