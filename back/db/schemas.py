@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import BaseModel, Field
 from sqlalchemy import Date
 
-from db.models import DiaSemanaEnum, HoraEnum
+from db.models import DiaSemanaEnum
 
 # LOGIN
 class Token(BaseModel):
@@ -12,52 +12,53 @@ class Token(BaseModel):
     token_type: str
 
 class LoginData(BaseModel):
-    codigo: str
+    username: str
     password: str
-
-class TokenData(BaseModel):
-    codigo: str
-
 
 # ROLES
 class RolDb(BaseModel):
-    codigo: str
+    id_rol: int
+    nombre: str
 
-class RolDto(BaseModel):
-    codigo: str
-    class Config:
-        orm_mode = True
+class RolDTO(BaseModel):
+    nombre:str
 
 
 # PROFESORES
-class ProfesorDTO(BaseModel):
-    codigo: str
-    nick: str
-    color: str
-    rol_codigo: str
-    class Config:
-        orm_mode = True
-
-class ProfesorDb(BaseModel):
-    codigo: str
+class ProfesorDB(BaseModel):
+    id_profesor: int
+    username: str
+    nombre: str
     password: str
+    password_temporal: bool
     nick: str
     color: str
-    rol_codigo: str
+    rol: RolDTO
 
     class Config:
-        orm_mode = True
+        from_atributes = True
+
+
+class ProfesorDTO(BaseModel):
+    username: str
+    nombre: str
+    nick: str
+    color: str
+    rol: RolDTO
+    class Config:
+        from_atributes = True
+
 
 class ProfesorHorario(BaseModel):
-    codigo: str
+    nombre: str
 
 class ProfesorAuth(BaseModel):
-    codigo: str
+    username: str
     nombre: str
-    rol_codigo: str
+    rol: RolDTO
 
     class Config:
-        orm_mode = True
+        from_atributes = True
 
 # ASIGNATURAS
 class AsignaturaDb(BaseModel):
@@ -72,11 +73,11 @@ class AsignaturaHorario(BaseModel):
 
 
 # CICLOS
-class CicloDb(BaseModel):
-    codigo: str
+class CursoDb(BaseModel):
+    id_curso: int
     nombre: str
 
-class CicloDto(BaseModel):
+class CursoDto(BaseModel):
     nombre: str
 
 # AULAS
@@ -88,19 +89,26 @@ class AulaDb(BaseModel):
 class AulaDto(BaseModel):
     nombre: str
 
+# CLASES
+class ClaseDb(BaseModel):
+    id_clase: int
+    nombre: str
+
+class ClaseDto(BaseModel):
+    nombre: str
+
 #HORARIOS
 class HorarioDb(BaseModel):
     codigo_profesor: str = Field(..., max_length=64, description="Código del profesor titular")
     codigo_profesor_sustituto: Optional[str] = Field(None, max_length=64, description="Código del profesor sustituto")
-    codigo_asignatura: str = Field(..., max_length=64, description="Código de la asignatura")
+    codigo_actividad: str = Field(..., max_length=64, description="Código de la actividad")
     codigo_aula: str = Field(..., max_length=64, description="Código del aula")
     fecha: date = Field(..., description="Fecha del horario")
     dia_semana: DiaSemanaEnum = Field(..., description="Día de la semana")
-    hora: HoraEnum = Field(..., description="Hora del día")
+    hora: int = Field(..., description="Hora del día")
     ausencia: bool = Field(False, description="Indica si hay ausencia del profesor")
 
     class Config:
-        arbitrary_types_allowed = True
         from_attributes = True
 
 class HorarioDTO(BaseModel):
@@ -115,5 +123,4 @@ class HorarioDTO(BaseModel):
 
     class Config:
         from_attributes = True
-        arbitrary_types_allowed = True
 

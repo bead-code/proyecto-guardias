@@ -1,73 +1,68 @@
-from sqlalchemy import Column, String, Integer, Date, Enum as SQLAlchemyEnum, Boolean, ForeignKey
-from sqlalchemy.orm import relationship
 from enum import Enum as PyEnum
 
+from sqlalchemy import Column, String, Integer, Date, Enum as SQLAlchemyEnum, Boolean, ForeignKey
 
 from db.database import Base
 from security.hash import Hash
 
 
 class DiaSemanaEnum(PyEnum):
-    lunes = "1"
-    martes = "2"
-    miercoles = "3"
-    jueves = "4"
-    viernes = "5"
-
-class HoraEnum(PyEnum):
-    primera = "1"
-    segunda = "2"
-    tercera = "3"
-    cuarta = "4"
-    quinta = "5"
-    sexta = "6"
-    septima = "7"
-    octava = "8"
-    novena = "9"
-    decima = "10"
-    decimoprimera = "11"
-    duodecima = "12"
-    decimatercera = "13"
-    decimocuarta  = "14"
-
+    LUNES = 1
+    MARTES = 3
+    MIERCOLES = 3
+    JUEVES = 4
+    VIERNES = 5
 
 
 class Rol(Base):
     __tablename__ = 'roles'
-    codigo = Column(String(64), primary_key=True)
+    id_rol = Column(Integer, primary_key=True)
+    nombre = Column(String(64))
 
 class Profesor(Base):
     __tablename__ = 'profesores'
-    codigo = Column(String(64), primary_key=True, index=True)
-    password = Column(String(255), nullable=False, default=Hash.argon2("1234"))
-    nick = Column(String(64), nullable=False, default="profesorNick")
-    color = Column(String(64), nullable=False, default="Rojo")
+    id_profesor = Column(Integer, primary_key=True)
+    username = Column(String(64), unique=True)
+    nombre = Column(String(64))
+    password = Column(String(255), nullable=False, default=Hash.argon2("Sampedro.1234"))
+    password_temporal = Column(Boolean, nullable=False, default=True)
+    nick = Column(String(64))
+    color = Column(String(64))
     rol_codigo = Column(String(64), ForeignKey('roles.codigo'))
 
 
 class Curso(Base):
     __tablename__ = 'cursos'
-    codigo = Column(String(64), primary_key=True, index=True)
-    nombre = Column(String(64))
+    id_curso = Column(Integer, primary_key=True)
+    nombre = Column(String(64), index=True)
 
-class Asignatura(Base):
-    __tablename__ = 'asignaturas'
-    codigo = Column(String(64), primary_key=True, index=True)
+class Actividad(Base):
+    __tablename__ = 'actividades'
+    id_actividad = Column(Integer, primary_key=True)
     nombre = Column(String(64))
 
 class Aula(Base):
     __tablename__ = 'aulas'
-    codigo = Column(String(64), primary_key=True)
+    id_aula = Column(Integer, primary_key=True)
     nombre = Column(String(64))
 
-class Horario(Base):
-    __tablename__ = 'horarios'
+class Hora(Base):
+    __tablename__ = 'horas'
+    id_hora = Column(Integer, primary_key=True)
+    tramo = Column(String(64))
+    hora_inicio = Column(String(64))
+    hora_fin = Column(String(64))
+
+class Calendario(Base):
+    __tablename__ = 'calendario'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    codigo_profesor = Column(String(64), ForeignKey('profesores.codigo'))
-    codigo_profesor_sustituto = Column(String(64), ForeignKey('profesores.codigo'))
-    codigo_asignatura = Column(String(64), ForeignKey('asignaturas.codigo'))
-    codigo_aula = Column(String(64), ForeignKey('aulas.codigo'))
+    codigo_profesor = Column(Integer, ForeignKey('profesores.id_profesor'))
+    codigo_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'))
+    codigo_asignatura = Column(Integer, ForeignKey('asignaturas.id_asignatura'))
+    codigo_curso = Column(Integer, ForeignKey("cursos.id_curso"))
+    codigo_clase = Column(Integer, ForeignKey("clases.id_claeses"))
+    codigo_aula = Column(Integer, ForeignKey('aulas.id_aula'))
     fecha = Column(Date)
     dia_semana = Column(SQLAlchemyEnum(DiaSemanaEnum))
-    hora = Column(SQLAlchemyEnum(HoraEnum))
+    hora = Column(Integer, ForeignKey("horas.id_hora"))
     ausencia = Column(Boolean, default=False)

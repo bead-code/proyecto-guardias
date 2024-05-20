@@ -19,9 +19,9 @@ jefes_de_estudio = {
 if not df_profesores.empty:
     df_profesores['NOMBRE_COMPLETO'] = df_profesores['NOMBRE'] + ' ' + df_profesores['APELLIDO1'] + ' ' + df_profesores[
         'APELLIDO2']
+    df_profesores.rename(columns={'ID_PROFESOR': 'X_EMPLEADO'}, inplace=True)
     df_profesores['ROL'] = df_profesores['NOMBRE_COMPLETO'].apply(lambda x: jefes_de_estudio.get(x, 'profesor'))
-    df_profesores.drop(columns=['X_EMPLEADO', 'F_TOMAPOS', 'D_PUESTO', 'NOMBRE', 'APELLIDO1', 'APELLIDO2'],
-                       inplace=True)
+    df_profesores = df_profesores[["ID_PROFESOR", "NOMBRE_COMPLETO", "ROL"]]
 
 def load_profesores_from_xml():
     db = Session()

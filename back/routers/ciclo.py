@@ -15,9 +15,9 @@ router = APIRouter(
 @router.post("/", response_model=CicloDb)
 async def create_ciclo(request: CicloDb, db:Session = Depends(get_db)):
     logging.info(f"Request recibida: {request}")
-    return dao_ciclo.create_ciclo(request, db)
+    return dao_curso.create_curso(request, db)
 
-@router.get("/codigo}", response_model=CicloDto)
+@router.get("/{codigo}", response_model=CicloDto)
 async def get_ciclo(codigo: str, db:Session = Depends(get_db)):
     logging.info(f"Request recibida....")
-    return dao_ciclo.get_ciclo_by_codigo(codigo, db)
+    return dao_curso.get_curso_by_codigo(codigo, db)
