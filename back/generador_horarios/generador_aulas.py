@@ -1,8 +1,10 @@
+import logging
+
+import pandas as pd
+
 from db.database import Session
 from db.models import Aula
 from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
-import pandas as pd
-import logging
 
 dataframes = parse_xml_to_dataframes()
 
@@ -12,7 +14,8 @@ def load_aulas_from_xml():
     db = Session()
     for index, aula in df_aulas.iterrows():
         new_aula = Aula(
-            codigo=aula['D_DEPENDENCIA'],
+            id_aula=aula["X_DEPENDENCIA"],
+            nombre=aula['D_DEPENDENCIA']
         )
         db.add(new_aula)
         try:

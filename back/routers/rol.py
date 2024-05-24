@@ -17,6 +17,6 @@ async def create_rol(request: RolDb, db: Session = Depends(get_db)):
     return dao_rol.create_rol(request, db)
 
 
-@router.get('/{codigo}', response_model=RolDto)
+@router.get('/{codigo}', response_model=RolDto, status_code=status.HTTP_200_OK)
 async def get_roll_by_codigo(codigo: str, db: Session = Depends(get_db)):
     return dao_rol.get_rol_by_codigo(codigo, db)

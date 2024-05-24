@@ -36,6 +36,11 @@ class Curso(Base):
     id_curso = Column(Integer, primary_key=True)
     nombre = Column(String(64), index=True)
 
+class Clase(Base):
+    __tablename__ = 'clases'
+    id_clase = Column(Integer, primary_key=True)
+    nombre = Column(String(64))
+
 class Actividad(Base):
     __tablename__ = 'actividades'
     id_actividad = Column(Integer, primary_key=True)

@@ -9,10 +9,7 @@ router = APIRouter(
     tags=["horario"],
 )
 
-# Encuentra la ruta base del proyecto
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Define la ruta donde se guardarán los archivos subidos relativa a la base del proyecto
 UPLOAD_DIR = os.path.join(BASE_DIR, "..", "generador_horarios", "xml")
 
 @router.post("/upload_xml/", status_code=status.HTTP_201_CREATED)

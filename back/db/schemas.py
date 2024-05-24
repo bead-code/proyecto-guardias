@@ -49,7 +49,7 @@ class ProfesorDTO(BaseModel):
         from_atributes = True
 
 
-class ProfesorHorario(BaseModel):
+class ProfesorCalendario(BaseModel):
     nombre: str
 
 class ProfesorAuth(BaseModel):
@@ -60,25 +60,28 @@ class ProfesorAuth(BaseModel):
     class Config:
         from_atributes = True
 
+# CURSOS
+class CursoDb(BaseModel):
+    id_curso: int
+    nombre: str
+
+class CursoDTO(BaseModel):
+    nombre: str
+
+class CursoCalendario(BaseModel):
+    nombre: str
+
 # ASIGNATURAS
 class AsignaturaDb(BaseModel):
     codigo: str
     nombre: str
 
-class AsignaturaDto(BaseModel):
+class AsignaturaDTO(BaseModel):
     nombre: str
 
-class AsignaturaHorario(BaseModel):
+class AsignaturaCalendario(BaseModel):
     nombre: str
 
-
-# CICLOS
-class CursoDb(BaseModel):
-    id_curso: int
-    nombre: str
-
-class CursoDto(BaseModel):
-    nombre: str
 
 # AULAS
 class AulaDb(BaseModel):
@@ -86,7 +89,7 @@ class AulaDb(BaseModel):
     nombre: str
     codigo_ciclo: str
 
-class AulaDto(BaseModel):
+class AulaDTO(BaseModel):
     nombre: str
 
 # CLASES
@@ -94,16 +97,19 @@ class ClaseDb(BaseModel):
     id_clase: int
     nombre: str
 
-class ClaseDto(BaseModel):
+class ClaseDTO(BaseModel):
     nombre: str
 
-#HORARIOS
-class HorarioDb(BaseModel):
-    codigo_profesor: str = Field(..., max_length=64, description="Código del profesor titular")
-    codigo_profesor_sustituto: Optional[str] = Field(None, max_length=64, description="Código del profesor sustituto")
-    codigo_actividad: str = Field(..., max_length=64, description="Código de la actividad")
-    codigo_aula: str = Field(..., max_length=64, description="Código del aula")
-    fecha: date = Field(..., description="Fecha del horario")
+#CalendarioS
+class CalendarioDb(BaseModel):
+    id: int = Field(...,description="Id de la hora de la clase" )
+    codigo_profesor: int = Field(..., description="Id del profesor titular")
+    codigo_profesor_sustituto: Optional[int] = Field(None, description="Id del profesor sustituto")
+    codigo_actividad: int = Field(..., description="Id de la actividad")
+    codigo_curso: int = Field(..., description="Id del curso")
+    codigo_aula: int = Field(..., description="Id del aula")
+    codigo_clase: int = Field(..., description="Id del clase")
+    fecha: date = Field(..., description="Fecha del calendario")
     dia_semana: DiaSemanaEnum = Field(..., description="Día de la semana")
     hora: int = Field(..., description="Hora del día")
     ausencia: bool = Field(False, description="Indica si hay ausencia del profesor")
@@ -111,13 +117,15 @@ class HorarioDb(BaseModel):
     class Config:
         from_attributes = True
 
-class HorarioDTO(BaseModel):
-    profesor: ProfesorHorario
-    profesor_sustituto: ProfesorHorario
-    asignatura: AsignaturaHorario
+class CalendarioDTO(BaseModel):
+    profesor: ProfesorCalendario
+    profesor_sustituto: ProfesorCalendario
+    asignatura: AsignaturaCalendario
+    curso: CursoCalendario
+    clase: ClaseCalendario
     aula: AulaDto
     fecha: Date
-    dia_semana: str
+    dia_semana: DiaDTO
     hora: str
     aucencia: bool
 

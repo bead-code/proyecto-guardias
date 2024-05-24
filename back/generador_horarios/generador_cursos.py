@@ -1,8 +1,10 @@
-from db.database import Session
-from db.models import Aula, Curso
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
-import pandas as pd
 import logging
+
+import pandas as pd
+
+from db.database import Session
+from db.models import Curso
+from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
 dataframes = parse_xml_to_dataframes()
 
@@ -12,7 +14,8 @@ def load_cursos_from_xml():
     db = Session()
     for index, curso in df_cursos.iterrows():
         new_curso = Curso(
-            codigo=  curso['D_OFERTAMATRIG'],
+            id_curso=curso['X_OFERTAMATRIG'],
+            nombre=curso['D_OFERTAMATRIG'],
         )
         db.add(new_curso)
         try:
