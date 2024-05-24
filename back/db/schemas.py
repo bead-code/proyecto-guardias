@@ -1,10 +1,7 @@
 from datetime import date
 from typing import Optional
-
 from pydantic import BaseModel, Field
 from sqlalchemy import Date
-
-from db.models import DiaSemanaEnum
 
 # LOGIN
 class Token(BaseModel):
@@ -82,7 +79,6 @@ class AsignaturaDTO(BaseModel):
 class AsignaturaCalendario(BaseModel):
     nombre: str
 
-
 # AULAS
 class AulaDb(BaseModel):
     codigo: str
@@ -90,6 +86,9 @@ class AulaDb(BaseModel):
     codigo_ciclo: str
 
 class AulaDTO(BaseModel):
+    nombre: str
+
+class AulaCalendario(BaseModel):
     nombre: str
 
 # CLASES
@@ -100,17 +99,37 @@ class ClaseDb(BaseModel):
 class ClaseDTO(BaseModel):
     nombre: str
 
-#CalendarioS
+class ClaseCalendario(BaseModel):
+    nombre: str
+
+# HORAS
+class HoraDb(BaseModel):
+    id_hora: int
+    tramo: str
+    hora_inicio: str
+    hora_fin: str
+
+class HoraDTO(BaseModel):
+    tramo: str
+    hora_inicio: str
+    hora_fin: str
+
+class HoraCalendario(BaseModel):
+    tramo: str
+    hora_inicio: str
+    hora_fin: str
+
+#CALENDARIO
 class CalendarioDb(BaseModel):
     id: int = Field(...,description="Id de la hora de la clase" )
-    codigo_profesor: int = Field(..., description="Id del profesor titular")
-    codigo_profesor_sustituto: Optional[int] = Field(None, description="Id del profesor sustituto")
-    codigo_actividad: int = Field(..., description="Id de la actividad")
-    codigo_curso: int = Field(..., description="Id del curso")
-    codigo_aula: int = Field(..., description="Id del aula")
-    codigo_clase: int = Field(..., description="Id del clase")
+    id_profesor: int = Field(..., description="Id del profesor titular")
+    id_profesor_sustituto: Optional[int] = Field(None, description="Id del profesor sustituto")
+    id_actividad: int = Field(..., description="Id de la actividad")
+    id_curso: int = Field(..., description="Id del curso")
+    id_aula: int = Field(..., description="Id del aula")
+    id_clase: int = Field(..., description="Id del clase")
     fecha: date = Field(..., description="Fecha del calendario")
-    dia_semana: DiaSemanaEnum = Field(..., description="Día de la semana")
+    dia_semana: int = Field(..., description="Día de la semana")
     hora: int = Field(..., description="Hora del día")
     ausencia: bool = Field(False, description="Indica si hay ausencia del profesor")
 
@@ -123,11 +142,11 @@ class CalendarioDTO(BaseModel):
     asignatura: AsignaturaCalendario
     curso: CursoCalendario
     clase: ClaseCalendario
-    aula: AulaDto
+    aula: AulaCalendario
     fecha: Date
-    dia_semana: DiaDTO
-    hora: str
-    aucencia: bool
+    dia_semana: int
+    hora: HoraCalendario
+    ausencia: bool
 
     class Config:
         from_attributes = True
