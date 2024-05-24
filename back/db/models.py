@@ -5,14 +5,12 @@ from sqlalchemy import Column, String, Integer, Date, Enum as SQLAlchemyEnum, Bo
 from db.database import Base
 from security.hash import Hash
 
-
 class DiaSemanaEnum(PyEnum):
     LUNES = 1
     MARTES = 3
     MIERCOLES = 3
     JUEVES = 4
     VIERNES = 5
-
 
 class Rol(Base):
     __tablename__ = 'roles'
@@ -61,12 +59,12 @@ class Hora(Base):
 class Calendario(Base):
     __tablename__ = 'calendario'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    codigo_profesor = Column(Integer, ForeignKey('profesores.id_profesor'))
-    codigo_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'))
-    codigo_asignatura = Column(Integer, ForeignKey('asignaturas.id_asignatura'))
-    codigo_curso = Column(Integer, ForeignKey("cursos.id_curso"))
-    codigo_clase = Column(Integer, ForeignKey("clases.id_claeses"))
-    codigo_aula = Column(Integer, ForeignKey('aulas.id_aula'))
+    id_profesor = Column(Integer, ForeignKey('profesores.id_profesor'))
+    id_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'))
+    id_actividad = Column(Integer, ForeignKey('actividades.id_actividad'))
+    id_curso = Column(Integer, ForeignKey("cursos.id_curso"))
+    id_clase = Column(Integer, ForeignKey("clases.id_claeses"))
+    id_aula = Column(Integer, ForeignKey('aulas.id_aula'))
     fecha = Column(Date)
     dia_semana = Column(SQLAlchemyEnum(DiaSemanaEnum))
     hora = Column(Integer, ForeignKey("horas.id_hora"))

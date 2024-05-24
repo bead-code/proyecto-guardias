@@ -2,22 +2,22 @@ from fastapi import HTTPException
 from starlette import status
 
 from db.database import Session
-from db.models import Profesor, Asignatura, Aula, Horario
-from db.schemas import HorarioDb
+from db.models import Profesor, Actividad, Aula, Calendario
+from db.schemas import CalendarioDb
 
 
-def create_horario(horario: HorarioDb, db: Session,):
-    db_profesor = db.query(Profesor).filter(Profesor.codigo == horario.codigo_profesor).first()
+def create_horario(horario: CalendarioDb, db: Session,):
+    db_profesor = db.query(Profesor).filter(Profesor.id_profesor == horario.id_profesor).first()
     if not db_profesor:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
     if horario.codigo_profesor_sustituto:
-        db_profesor_sustituto = db.query(Profesor).filter(Profesor.codigo == horario.codigo_profesor_sustituto).first()
+        db_profesor_sustituto = db.query(Profesor).filter(Profesor.id_profesor == horario.id_profesor_sustituto).first()
         if not db_profesor_sustituto:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor registrado no encontrado en la base de datos")
 
-    db_asignatura = db.query(Asignatura).filter(Asignatura.codigo == horario.codigo_asignatura).first()
-    if not db_asignatura:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Asignatura no registrada en la base de datos")
+    db_actividad = db.query(Actividad).filter(Actividad.id_actividad == horario.id_actividad).first()
+    if not db_actividad:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Actividad no registrada en la base de datos")
 
     db_aula = db.query(Aula).filter(Aula.codigo == horario.codigo_aula).first()
     if not db_aula:
