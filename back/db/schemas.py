@@ -121,7 +121,6 @@ class HoraCalendario(BaseModel):
 
 #CALENDARIO
 class CalendarioDb(BaseModel):
-    id: int = Field(...,description="Id de la hora de la clase" )
     id_profesor: int = Field(..., description="Id del profesor titular")
     id_profesor_sustituto: Optional[int] = Field(None, description="Id del profesor sustituto")
     id_actividad: int = Field(..., description="Id de la actividad")
