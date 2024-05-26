@@ -1,6 +1,6 @@
 from enum import Enum as PyEnum
 
-from sqlalchemy import Column, String, Integer, Date, Enum as SQLAlchemyEnum, Boolean, ForeignKey
+from sqlalchemy import Column, String, Integer, Date, Enum as SQLAlchemyEnum, Boolean, ForeignKey, Time
 
 from db.database import Base
 from security.hash import Hash
@@ -20,41 +20,40 @@ class Rol(Base):
 class Profesor(Base):
     __tablename__ = 'profesores'
     id_profesor = Column(Integer, primary_key=True)
-    username = Column(String(64), unique=True)
+    username = Column(String(64), index=True, unique=True)
     nombre = Column(String(64))
     password = Column(String(255), nullable=False, default=Hash.argon2("Sampedro.1234"))
     password_temporal = Column(Boolean, nullable=False, default=True)
-    nick = Column(String(64))
     color = Column(String(64))
-    rol_codigo = Column(String(64), ForeignKey('roles.codigo'))
+    id_rol= Column(Integer, ForeignKey('roles.codigo'))
 
 
 class Curso(Base):
     __tablename__ = 'cursos'
     id_curso = Column(Integer, primary_key=True)
-    nombre = Column(String(64), index=True)
+    nombre = Column(String(64), index=True, unique=True)
 
 class Clase(Base):
     __tablename__ = 'clases'
     id_clase = Column(Integer, primary_key=True)
-    nombre = Column(String(64))
+    nombre = Column(String(64), index=True, unique=True)
 
 class Actividad(Base):
     __tablename__ = 'actividades'
     id_actividad = Column(Integer, primary_key=True)
-    nombre = Column(String(64))
+    nombre = Column(String(64), index=True, unique=True)
 
 class Aula(Base):
     __tablename__ = 'aulas'
     id_aula = Column(Integer, primary_key=True)
-    nombre = Column(String(64))
+    nombre = Column(String(64), index=True, unique=True)
 
 class Hora(Base):
     __tablename__ = 'horas'
     id_hora = Column(Integer, primary_key=True)
-    tramo = Column(String(64))
-    hora_inicio = Column(String(64))
-    hora_fin = Column(String(64))
+    tramo = Column(String(64), index=True, unique=True)
+    hora_inicio = Column(Time)
+    hora_fin = Column(Time)
 
 class Calendario(Base):
     __tablename__ = 'calendario'
