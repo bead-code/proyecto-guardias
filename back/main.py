@@ -21,6 +21,7 @@ app.include_router(authentication.router)
 app.include_router(horario.router)
 origins = [
     "http://localhost",
+    "http://localhost:5173",
     "http://localhost:8000",
     "http://localhost:3000",
 ]
