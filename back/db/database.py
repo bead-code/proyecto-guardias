@@ -4,11 +4,11 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 hostname = "localhost"
 username = "root"
 password = "1234"
-port = 3306
+port = 55555
 database = "mydb"
 
 engine = create_engine(
-    f"mysql+pymysql://{username}:{password}@localhost:{port}/{database}?charset=utf8mb4",
+    f"mysql+pymysql://{username}:{password}@mariadb:{port}/{database}?charset=utf8mb4",
     echo=True
 )
 

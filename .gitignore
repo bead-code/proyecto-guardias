@@ -6,3 +6,6 @@
 
 # Visual Studio Code project files
 .vscode
+
+# Python pycache
+__pycache__/
