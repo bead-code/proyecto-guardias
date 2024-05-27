@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
 
-from dao import dao_profesor
+from dao import dao_profesor, dao_rol
 from db.database import Session, get_db
 from security import oauth2
 from security.hash import Hash
@@ -14,11 +14,12 @@ router = APIRouter(
 @router.post("/token")
 def get_token(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     profesor = dao_profesor.get_profesor_by_username(request.username, db)
+    rol = dao_rol.get_rol_by_id(profesor.rol_id, db)
     if not profesor:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid credentials")
     if not Hash.verify(request.password, profesor.password):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid credentials")
-    access_token = oauth2.create_access_token(data={'sub': profesor.codigo})
+    access_token = oauth2.create_access_token(data={'sub': profesor.codigo, 'rol': rol.nombre})
     return{
         "access_token": access_token,
         "token_type": "Bearer"
