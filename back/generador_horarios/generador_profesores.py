@@ -1,34 +1,42 @@
+import logging
+
 import pandas as pd
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
+
 from db.database import Session
 from db.models import Profesor
-import logging
+from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
 dataframes = parse_xml_to_dataframes()
 
 df_profesores = dataframes.get('EMPLEADOS', pd.DataFrame())
 jefes_de_estudio = {
-    'M. Belén Aguilar Aguilar': 'admin',
-    'Mario Lobo Del Olmo': 'admin',
-    'Rosalina Ugidos Valdueza': 'admin',
-    'Mariano Iglesias Molina': 'admin',
-    'Paula Pereira Fernández': 'admin',
-    'Isabel La Parra Casado': 'admin'
+    'M.Belén Aguilar Aguilar': 2,
+    'Mario Lobo Del Olmo': 3,
+    'Rosalina Ugidos Valdueza': 3,
+    'Mariano Iglesias Molina': 3,
+    'Paula Pereira Fernández': 3,
+    'Isabel La Parra Casado': 3
 }
 
 if not df_profesores.empty:
     df_profesores['NOMBRE_COMPLETO'] = df_profesores['NOMBRE'] + ' ' + df_profesores['APELLIDO1'] + ' ' + df_profesores[
         'APELLIDO2']
-    df_profesores['ROL'] = df_profesores['NOMBRE_COMPLETO'].apply(lambda x: jefes_de_estudio.get(x, 'profesor'))
-    df_profesores = df_profesores[["ID_PROFESOR", "NOMBRE_COMPLETO", "ROL"]]
+    df_profesores['ROL'] = df_profesores['NOMBRE_COMPLETO'].apply(lambda x: jefes_de_estudio.get(x, 4))
+    df_profesores = df_profesores[["X_EMPLEADO", "NOMBRE_COMPLETO", "ROL"]]
 
 def load_profesores_from_xml():
     db = Session()
+    new_profesor = Profesor(
+        id_profesor=9999,
+        nombre="No asignado",
+        id_rol=4
+    )
+    db.add(new_profesor)
     for index, profesor in df_profesores.iterrows():
         new_profesor = Profesor(
             id_profesor = profesor['X_EMPLEADO'],
             nombre=profesor['NOMBRE_COMPLETO'],
-            rol_codigo=profesor["ROL"]
+            id_rol=profesor["ROL"]
         )
         db.add(new_profesor)
         try:

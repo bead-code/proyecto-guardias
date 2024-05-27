@@ -12,6 +12,11 @@ df_aulas = dataframes.get('DEPENDENCIAS', pd.DataFrame())
 
 def load_aulas_from_xml():
     db = Session()
+    new_aula = Aula(
+        id_aula=9999,
+        nombre="No aplica"
+    )
+    db.add(new_aula)
     for index, aula in df_aulas.iterrows():
         new_aula = Aula(
             id_aula=aula["X_DEPENDENCIA"],
