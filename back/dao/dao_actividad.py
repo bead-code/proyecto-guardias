@@ -2,49 +2,70 @@ import logging
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Actividad
+from db.schemas import ActividadCreate, ActividadUpdate
 
+def get_actividad_by_id(id: int, db: Session):
+    actividad = db.query(Actividad).filter(Actividad.id_actividad == id).first()
+    if not actividad:
+        raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
+    return actividad
 
-def create_actividad(request: ActividadDb, db: Session):
-    Actividad = db.query(Actividad).filter(Actividad.id == request.id).first()
-    if Actividad:
-        raise HTTPException(status_code=400, detail='La Actividad ya existe en la base de datos')
+def get_actividad_by_nombre(nombre: str, db: Session):
+    actividad = db.query(Actividad).filter(Actividad.nombre == nombre).first()
+    if not actividad:
+        raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
+    return actividad
 
-    new_asignatura = Actividad(
-        codigo=request.codigo,
+def get_actividades(db: Session):
+    actividades = db.query(Actividad).all()
+    if not actividades:
+        raise HTTPException(status_code=404, detail="No hay actividades registradas la base de datos")
+    return actividades
+
+def create_actividad(request: ActividadCreate, db: Session):
+    actividad = get_actividad_by_nombre(request.nombre, db)
+    if actividad:
+        raise HTTPException(status_code=409, detail='La actividad ya existe en la base de datos')
+
+    new_actividad = Actividad(
         nombre=request.nombre,
     )
-    db.add(new_asignatura)
+    db.add(new_actividad)
     try:
         logging.info("Insertando la actividad en la base de datos...")
         db.commit()
-        db.refresh(new_asignatura)
-        return new_asignatura
+        db.refresh(new_actividad)
+        return new_actividad
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar la actividad en la BBDD: {str(e)}")
 
 
-def get_actividad_by_codigo(codigo: str, db: Session):
-    Actividad = db.query(Actividad).filter(Actividad.id == id).first()
-    if not Actividad:
+def update_actividad(id: int, request: ActividadUpdate, db: Session):
+    actividad = get_actividad_by_id(id, db)
+    if not actividad:
         raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
-    return Actividad
-
-
-def update_asignatura():
-    pass
-
-def delete_asignatura(codigo: str, db: Session):
-    Actividad = db.query(Actividad).filter(Actividad.codigo == codigo).first()
-    if not Actividad:
-        raise HTTPException(status_code=400, detail='La Actividad no existe en la base de datos')
-    db.delete(Actividad)
+    actividad.nombre = request.nombre
     try:
         db.commit()
-        db.refresh(Actividad)
+        db.refresh(actividad)
+        return actividad
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=f"Error borrando la Actividad de la base de datos: {str(e)}")
+        logging.error(f"Error occurred: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al modificar la actividad en la base de datos")
+
+def delete_actividad(id: int, db: Session):
+    actividad = db.query(Actividad).filter(Actividad.id_actividad == id).first()
+    if not actividad:
+        raise HTTPException(status_code=400, detail='La Actividad no existe en la base de datos')
+    db.delete(actividad)
+    try:
+        db.commit()
+        db.refresh(actividad)
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Error borrando la actividad de la base de datos: {str(e)}")
 
 

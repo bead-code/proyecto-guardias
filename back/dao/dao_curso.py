@@ -1,45 +1,68 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from db.models import Curso
-from db.schemas import CicloDb
+from db.schemas import CursoCreate, CursoUpdate
+import logging
 
 
-def create_curso(request: CicloDb, db: Session):
-    ciclo = db.query(Curso).filter(Curso.codigo == request.codigo).first()
-    if ciclo:
-        raise HTTPException(status_code=409, detail="El ciclo ya existe en la base de datos")
-    new_ciclo = Curso(
-        codigo=request.codigo,
+def get_curso_by_id(id: int, db: Session):
+    curso = db.query(Curso).filter(Curso.id_curso == id).first()
+    if not curso:
+        raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
+    return curso
+
+def get_curso_by_nombre(nombre: str, db: Session):
+    curso = db.query(Curso).filter(Curso.nombre == nombre).first()
+    if not curso:
+        raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
+    return curso
+
+def get_cursos(db: Session):
+    cursos = db.query(Curso).all()
+    if not cursos:
+        raise HTTPException(status_code=404, detail="No existen cursos en la base de datos")
+    return cursos
+
+def create_curso(request: CursoCreate, db: Session):
+    curso = get_curso_by_nombre(request.nombre, db)
+    if curso:
+        raise HTTPException(status_code=409, detail="El curso ya existe en la base de datos")
+    new_curso = Curso(
         nombre=request.nombre
     )
-    db.add(new_ciclo)
+    db.add(new_curso)
     try:
         db.commit()
-        db.refresh(new_ciclo)
-        return new_ciclo
+        db.refresh(new_curso)
+        return new_curso
     except Exception as e:
         db.rollback()
+        logging.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar al ciclo en la base de datos: {str(e)}")
 
-
-
-def get_curso_by_codigo(codigo: str, db: Session):
-    ciclo = db.query(Curso).filter(Curso.codigo == codigo).first()
-    if not ciclo:
-        raise HTTPException(status_code=404, detail="Ciclo no encontrado")
-    return ciclo
-
-def update_curso():
-    pass
-
-def delete_curso(codigo: str, db: Session):
-    ciclo = db.query(Curso).filter(Curso.codigo == codigo).first()
-    if not ciclo:
-        raise HTTPException(status_code=404, detail="Ciclo no encontrado")
-    db.delete(ciclo)
+def update_curso(id: int, request: CursoUpdate, db: Session):
+    curso = get_curso_by_id(id, db)
+    if not curso:
+        raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
+    curso.nombre = request.nombre
     try:
         db.commit()
-        db.refresh(ciclo)
+        db.refresh(curso)
+        return curso
+    except Exception as e:
+        db.rollback()
+        logging.error(f"Error occurred: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error al modificar la actividad en la base de datos")
+
+
+def delete_curso(id: int, db: Session):
+    curso = db.query(Curso).filter(Curso.id_curso == id ).first()
+    if not curso:
+        raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
+    db.delete(curso)
+    try:
+        db.commit()
+        db.refresh(curso)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error al borrar al ciclo de la base de datos: {str(e)}")

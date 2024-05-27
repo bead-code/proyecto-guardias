@@ -3,10 +3,10 @@ from starlette import status
 
 from db.database import Session
 from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario
-from db.schemas import CalendarioDb
+from db.schemas import CalendarioCreate
 
 
-def create_calendario(calendario: CalendarioDb, db: Session,):
+def create_calendario(calendario: CalendarioCreate, db: Session,):
     db_profesor = db.query(Profesor).filter(Profesor.id_profesor == calendario.id_profesor).first()
     if not db_profesor:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
