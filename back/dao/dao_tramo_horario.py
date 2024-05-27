@@ -25,11 +25,13 @@ def get_tramos_horarios(db: Session):
     return tramos
 
 def create_tramo_horario(request: TramoHorarioCreate, db: Session):
-    tramo = get_tramo_horario_by_nombre(request.nombre, db)
+    tramo = db.query(TramoHorario).filter(TramoHorario.nombre == request.nombre).first()
     if tramo:
         raise HTTPException(status_code=409, detail='El tramo horario ya existe en la base de datos')
     new_tramo = TramoHorario(
         nombre=request.nombre,
+        hora_inicio=request.hora_inicio,
+        hora_fin=request.hora_fin,
     )
     db.add(new_tramo)
     try:
@@ -58,7 +60,6 @@ def delete_tramo_horario(id: int, db: Session):
     db.delete(tramo)
     try:
         db.commit()
-        db.refresh(tramo)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error borrando el tramo de la base de datos: {str(e)}")

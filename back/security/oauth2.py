@@ -15,7 +15,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.now(UTC) + timedelta(seconds=ACCESS_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(UTC) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
@@ -33,10 +33,10 @@ def verify_access_token(token: str):
 
 def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Depends(get_db)):
     payload = verify_access_token(token)
-    codigo = payload.get("sub")
-    if codigo is None:
+    id_profesor = payload.get("sub")
+    if id_profesor is None:
         raise HTTPException(status_code=401, detail="Token inválido")
-    profesor = db.query(Profesor).filter(Profesor.codigo == codigo).first()
+    profesor = db.query(Profesor).filter(Profesor.id_profesor == id_profesor).first()
     if profesor is None:
         logging.error(f"Profesor not found with codigo {codigo}")
         raise HTTPException(status_code=401, detail="Token inválido")

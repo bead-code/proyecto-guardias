@@ -3,6 +3,7 @@ import logging
 import pandas as pd
 from db.database import Session
 from db.models import Profesor
+from security.hash import Hash
 
 
 def load_profesores_from_xml(dataframes: pd.DataFrame):
@@ -29,6 +30,15 @@ def load_profesores_from_xml(dataframes: pd.DataFrame):
         id_rol=4
     )
     db.add(new_profesor)
+    new_profesor = Profesor(
+        id_profesor=1,
+        username="admin",
+        nombre="admin",
+        password=Hash.argon2("1234"),
+        id_rol=4
+    )
+    db.add(new_profesor)
+
     for index, profesor in df_profesores.iterrows():
         new_profesor = Profesor(
             id_profesor = profesor['X_EMPLEADO'],

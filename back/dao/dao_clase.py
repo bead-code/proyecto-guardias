@@ -25,7 +25,7 @@ def get_clases(db: Session):
     return clases
 
 def create_clase(request: ClaseCreate, db: Session):
-    clase = get_clase_by_nombre(request.nombre, request.nombre)
+    clase = db.query(Clase).filter(Clase.nombre == request.nombre).first()
     if clase:
         raise HTTPException(status_code=409, detail="La clase ya existe en la base de datos")
     new_clase = Clase(
@@ -47,6 +47,7 @@ def update_clase(id: int, request: ClaseUpdate, db: Session):
     try:
         db.commit()
         db.refresh(clase)
+        return clase
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")

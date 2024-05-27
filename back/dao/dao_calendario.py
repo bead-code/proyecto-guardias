@@ -4,6 +4,11 @@ from db.database import Session
 from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario
 from db.schemas import CalendarioCreate
 
+def get_calendario_by_id(id: int, db: Session):
+    calendario = db.query(Calendario).filter(Calendario.id == id).first()
+    if not calendario:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='El registro no existe en el calendario actual')
+    return calendario
 
 def create_calendario(calendario: CalendarioCreate, db: Session,):
     db_profesor = db.query(Profesor).filter(Profesor.id_profesor == calendario.id_profesor).first()

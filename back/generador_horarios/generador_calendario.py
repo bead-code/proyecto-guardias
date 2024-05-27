@@ -6,6 +6,7 @@ from db.models import Calendario
 
 def load_calendario(df_calendario=pd.DataFrame()):
     db = Session()
+    contador = 0
     for index, calendario in df_calendario.iterrows():
         new_calendario = Calendario(
             id_profesor=calendario['ID_PROFESOR'] if calendario['ID_PROFESOR'] is not None else 9999,
@@ -25,5 +26,6 @@ def load_calendario(df_calendario=pd.DataFrame()):
             print("Datos insertados correctamente en la base de datos.")
         except Exception as e:
             db.rollback()
-            print(new_calendario.id_profesor)
+            contador +=1
             print(f"Error occurred: {e}")
+        print(contador)

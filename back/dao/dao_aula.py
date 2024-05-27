@@ -7,14 +7,14 @@ import logging
 
 
 def get_aula_by_id(id: int, db: Session):
-    aula = db.query(Aula).filter_by(Aula.id_aula == id).first()
+    aula = db.query(Aula).filter(Aula.id_aula == id).first()
     if not aula:
         raise HTTPException(status_code=404, detail="El aula no existe en la base de datos")
     return aula
 
 
 def get_aula_by_nombre(nombre: str, db: Session):
-    aula = db.query(Aula).filter_by(Aula.nombre == nombre).first()
+    aula = db.query(Aula).filter(Aula.nombre == nombre).first()
     if not aula:
         raise HTTPException(status_code=404, detail="El aula no existe en la base de datos")
     return aula
@@ -26,7 +26,7 @@ def get_aulas(db: Session):
     return aulas
 
 def create_aula(request: AulaCreate, db: Session):
-    aula = db.query(Aula).filter(Aula.id_aula == request.id ).first()
+    aula = db.query(Aula).filter(Aula.nombre == request.nombre).first()
     if aula:
         raise HTTPException(status_code=409, detail='El aula ya existe en la base de datos')
     new_aula = Aula(
@@ -36,6 +36,7 @@ def create_aula(request: AulaCreate, db: Session):
     try:
         db.commit()
         db.refresh(new_aula)
+        return new_aula
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error al insertar el aula en la BBDD: {str(e)}")
@@ -46,6 +47,7 @@ def update_aula(id: int, request: AulaUpdate, db: Session):
     try:
         db.commit()
         db.refresh(aula)
+        return aula
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
@@ -56,7 +58,7 @@ def delete_aula(id:  int, db: Session):
     db.delete(aula)
     try:
         db.commit()
-        db.refresh(aula)
     except Exception as e:
+        db.rollback()
         raise HTTPException(status_code=500, detail=f"Error al borrar el aula de la BBDD: {str(e)}")
 

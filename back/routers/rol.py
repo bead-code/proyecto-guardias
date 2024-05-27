@@ -14,13 +14,12 @@ router = APIRouter(
     tags=["rol"]
 )
 
-
 @router.get('/{id}', response_model=RolDTO, status_code=status.HTTP_200_OK)
 async def get_roll_by_id(id: int, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_rol.get_rol_by_id(id, db)
 
-@router.get('/{nombre}', response_model=RolDTO, status_code=status.HTTP_200_OK)
+@router.get('/nombre/{nombre}', response_model=RolDTO, status_code=status.HTTP_200_OK)
 async def get_roll_by_name(nombre: str, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_rol.get_rol_by_nombre(nombre, db)

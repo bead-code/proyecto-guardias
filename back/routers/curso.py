@@ -21,7 +21,7 @@ async def get_curso(id: int, db:Session = Depends(get_db)):
     logging.info(f"Request recibida....")
     return dao_curso.get_curso_by_id(id, db)
 
-@router.get("/{nombre", response_model=CursoDTO, status_code=status.HTTP_200_OK)
+@router.get("/nombre/{nombre}", response_model=CursoDTO, status_code=status.HTTP_200_OK)
 async def get_curso_by_name(nombre: str, db:Session = Depends(get_db)):
     logging.info(f"Request recibida....")
     return dao_curso.get_curso_by_nombre(nombre, db)

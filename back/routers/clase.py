@@ -1,3 +1,5 @@
+from typing import List
+
 from fastapi import APIRouter, Depends
 from starlette import status
 
@@ -18,13 +20,13 @@ def get_clase_by_id(id: int, db: Session = Depends(get_db)):
     return dao_clase.get_clase_by_id(id, db)
 
 
-@router.get("/{nombre}", response_model=ClaseDTO, status_code=status.HTTP_200_OK)
+@router.get("/nombre/{nombre}", response_model=ClaseDTO, status_code=status.HTTP_200_OK)
 def get_clase_by_nombre(nombre: str, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_clase.get_clase_by_nombre(nombre, db)
 
 
-@router.get("/", response_model=ClaseDTO, status_code=status.HTTP_200_OK)
+@router.get("/", response_model=List[ClaseDTO], status_code=status.HTTP_200_OK)
 def get_clases(db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_clase.get_clases(db)

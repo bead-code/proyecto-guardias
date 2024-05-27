@@ -23,10 +23,9 @@ def get_actividades(db: Session):
     return actividades
 
 def create_actividad(request: ActividadCreate, db: Session):
-    actividad = get_actividad_by_nombre(request.nombre, db)
+    actividad = db.query(Actividad).filter(Actividad.nombre == request.nombre).first()
     if actividad:
         raise HTTPException(status_code=409, detail='La actividad ya existe en la base de datos')
-
     new_actividad = Actividad(
         nombre=request.nombre,
     )
@@ -40,7 +39,6 @@ def create_actividad(request: ActividadCreate, db: Session):
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar la actividad en la BBDD: {str(e)}")
-
 
 def update_actividad(id: int, request: ActividadUpdate, db: Session):
     actividad = get_actividad_by_id(id, db)
@@ -59,7 +57,6 @@ def delete_actividad(id: int, db: Session):
     db.delete(actividad)
     try:
         db.commit()
-        db.refresh(actividad)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error borrando la actividad de la base de datos: {str(e)}")

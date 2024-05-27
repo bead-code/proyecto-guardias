@@ -19,7 +19,7 @@ async def get_tramo_horario_by_id(id: int, db: Session = Depends(get_db)):
     return dao_tramo_horario.get_tramo_horario_by_id(id, db)
 
 
-@router.get("/{nombre}", response_model=TramoHorarioDTO, status_code=200)
+@router.get("/nombre/{nombre}", response_model=TramoHorarioDTO, status_code=200)
 async def get_tramo_horario_by_nombre(nombre: str, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_tramo_horario.get_tramo_horario_by_nombre(nombre, db)
@@ -34,7 +34,7 @@ async def get_tramo_horarios(db: Session = Depends(get_db)):
 @router.post("/", response_model=TramoHorarioDTO, status_code=200)
 async def create_tramo_horario(request: TramoHorarioCreate, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
-    return dao_tramo_horario.create_tramo_horario(db)
+    return dao_tramo_horario.create_tramo_horario(request, db)
 
 
 @router.put("/{id}", response_model=TramoHorarioDTO, status_code=200)
