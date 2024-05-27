@@ -9,7 +9,6 @@ database = "mydb"
 
 engine = create_engine(
     f"mysql+pymysql://{username}:{password}@mariadb:{port}/{database}?charset=utf8mb4",
-    echo=True
 )
 
 Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)

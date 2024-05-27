@@ -20,7 +20,7 @@ def load_tramos_horarios_from_xml(dataframes: pd.DataFrame):
         id_tramo_horario=9999,
         nombre="No aplica"
     )
-    db.add(new_tramo)
+    tramos.append(new_tramo)
     for index, tramo in df_tramo.iterrows():
         new_hora = TramoHorario(
             id_tramo_horario=tramo["X_TRAMO"],
@@ -31,9 +31,8 @@ def load_tramos_horarios_from_xml(dataframes: pd.DataFrame):
         tramos.append(new_hora)
     db.add_all(tramos)
     try:
-        logging.info("Insertando las horas en la base de datos...")
         db.commit()
-        db.refresh(tramos)
+        logging.info(f"Tramos horarios insertados -> {len(tramos)}")
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")

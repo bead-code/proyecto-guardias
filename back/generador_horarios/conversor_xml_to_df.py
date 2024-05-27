@@ -124,9 +124,6 @@ def load_calendario_from_path():
         for profesor in horario_regular.findall("grupo_datos"):
             profesor_id = profesor.find("dato[@nombre_dato='X_EMPLEADO']").text if profesor.find(
                 "dato[@nombre_dato='X_EMPLEADO']") is not None else ''
-            fecha_toma_pos = profesor.find("dato[@nombre_dato='F_TOMAPOS']").text if profesor.find(
-                "dato[@nombre_dato='F_TOMAPOS']") is not None else ''
-
             for actividad in profesor.findall("grupo_datos"):
                 dia_semana = actividad.find("dato[@nombre_dato='N_DIASEMANA']").text if actividad.find(
                     "dato[@nombre_dato='N_DIASEMANA']") is not None else ''
@@ -140,17 +137,6 @@ def load_calendario_from_path():
                     "dato[@nombre_dato='X_OFERTAMATRIG']") is not None else ''
                 materia = actividad.find("dato[@nombre_dato='X_MATERIAOMG']").text if actividad.find(
                     "dato[@nombre_dato='X_MATERIAOMG']") is not None else ''
-                fecha_inicio = actividad.find("dato[@nombre_dato='F_INICIO']").text if actividad.find(
-                    "dato[@nombre_dato='F_INICIO']") is not None else ''
-                fecha_fin = actividad.find("dato[@nombre_dato='F_FIN']").text if actividad.find(
-                    "dato[@nombre_dato='F_FIN']") is not None else ''
-                hora_inicio = actividad.find("dato[@nombre_dato='N_HORINI']").text if actividad.find(
-                    "dato[@nombre_dato='N_HORINI']") is not None else ''
-                hora_fin = actividad.find("dato[@nombre_dato='N_HORFIN']").text if actividad.find(
-                    "dato[@nombre_dato='N_HORFIN']") is not None else ''
-                actividad_id = actividad.find("dato[@nombre_dato='X_ACTIVIDAD']").text if actividad.find(
-                    "dato[@nombre_dato='X_ACTIVIDAD']") is not None else ''
-
                 all_data.append([
                     profesor_id, dia_semana, tramo, dependencia, unidad, oferta_matrig, materia
                 ])

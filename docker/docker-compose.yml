@@ -10,7 +10,6 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - mynetwork
-
   fastapi:
     build:
       context: ../back
@@ -23,6 +22,5 @@ services:
       - mynetwork
 volumes:
   mariadb_data:
-
 networks:
   mynetwork:

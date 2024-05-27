@@ -13,16 +13,17 @@ def load_cursos_from_xml(dataframes: pd.DataFrame):
         nombre="No aplica"
     )
     db.add(new_curso)
+    cursos = []
     for index, curso in df_cursos.iterrows():
         new_curso = Curso(
             id_curso=curso['X_OFERTAMATRIG'],
             nombre=curso['D_OFERTAMATRIG'],
         )
-        db.add(new_curso)
-        try:
-            logging.info("Insertando los cursos en la base de datos...")
-            db.commit()
-            db.refresh(new_curso)
-        except Exception as e:
-            db.rollback()
-            logging.error(f"Error occurred: {str(e)}")
+        cursos.append(new_curso)
+    db.add_all(cursos)
+    try:
+        db.commit()
+        logging.info(f"Cursos insertados -> {len(cursos)}")
+    except Exception as e:
+        db.rollback()
+        logging.error(f"Error occurred: {str(e)}")

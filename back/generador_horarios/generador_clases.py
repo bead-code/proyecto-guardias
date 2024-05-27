@@ -8,23 +8,25 @@ from db.models import Clase
 
 def load_clases_from_xml(dataframes: pd.DataFrame):
     df_clases = dataframes.get('UNIDADES', pd.DataFrame())
+    df_clases.drop_duplicates(subset='X_UNIDAD', keep='first', inplace=True)
     db = Session()
-    new_clase = Clase(
+    new_curso = Clase(
         id_clase=9999,
         nombre="No aplica"
     )
-    db.add(new_clase)
+    db.add(new_curso)
+    clases = []
     for index, curso in df_clases.iterrows():
         new_curso = Clase(
             id_clase=curso['X_UNIDAD'],
             nombre=curso['T_NOMBRE'],
         )
 
-        db.add(new_curso)
-        try:
-            logging.info("Insertando los profesores en la base de datos...")
-            db.commit()
-            db.refresh(new_curso)
-        except Exception as e:
-            db.rollback()
-            logging.error(f"Error occurred: {str(e)}")
+        clases.append(new_curso)
+    db.add_all(clases)
+    try:
+        db.commit()
+        logging.info(f"Clases insertados -> {len(clases)}")
+    except Exception as e:
+        db.rollback()
+        logging.error(f"Error occurred: {str(e)}")

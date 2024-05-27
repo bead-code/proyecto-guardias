@@ -16,10 +16,10 @@ class Profesor(Base):
     __tablename__ = 'profesores'
     id_profesor = Column(Integer, primary_key=True)
     username = Column(String(64), unique=True)
-    password = Column(String(255), nullable=False, default="Sampedro.1234")  # Ajusta el hash según sea necesario
+    password = Column(String(255), nullable=False, default=Hash.argon2("Sampedro.1234"))
     nombre = Column(String(64))
     password_temporal = Column(Boolean, nullable=False, default=True)
-    color = Column(String(64))
+    color = Column(String(64), server_default="#FFFFFF")
     id_rol = Column(Integer, ForeignKey('roles.id_rol'), nullable=False)
     rol = relationship("Rol", back_populates="profesores")
     calendario = relationship("Calendario", back_populates="profesor", foreign_keys="[Calendario.id_profesor]")
@@ -61,7 +61,7 @@ class Calendario(Base):
     __tablename__ = 'calendario'
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     id_profesor = Column(Integer, ForeignKey('profesores.id_profesor'), nullable=False)
-    id_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'), nullable=False)
+    id_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'), nullable=True)
     id_actividad = Column(Integer, ForeignKey('actividades.id_actividad'), nullable=False)
     id_curso = Column(Integer, ForeignKey("cursos.id_curso"), nullable=False)
     id_clase = Column(Integer, ForeignKey("clases.id_clase"), nullable=False)

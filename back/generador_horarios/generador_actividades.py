@@ -23,8 +23,8 @@ def load_actividades_from_xml(dataframes: pd.DataFrame):
         actividades.append(new_actividad)
     db.add_all(actividades)
     try:
-        logging.info("Insertando las actividades en la base de datos...")
         db.commit()
+        logging.info(f"Actividades insertadas -> {len(actividades)}")
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")

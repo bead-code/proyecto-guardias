@@ -4,8 +4,9 @@ FROM python:3.12.3-alpine
 # Establecer el directorio de trabajo en el contenedor
 WORKDIR /back
 
-# Copiar los archivos de dependencias e instalarlas
-COPY ../ .
+# Copiar los archivos de back menos la carpeta .venv
+COPY . /back
+
 RUN pip install --no-cache-dir --upgrade -r docker/requirements.txt
 
 # Comando para ejecutar la aplicación usando uvicorn
