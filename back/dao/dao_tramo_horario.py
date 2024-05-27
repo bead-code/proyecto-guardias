@@ -43,8 +43,6 @@ def create_tramo_horario(request: TramoHorarioCreate, db: Session):
 
 def update_tramo_horario(id: int, request: TramoHorarioUpdate, db: Session):
     tramo = get_tramo_horario_by_id(id, db)
-    if not tramo:
-        raise HTTPException(status_code=404, detail="El tramo horario no existe en la base de datos")
     tramo.nombre = request.nombre
     try:
         db.commit()
@@ -57,8 +55,6 @@ def update_tramo_horario(id: int, request: TramoHorarioUpdate, db: Session):
 
 def delete_tramo_horario(id: int, db: Session):
     tramo = get_tramo_horario_by_id(id, db)
-    if not tramo:
-        raise HTTPException(status_code=404, detail="El tramo horario no existe en la base de datos")
     db.delete(tramo)
     try:
         db.commit()

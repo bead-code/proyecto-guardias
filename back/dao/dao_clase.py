@@ -43,8 +43,6 @@ def create_clase(request: ClaseCreate, db: Session):
 
 def update_clase(id: int, request: ClaseUpdate, db: Session):
     clase = get_clase_by_id(id, db)
-    if not clase:
-        raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
     clase.nombre = request.nombre
     try:
         db.commit()
@@ -56,8 +54,6 @@ def update_clase(id: int, request: ClaseUpdate, db: Session):
 
 def delete_clase(id: int, db: Session):
     clase = get_clase_by_id(id, db)
-    if not clase:
-        raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
     db.delete(clase)
     try:
         db.commit()

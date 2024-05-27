@@ -28,7 +28,7 @@ def get_aulas(db: Session):
 def create_aula(request: AulaCreate, db: Session):
     aula = db.query(Aula).filter(Aula.id_aula == request.id ).first()
     if aula:
-        raise HTTPException(status_code=400, detail='El aula ya existe en la base de datos')
+        raise HTTPException(status_code=409, detail='El aula ya existe en la base de datos')
     new_aula = Aula(
         nombre=request.nombre
     )
@@ -42,8 +42,6 @@ def create_aula(request: AulaCreate, db: Session):
 
 def update_aula(id: int, request: AulaUpdate, db: Session):
     aula = get_aula_by_id(id, db)
-    if not aula:
-        raise HTTPException(status_code=404, detail="El aula no existe en la base de datos")
     aula.nombre = request.nombre
     try:
         db.commit()
@@ -55,8 +53,6 @@ def update_aula(id: int, request: AulaUpdate, db: Session):
 
 def delete_aula(id:  int, db: Session):
     aula = db.query(Aula).filter(Aula.id_aula == id).delete()
-    if not aula:
-        raise HTTPException(status_code=404, detail='El aula no existe en la base de datos')
     db.delete(aula)
     try:
         db.commit()

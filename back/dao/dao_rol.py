@@ -28,7 +28,7 @@ def get_roles(db: Session):
 
 
 def create_rol(request: RolCreate, db: Session):
-    rol = get_rol_by_nombre(request.name, db)
+    rol = db.query(Rol).filter(Rol.nombre == request.nombre).first()
     if rol:
         raise HTTPException(status_code=409, detail='El rol ya existe en la base de datos')
     new_rol = Rol(
@@ -47,8 +47,6 @@ def create_rol(request: RolCreate, db: Session):
 
 def update_rol(id: int, request: RolUpdate, db: Session):
     rol = get_rol_by_id(id, db)
-    if not rol:
-        raise HTTPException(status_code=404, detail="El rol no existe en la base de datos")
     rol.nombre = request.nombre
     try:
         db.commit()
@@ -61,9 +59,7 @@ def update_rol(id: int, request: RolUpdate, db: Session):
 
 
 def delete_rol(id: int, db: Session):
-    rol = db.query(Rol).filter(Rol.id_rol == id).first()
-    if not rol:
-        raise HTTPException(status_code=404, detail="El rol no existe en la base de datos")
+    rol = get_rol_by_id(id, db)
     db.delete(rol)
     try:
         db.commit()

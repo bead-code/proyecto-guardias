@@ -34,11 +34,10 @@ def create_calendario(calendario: CalendarioCreate, db: Session,):
         id_clase=calendario.id_clase,
         id_aula=calendario.id_aula,
         fecha=calendario.fecha,
-        dia_semana=calendario.dia_semana,
-        hora=calendario.hora,
+        dia=calendario.dia_semana,
+        id_tramo_horario=calendario.id_tramo_horario,
         ausencia=calendario.ausencia
     )
-
     db.add(db_calendario)
     try:
         db.commit()

@@ -44,8 +44,6 @@ def create_actividad(request: ActividadCreate, db: Session):
 
 def update_actividad(id: int, request: ActividadUpdate, db: Session):
     actividad = get_actividad_by_id(id, db)
-    if not actividad:
-        raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
     actividad.nombre = request.nombre
     try:
         db.commit()
@@ -57,9 +55,7 @@ def update_actividad(id: int, request: ActividadUpdate, db: Session):
         raise HTTPException(status_code=500, detail=f"Error al modificar la actividad en la base de datos")
 
 def delete_actividad(id: int, db: Session):
-    actividad = db.query(Actividad).filter(Actividad.id_actividad == id).first()
-    if not actividad:
-        raise HTTPException(status_code=400, detail='La Actividad no existe en la base de datos')
+    actividad = get_actividad_by_id(id, db)
     db.delete(actividad)
     try:
         db.commit()

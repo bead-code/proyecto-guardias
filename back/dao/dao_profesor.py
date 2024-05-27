@@ -54,9 +54,8 @@ def create_profesor(request: ProfesorCreate, db: Session, ):
     return new_profesor
 
 def update_profesor(id: int, request: ProfesorUpdate, db: Session):
-    profesor = db.query(Profesor).filter(Profesor.id_profesor == id).first()
-    if not profesor:
-        raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
+    profesor = get_profesor_by_id(id, db)
+
 
     for key, value in request.dict(exclude_unset=True).items():
         setattr(profesor, key, value)
@@ -69,9 +68,7 @@ def update_profesor(id: int, request: ProfesorUpdate, db: Session):
         raise HTTPException(status_code=500, detail=f"Error el profesor la aula en la base de datos")
 
 def delete_profesor(id: int, db: Session):
-    profesor = db.query(Profesor).filter(Profesor.id_profesor == id).first()
-    if not profesor:
-        raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
+    profesor = get_profesor_by_id(id, db)
     db.delete(profesor)
     try:
         db.commit()
