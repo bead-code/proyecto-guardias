@@ -1,6 +1,5 @@
 from fastapi import HTTPException
 from starlette import status
-
 from db.database import Session
 from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario
 from db.schemas import CalendarioCreate

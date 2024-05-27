@@ -4,13 +4,10 @@ import pandas as pd
 
 from db.database import Session
 from db.models import Aula
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
-dataframes = parse_xml_to_dataframes()
 
-df_aulas = dataframes.get('DEPENDENCIAS', pd.DataFrame())
-
-def load_aulas_from_xml():
+def load_aulas_from_xml(dataframes = pd.DataFrame()):
+    df_aulas = dataframes.get('DEPENDENCIAS', pd.DataFrame())
     db = Session()
     new_aula = Aula(
         id_aula=9999,

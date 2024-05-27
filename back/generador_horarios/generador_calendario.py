@@ -1,13 +1,11 @@
+import pandas as pd
+
 from db.database import Session
-from db.models import Calendario, Curso, Profesor
-from generador_horarios.conversor_xml_to_df import parse_calendario_to_dataframe
+from db.models import Calendario
 
-df_calendario = parse_calendario_to_dataframe()
 
-def load_calendario_from_xml():
-    df_calendario = parse_calendario_to_dataframe()
+def load_calendario(df_calendario=pd.DataFrame()):
     db = Session()
-    profesores_validos = {profesor.id_profesor for profesor in db.query(Profesor).all()}
     for index, calendario in df_calendario.iterrows():
         new_calendario = Calendario(
             id_profesor=calendario['ID_PROFESOR'] if calendario['ID_PROFESOR'] is not None else 9999,

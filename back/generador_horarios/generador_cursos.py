@@ -1,16 +1,12 @@
 import logging
 
 import pandas as pd
-
 from db.database import Session
 from db.models import Curso
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
-dataframes = parse_xml_to_dataframes()
 
-df_cursos = dataframes.get('CURSOS_DEL_CENTRO', pd.DataFrame())
-
-def load_cursos_from_xml():
+def load_cursos_from_xml(dataframes: pd.DataFrame):
+    df_cursos = dataframes.get('CURSOS_DEL_CENTRO', pd.DataFrame())
     db = Session()
     new_curso = Curso(
         id_curso=9999,

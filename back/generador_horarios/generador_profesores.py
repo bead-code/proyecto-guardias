@@ -1,30 +1,27 @@
 import logging
 
 import pandas as pd
-
 from db.database import Session
 from db.models import Profesor
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
-dataframes = parse_xml_to_dataframes()
 
-df_profesores = dataframes.get('EMPLEADOS', pd.DataFrame())
-jefes_de_estudio = {
-    'M.Belén Aguilar Aguilar': 2,
-    'Mario Lobo Del Olmo': 3,
-    'Rosalina Ugidos Valdueza': 3,
-    'Mariano Iglesias Molina': 3,
-    'Paula Pereira Fernández': 3,
-    'Isabel La Parra Casado': 3
-}
+def load_profesores_from_xml(dataframes: pd.DataFrame):
+    df_profesores = dataframes.get('EMPLEADOS', pd.DataFrame())
+    jefes_de_estudio = {
+        'M.Belén Aguilar Aguilar': 2,
+        'Mario Lobo Del Olmo': 3,
+        'Rosalina Ugidos Valdueza': 3,
+        'Mariano Iglesias Molina': 3,
+        'Paula Pereira Fernández': 3,
+        'Isabel La Parra Casado': 3
+    }
 
-if not df_profesores.empty:
-    df_profesores['NOMBRE_COMPLETO'] = df_profesores['NOMBRE'] + ' ' + df_profesores['APELLIDO1'] + ' ' + df_profesores[
-        'APELLIDO2']
-    df_profesores['ROL'] = df_profesores['NOMBRE_COMPLETO'].apply(lambda x: jefes_de_estudio.get(x, 4))
-    df_profesores = df_profesores[["X_EMPLEADO", "NOMBRE_COMPLETO", "ROL"]]
-
-def load_profesores_from_xml():
+    if not df_profesores.empty:
+        df_profesores['NOMBRE_COMPLETO'] = df_profesores['NOMBRE'] + ' ' + df_profesores['APELLIDO1'] + ' ' + \
+                                           df_profesores[
+                                               'APELLIDO2']
+        df_profesores['ROL'] = df_profesores['NOMBRE_COMPLETO'].apply(lambda x: jefes_de_estudio.get(x, 4))
+        df_profesores = df_profesores[["X_EMPLEADO", "NOMBRE_COMPLETO", "ROL"]]
     db = Session()
     new_profesor = Profesor(
         id_profesor=9999,

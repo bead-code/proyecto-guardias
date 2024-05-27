@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.post("/token")
 def get_token(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
-    profesor = dao_profesor.get_profesor_by_codigo(request.username, db)
+    profesor = dao_profesor.get_profesor_by_username(request.username, db)
     if not profesor:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid credentials")
     if not Hash.verify(request.password, profesor.password):

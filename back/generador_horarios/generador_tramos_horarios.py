@@ -1,14 +1,9 @@
+import logging
 from datetime import time
-
 import pandas as pd
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 from db.database import Session
 from db.models import TramoHorario
-import logging
 
-
-dataframes = parse_xml_to_dataframes()
-df_tramo = dataframes.get('TRAMOS_HORARIOS', pd.DataFrame())
 
 def minutos_a_hora(minutos):
     minutos = int(minutos)
@@ -16,7 +11,9 @@ def minutos_a_hora(minutos):
     minutos_restantes = minutos % 60
     return time(horas, minutos_restantes)
 
-def load_tramos_horarios_from_xml():
+
+def load_tramos_horarios_from_xml(dataframes: pd.DataFrame):
+    df_tramo = dataframes.get('TRAMOS_HORARIOS', pd.DataFrame())
     db = Session()
     tramos=[]
     new_tramo = TramoHorario(

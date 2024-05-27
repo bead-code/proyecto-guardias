@@ -4,13 +4,10 @@ import pandas as pd
 
 from db.database import Session
 from db.models import Clase
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
-dataframes = parse_xml_to_dataframes()
 
-df_clases = dataframes.get('UNIDADES', pd.DataFrame())
-
-def load_clases_from_xml():
+def load_clases_from_xml(dataframes: pd.DataFrame):
+    df_clases = dataframes.get('UNIDADES', pd.DataFrame())
     db = Session()
     new_clase = Clase(
         id_clase=9999,

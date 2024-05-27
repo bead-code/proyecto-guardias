@@ -4,13 +4,10 @@ import pandas as pd
 
 from db.database import Session
 from db.models import Actividad
-from generador_horarios.conversor_xml_to_df import parse_xml_to_dataframes
 
-dataframes = parse_xml_to_dataframes()
 
-df_asignaturas = dataframes.get('MATERIAS', pd.DataFrame())
-
-def load_actividades_from_xml():
+def load_actividades_from_xml(dataframes: pd.DataFrame):
+    df_asignaturas = dataframes.get('MATERIAS', pd.DataFrame())
     db = Session()
     actividades = []
     new_actividad = Actividad(
