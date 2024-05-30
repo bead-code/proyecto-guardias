@@ -25,23 +25,23 @@ def get_profesor(id: int, current_user: ProfesorDTO = Depends(get_current_profes
 
 
 @router.get('/username/{username}', response_model=ProfesorDTO, status_code=status.HTTP_200_OK)
-def get_profesor_by_nombre(username: str, db: Session = Depends(get_db)):
+def get_profesor_by_nombre(username: str, current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
     logging.info("Request recibida..")
     return dao_profesor.get_profesor_by_username(username, db)
 
 
-@router.get('/', response_model=List[ProfesorDTO], status_code=status.HTTP_200_OK)
-def get_profesores(db: Session = Depends(get_db)):
+@router.get('/',  response_model=List[ProfesorDTO], status_code=status.HTTP_200_OK)
+def get_profesores(current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
     logging.info("Request recibida..")
     return dao_profesor.get_profesores(db)
 
-@router.post('/', response_model=ProfesorDTO, status_code=status.HTTP_201_CREATED)
-def create_profesor(request: ProfesorCreate, db: Session = Depends(get_db)):
+@router.post('/',  response_model=ProfesorDTO, status_code=status.HTTP_201_CREATED)
+def create_profesor(request: ProfesorCreate, current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
     logging.info("Request recibida: {request}")
     return dao_profesor.create_profesor(request, db)
 
 @router.put('/{id}', response_model = ProfesorDTO, status_code=status.HTTP_200_OK)
-def update_profesor(id: int, request: ProfesorUpdate, db: Session = Depends(get_db)):
+def update_profesor(id: int, request: ProfesorUpdate, current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
     logging.info("Request recibida: {request}")
     return dao_profesor.update_profesor(id, request, db)
 

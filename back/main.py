@@ -11,7 +11,7 @@ from generador_horarios.generador_cursos import load_cursos_from_xml
 from generador_horarios.generador_profesores import load_profesores_from_xml
 from generador_horarios.generador_roles import generar_roles
 from generador_horarios.generador_tramos_horarios import load_tramos_horarios_from_xml
-from routers import authentication, profesor, rol, curso, actividad, calendario, clase, aula, tramo_horario
+from routers import login, profesor, rol, curso, actividad, calendario, clase, aula, tramo_horario
 
 app = FastAPI()
 app.include_router(profesor.router)
@@ -21,7 +21,7 @@ app.include_router(clase.router)
 app.include_router(actividad.router)
 app.include_router(aula.router)
 app.include_router(tramo_horario.router)
-app.include_router(authentication.router)
+app.include_router(login.router)
 app.include_router(calendario.router)
 origins = [
     "http://localhost",

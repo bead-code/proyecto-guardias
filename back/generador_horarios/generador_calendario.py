@@ -28,3 +28,4 @@ def load_calendario(df_calendario=pd.DataFrame()):
         logging.info(f"Calendarios insertados -> {len(calendarios)}")
     except Exception as e:
         db.rollback()
+        logging.error(f"Error occurred: {str(e)}")

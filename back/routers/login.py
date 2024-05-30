@@ -9,10 +9,11 @@ from security import oauth2
 from security.hash import Hash
 
 router = APIRouter(
-    tags=["autentication"],
+    prefix="/login",
+    tags=["login"],
 )
 
-@router.post("/token", response_model=Token, status_code=status.HTTP_201_CREATED)
+@router.post("", response_model=Token, status_code=status.HTTP_200_OK)
 def get_token(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     profesor = dao_profesor.get_profesor_by_username(request.username, db)
     rol = dao_rol.get_rol_by_id(profesor.id_rol, db)

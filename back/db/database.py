@@ -29,14 +29,10 @@ def truncate_all_tables():
     with engine.connect() as conn:
         trans = conn.begin()
         try:
-            # Deshabilitar las restricciones de claves foráneas
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 0;'))
-
-            # Truncar todas las tablas
             for table in reversed(meta.sorted_tables):
                 conn.execute(text(f'TRUNCATE TABLE {table.name}'))
 
-            # Habilitar las restricciones de claves foráneas
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 1;'))
 
             trans.commit()

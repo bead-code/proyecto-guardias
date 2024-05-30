@@ -58,7 +58,6 @@ def delete_clase(id: int, db: Session):
     db.delete(clase)
     try:
         db.commit()
-        db.refresh(clase)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error borrando la clase de la base de datos: {str(e)}")

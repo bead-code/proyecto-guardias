@@ -6,7 +6,7 @@ from fastapi.security import OAuth2PasswordBearer
 from db.database import Session, get_db
 from db.models import Profesor
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl='token')
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 SECRET_KEY = '77407c7339a6c00544e51af1101c4abb4aea2a31157ca5f7dfd87da02a628107'
 ALGORITHM = 'HS256'
@@ -38,6 +38,6 @@ def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Dep
         raise HTTPException(status_code=401, detail="Token inválido")
     profesor = db.query(Profesor).filter(Profesor.id_profesor == id_profesor).first()
     if profesor is None:
-        logging.error(f"Profesor not found with codigo {codigo}")
+        logging.error(f"Profesor not found with codigo {id_profesor}")
         raise HTTPException(status_code=401, detail="Token inválido")
     return profesor
