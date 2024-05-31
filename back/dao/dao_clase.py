@@ -7,19 +7,19 @@ import logging
 
 
 def get_clase_by_id(id: int, db: Session):
-    clase = db.query(Clase).filter(Clase.id_clase == id).first()
+    clase = db.query(Clase).filter(Clase.id_clase == id).filter(Clase.activo == True).first()
     if not clase:
         raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
     return clase
 
 def get_clase_by_nombre(nombre: str, db: Session):
-    clase = db.query(Clase).filter(Clase.nombre == nombre).first()
+    clase = db.query(Clase).filter(Clase.nombre == nombre).filter(Clase.activo == True).first()
     if not clase:
         raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
     return clase
 
 def get_clases(db: Session):
-    clases = db.query(Clase).all()
+    clases = db.query(Clase).filter(Clase.activo == True).all()
     if not clases:
         raise HTTPException(status_code=404, detail="No hay clases registradas en la base de datos")
     return clases
@@ -55,9 +55,10 @@ def update_clase(id: int, request: ClaseUpdate, db: Session):
 
 def delete_clase(id: int, db: Session):
     clase = get_clase_by_id(id, db)
-    db.delete(clase)
+    clase.activo = False
     try:
         db.commit()
+        db.refresh(clase)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error borrando la clase de la base de datos: {str(e)}")

@@ -8,31 +8,31 @@ from db.schemas import ProfesorCreate, ProfesorUpdate
 
 
 def get_profesor_by_id(id: id, db: Session):
-    profesor = db.query(Profesor).filter(Profesor.id_profesor == id).first()
+    profesor = db.query(Profesor).filter(Profesor.id_profesor == id).filter(Profesor.activo == True).first()
     if not profesor:
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
     return profesor
 
 
 def get_profesor_by_username(username: str, db: Session):
-    profesor = db.query(Profesor).filter(Profesor.username == username).first()
+    profesor = db.query(Profesor).filter(Profesor.username == username).filter(Profesor.activo == True).first()
     if not profesor:
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
     return profesor
 
 
 def get_profesores(db: Session):
-    profesores = db.query(Profesor).all()
+    profesores = db.query(Profesor).filter(Profesor.activo == True).all()
     if not profesores:
         raise HTTPException(status_code=404, detail="No hay profesores registrados en la base de datos")
     return profesores
 
 
 def create_profesor(request: ProfesorCreate, db: Session, ):
-    rol = db.query(Rol).filter(Rol.id == request.rol_id).first()
+    rol = db.query(Rol).filter(Rol.id == request.rol_id).filter(Profesor.activo == True).first()
     if not rol:
         raise HTTPException(status_code=404, detail="Rol incorrecto")
-    profesor = db.query(Profesor).filter(Profesor.username == request.username).first()
+    profesor = db.query(Profesor).filter(Profesor.username == request.username).filter(Profesor.activo == True).first()
     if profesor:
         raise HTTPException(status_code=409, detail="El profesor ya existe en la BBDD")
     new_profesor = Profesor(
@@ -69,9 +69,10 @@ def update_profesor(id: int, request: ProfesorUpdate, db: Session):
 
 def delete_profesor(id: int, db: Session):
     profesor = get_profesor_by_id(id, db)
-    db.delete(profesor)
+    profesor.activo = False
     try:
         db.commit()
+        db.refresh(profesor)
         logging.info("Profesor insertado en la base de datos")
     except Exception as e:
         db.rollback()

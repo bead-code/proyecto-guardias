@@ -6,19 +6,19 @@ import logging
 
 
 def get_curso_by_id(id: int, db: Session):
-    curso = db.query(Curso).filter(Curso.id_curso == id).first()
+    curso = db.query(Curso).filter(Curso.id_curso == id).filter(Curso.activo == True).first()
     if not curso:
         raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
     return curso
 
 def get_curso_by_nombre(nombre: str, db: Session):
-    curso = db.query(Curso).filter(Curso.nombre == nombre).first()
+    curso = db.query(Curso).filter(Curso.nombre == nombre).filter(Curso.activo == True).first()
     if not curso:
         raise HTTPException(status_code=404, detail="El curso no existe en la base de datos")
     return curso
 
 def get_cursos(db: Session):
-    cursos = db.query(Curso).all()
+    cursos = db.query(Curso).filter(Curso.activo == True).all()
     if not cursos:
         raise HTTPException(status_code=404, detail="No existen cursos en la base de datos")
     return cursos
@@ -55,9 +55,10 @@ def update_curso(id: int, request: CursoUpdate, db: Session):
 
 def delete_curso(id: int, db: Session):
     curso = get_curso_by_id(id, db)
-    db.delete(curso)
+    curso.activo = False
     try:
         db.commit()
+        db.refresh(curso)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error al borrar al ciclo de la base de datos: {str(e)}")

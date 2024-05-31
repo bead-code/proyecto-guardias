@@ -5,19 +5,19 @@ from db.models import Actividad
 from db.schemas import ActividadCreate, ActividadUpdate
 
 def get_actividad_by_id(id: int, db: Session):
-    actividad = db.query(Actividad).filter(Actividad.id_actividad == id).first()
+    actividad = db.query(Actividad).filter(Actividad.id_actividad == id).filter(Actividad.activo==True).first()
     if not actividad:
         raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
     return actividad
 
 def get_actividad_by_nombre(nombre: str, db: Session):
-    actividad = db.query(Actividad).filter(Actividad.nombre == nombre).first()
+    actividad = db.query(Actividad).filter(Actividad.nombre == nombre).filter(Actividad.activo==True).first()
     if not actividad:
         raise HTTPException(status_code=404, detail="La actividad no existe en la base de datos")
     return actividad
 
 def get_actividades(db: Session):
-    actividades = db.query(Actividad).all()
+    actividades = db.query(Actividad).filter(Actividad.activo==True).all()
     if not actividades:
         raise HTTPException(status_code=404, detail="No hay actividades registradas la base de datos")
     return actividades
@@ -54,9 +54,10 @@ def update_actividad(id: int, request: ActividadUpdate, db: Session):
 
 def delete_actividad(id: int, db: Session):
     actividad = get_actividad_by_id(id, db)
-    db.delete(actividad)
+    actividad.activo = False
     try:
         db.commit()
+        db.refresh(actividad)
     except Exception as e:
         db.rollback()
         raise HTTPException(status_code=500, detail=f"Error borrando la actividad de la base de datos: {str(e)}")

@@ -10,6 +10,7 @@ class Rol(Base):
     __tablename__ = 'roles'
     id_rol = Column(Integer, primary_key=True)
     nombre = Column(String(64))
+    activo = Column(Boolean, default=True)
     profesores = relationship("Profesor", back_populates="rol")
 
 class Profesor(Base):
@@ -21,6 +22,7 @@ class Profesor(Base):
     password_temporal = Column(Boolean, nullable=False, default=True)
     color = Column(String(64), server_default="#FFFFFF")
     id_rol = Column(Integer, ForeignKey('roles.id_rol'), nullable=False)
+    activo = Column(Boolean, default=True)
     rol = relationship("Rol", back_populates="profesores")
     calendario = relationship("Calendario", back_populates="profesor", foreign_keys="[Calendario.id_profesor]")
     calendario_sustituto = relationship("Calendario", back_populates="profesor_sustituto", foreign_keys="[Calendario.id_profesor_sustituto]")
@@ -29,25 +31,31 @@ class Curso(Base):
     __tablename__ = 'cursos'
     id_curso = Column(Integer, primary_key=True)
     nombre = Column(String(255))
+    activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="curso")
 
 class Clase(Base):
     __tablename__ = 'clases'
     id_clase = Column(Integer, primary_key=True)
     nombre = Column(String(64), index=True, unique=True)
+    activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="clase")
 
 class Actividad(Base):
     __tablename__ = 'actividades'
     id_actividad = Column(Integer, primary_key=True)
     nombre = Column(String(255))
+    activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="actividad")
+    activo = Column(Boolean, default=True)
 
 class Aula(Base):
     __tablename__ = 'aulas'
     id_aula = Column(Integer, primary_key=True)
     nombre = Column(String(64), index=True, unique=True)
+    activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="aula")
+
 
 class TramoHorario(Base):
     __tablename__ = 'tramos_horarios'
@@ -55,7 +63,9 @@ class TramoHorario(Base):
     nombre = Column(String(64), index=True, unique=True)
     hora_inicio = Column(Time)
     hora_fin = Column(Time)
+    activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="tramo_horario")
+
 
 class Calendario(Base):
     __tablename__ = 'calendario'
@@ -70,6 +80,7 @@ class Calendario(Base):
     dia = Column(Integer, nullable=False)
     id_tramo_horario = Column(Integer, ForeignKey("tramos_horarios.id_tramo_horario"), nullable=False)
     ausencia = Column(Boolean, default=False)
+    activo = Column(Boolean, default=True)
     profesor = relationship("Profesor", back_populates="calendario", foreign_keys=[id_profesor])
     profesor_sustituto = relationship("Profesor", back_populates="calendario_sustituto", foreign_keys=[id_profesor_sustituto])
     actividad = relationship("Actividad", back_populates="calendario")

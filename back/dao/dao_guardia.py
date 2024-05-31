@@ -12,6 +12,7 @@ def get_guardias_asignadas(db: Session):
         db.query(Calendario)
         .filter(Calendario.id_profesor_sustituto != 9999)
         .filter(Calendario.ausencia == True)
+        .filter(Calendario.activo == True)
         .all()
     )
     if not calendario:
@@ -26,6 +27,7 @@ def get_guardias_pendientes(db: Session):
         db.query(Calendario)
         .filter(Calendario.id_profesor_sustituto == 9999)
         .filter(Calendario.ausencia == True)
+        .filter(Calendario.activo == True)
         .all()
     )
     if not calendario:
@@ -38,8 +40,10 @@ def get_guardias_pendientes(db: Session):
 
 def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
     query = (db.query(Calendario)
-                  .filter(Calendario.id_profesor_sustituto == id)
-                  .filter(Calendario.ausencia == True))
+             .filter(Calendario.id_profesor_sustituto == id)
+             .filter(Calendario.ausencia == True)
+             .filter(Calendario.activo == True)
+             )
     if date:
         query = query.filter(Calendario.fecha == date)
     calendario = query.all()

@@ -7,21 +7,21 @@ from db.schemas import RolCreate, RolUpdate
 
 
 def get_rol_by_id(id: int, db: Session):
-    rol = db.query(Rol).filter(Rol.id_rol == id).first()
+    rol = db.query(Rol).filter(Rol.id_rol == id).filter(Rol.activo == True).first()
     if not rol:
         raise HTTPException(status_code=404, detail='El rol no existe en la base de datos')
     return rol
 
 
 def get_rol_by_nombre(nombre: str, db: Session):
-    rol = db.query(Rol).filter(Rol.nombre == nombre).first()
+    rol = db.query(Rol).filter(Rol.nombre == nombre).filter(Rol.activo == True).first()
     if not rol:
         raise HTTPException(status_code=404, detail='El rol no existe en la base de datos')
     return rol
 
 
 def get_roles(db: Session):
-    roles = db.query(Rol).all()
+    roles = db.query(Rol).filter(Rol.activo == True).all()
     if not roles:
         raise HTTPException(status_code=404, detail='No hay roles registrados en la base de datos')
     return roles
@@ -60,7 +60,7 @@ def update_rol(id: int, request: RolUpdate, db: Session):
 
 def delete_rol(id: int, db: Session):
     rol = get_rol_by_id(id, db)
-    db.delete(rol)
+    rol.activo = False
     try:
         db.commit()
         db.refresh(rol)
