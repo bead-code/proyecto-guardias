@@ -7,7 +7,7 @@ from db.database import Session
 from db.models import Calendario
 
 
-def get_unfilled_guardias_by_grupo_guardia(id_tramo: int, dia: int, db: Session):
+def get_guardias_pendientes_by_grupo_guardia(id_tramo: int, dia: int, db: Session):
     calendario = (db.query(Calendario)
                   .filter(Calendario.id_tramo_horario == id_tramo)
                   .filter(Calendario.dia == dia)
@@ -21,7 +21,7 @@ def get_unfilled_guardias_by_grupo_guardia(id_tramo: int, dia: int, db: Session)
         )
     return calendario
 
-def get_filled_guardias_by_grupo_guardia(id_tramo: int, dia: int, db: Session):
+def get_guardias_asignadas_by_grupo_guardia(id_tramo: int, dia: int, db: Session):
     calendario = (db.query(Calendario)
                   .filter(Calendario.id_tramo_horario == id_tramo)
                   .filter(Calendario.dia == dia)
@@ -32,19 +32,5 @@ def get_filled_guardias_by_grupo_guardia(id_tramo: int, dia: int, db: Session):
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No hay guardias asignadas a este grupo de guardia"
-        )
-    return calendario
-
-def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
-    query = (db.query(Calendario)
-             .filter(Calendario.id_profesor_sustituto == id)
-             .filter(Calendario.ausencia == True))
-    if date:
-        query = query.filter(Calendario.fecha == date)
-    calendario = query.all()
-    if not calendario:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No hay guardias asignadas a este profesor"
         )
     return calendario

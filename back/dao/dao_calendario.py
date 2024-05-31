@@ -1,8 +1,10 @@
 from fastapi import HTTPException
 from starlette import status
+
 from db.database import Session
 from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario
 from db.schemas import CalendarioCreate
+
 
 def get_calendario_by_id(id: int, db: Session):
     calendario = db.query(Calendario).filter(Calendario.id == id).first()
@@ -57,3 +59,19 @@ def get_calendario_profesor(profesor_codidgo: str, db: Session):
     if not calendario:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
     return calendario
+
+
+def get_unfilled_guardias(db: Session):
+    calendario = db.query(Calendario).filter(Calendario.id_profesor_sustituto == 9999).filter(
+        Calendario.ausencia == True).all()
+    if not calendario:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No hay guardias sin cubrir")
+    return calendario
+
+
+
+
+
+
+
+

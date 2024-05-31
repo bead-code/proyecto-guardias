@@ -46,11 +46,11 @@ def update_profesor(id: int, request: ProfesorUpdate, current_user: ProfesorDTO 
     return dao_profesor.update_profesor(id, request, db)
 
 
-@router.delete("/{id}", response_model= ProfesorDTO, status_code=status.HTTP_200_OK)
-def delete_profesor(current_user: ProfesorDTO = Depends(get_current_profesor), codigo: str = None, db: Session = Depends(get_db)):
-    if current_user.id == id:
+@router.delete("/{id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_profesor(id: int, current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
+    if current_user.id_profesor == id:
         raise HTTPException(status_code=409, detail="No se puede eliminar al profesor autenticado actualmente")
-    if not codigo:
+    if not id:
         raise HTTPException(status_code=400, detail="Debe proporcionar 'codigo'")
     dao_profesor.delete_profesor(id, db)
 
