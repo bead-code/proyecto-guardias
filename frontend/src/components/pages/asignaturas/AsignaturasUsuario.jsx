@@ -184,7 +184,7 @@ export function AsignaturasUsuario () {
     const { idUsuario } = useParams()
     return(
     <>
-        <h1> Usuario {id}</h1>
+        <h1> Usuario {idUsuario}</h1>
         <ListaAsignaturas asignaturasInicial={mockAsignaturas}/>
     </>)
 }
