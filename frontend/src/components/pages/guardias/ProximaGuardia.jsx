@@ -5,10 +5,10 @@ import {toast} from "react-toastify";
 
 
 export function ProximaGuardia({idProfesor}) {
-    const manejarAceptar = async ({idProfesor, fecha, hora}) =>      {
+    const manejarAceptar = async ({idProfesor, fecha, hora}) => {
 
 
-        const respuesta = fetch("https://localhost:8080/guardias/1/aceptar", {
+        const respuesta = fetch("https://localhost:8000/guardias/1/aceptar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
