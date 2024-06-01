@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import {useState} from "react";
 import { GrStatusDisabled, GrStatusGood  } from "react-icons/gr";
 import {useParams} from "react-router-dom";
+import {Tipografia} from "../tipografia/Tipografia.jsx";
 
 
 function ItemAsignatura({ asignaturaInicial, eliminarAsignatura, ...props}) {
@@ -27,7 +28,7 @@ function ItemAsignatura({ asignaturaInicial, eliminarAsignatura, ...props}) {
     const estiloInhabilitada = "flex px-5 w-full bg-blue-100 shadow"
     return (
         <li className={asignatura.habilitado ? estiloHabilitada : estiloInhabilitada} {...props}>
-            <h2 className='mr-auto text-pretty'> {asignatura.nombre} </h2>
+            <Tipografia className='mr-auto min-h-full content-center'> {asignatura.nombre} </Tipografia>
             <button className={estiloBotonEliminar} onClick={manejarHabilitado}>{asignatura.habilitado ? 'Deshabilitar' : 'Habilitar'}</button>
         </li>
     );
