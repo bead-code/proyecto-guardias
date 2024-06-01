@@ -1,11 +1,10 @@
-import { Login } from '../../login/Login.jsx';
-import {mostrarToast} from "../../../utils/Notificaciones.js";
+import {Login} from '../../login/Login.jsx';
 
 
 
-export function LoginPage({ setIsAuthenticated, ...props }) {
+export function LoginPage({ setToken, ...props }) {
     return (
-            <Login setIsAuthenticated={setIsAuthenticated} {...props}/>
+            <Login setToken={setToken} {...props}/>
 
     )
 }
