@@ -1,9 +1,9 @@
 import './App.css'
 import 'react-toastify/dist/ReactToastify.css';
 import 'tailwindcss/tailwind.css';
-import {useState} from "react";
+import {createContext, useContext, useState} from "react";
 import {useJwt} from "react-jwt";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import {BasicLayout} from "./layouts/BasicLayout.jsx";
 import {LoginPage} from "./components/pages/login/LoginPage.jsx";
 import {AsignaturasUsuario} from "./components/pages/asignaturas/AsignaturasUsuario.jsx";
@@ -11,224 +11,47 @@ import {ProtectedRoute} from "./components/protectedRoute/ProtectedRoute.jsx";
 import {ProximaGuardia} from "./components/pages/guardias/ProximaGuardia.jsx";
 import {ListaGuardias} from "./components/listas/ListaGuardias.jsx";
 import {GrupoGuardia} from "./components/pages/gruposGuardias/GrupoGuardia.jsx";
+import {UploadPage} from "./components/pages/cargaDatos/UploadPage.jsx";
+import {ToastContainer} from "react-toastify";
+import {UsuarioTodos} from "./components/pages/usuarios/UsuarioTodos.jsx";
+import {UsuarioUnico} from "./components/pages/usuarios/UsuarioUnico.jsx";
 
 
-    }).catch((error) => {
-        mostrarToast('No se ha podido comunicar con el servidor', 'error');
-    });
-}
-
-const mockAsignaturas = [
-    {
-        id: 2,
-        nombre: "Matematicas",
-        habilitado: true,
-        aula: "A001",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 1
-            },
-            {
-                dia: 2,
-                hora: 2
-            }
-        ]
-    },
-    {
-        id: 3,
-        nombre: "Lengua",
-        habilitado: true,
-        aula: "A002",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 2
-            },
-            {
-                dia: 2,
-                hora: 1
-            }
-        ]
-    },
-    {
-        id: 4,
-        nombre: "Ingles",
-        habilitado: true,
-        aula: "A003",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 3
-            },
-            {
-                dia: 2,
-                hora: 3
-            }
-        ]
-    },
-    {
-        id: 5,
-        nombre: "Fisica",
-        habilitado: true,
-        aula: "A004",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 4
-            },
-            {
-                dia: 2,
-                hora: 4
-            }
-        ]
-    },
-    {
-        id: 6,
-        nombre: "Quimica",
-        habilitado: true,
-        aula: "A005",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 5
-            },
-            {
-                dia: 2,
-                hora: 5
-            }
-        ]
-    },
-    {
-        id: 7,
-        nombre: "Biologia",
-        habilitado: true,
-        aula: "A006",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 6
-            },
-            {
-                dia: 2,
-                hora: 6
-            }
-        ]
-    },
-    {
-        id: 8,
-        nombre: "Historia",
-        habilitado: true,
-        aula: "A007",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 7
-            },
-            {
-                dia: 2,
-                hora: 7
-            }
-        ]
-    },
-    {
-        id: 9,
-        nombre: "Geografia",
-        habilitado: true,
-        aula: "A008",
-        curso: "1ESO",
-        profesor: {
-            nick: "profesor1",
-            color: "#FF0000",
-            telefono: "123456789"
-        },
-        horas: [
-            {
-                dia: 1,
-                hora: 8
-            },
-            {
-                dia: 2,
-                hora: 8
-            }
-        ]
-    },
-]
+export const AppGlobal = createContext();
 
 export function App() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const {
-        decodedToken,
-        isExpired
-    } = useJwt("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
-
-
-
+    const [token, setToken] = useState(localStorage.getItem('tokenAppGuardias'));
+    const {decodedToken, isExpired} = useJwt(token);
     return (
         <>
             <BrowserRouter>
-                <BasicLayout>
-                    <Routes>
-                        <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
-                        <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
-                        <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
-                        <Route path="/login" element={<LoginPage setIsAuthenticated={setIsAuthenticated}/>}/>
-                        <Route path="/signup" element={<h1>me llamo pepe signup</h1>}/>
-                        {/* Ruta protegida */}
-                        <Route element={<ProtectedRoute isAuthenticated={isAuthenticated}/>}>
-                            <Route path="/" element={<h1>Landing pagee</h1>}/>
-                            <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
-                            <Route path="/usuario/:idUsuario/asignaturas" element={<AsignaturasUsuario/>}/>
-                            <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
-                        </Route>
-                        {/* Ruta protegida */}
-                        <Route path="*" element={<h1>404</h1>}/>
-                    </Routes>
-                </BasicLayout>
+                <AppGlobal.Provider value={{token, decodedToken, isExpired}}>
+                    <BasicLayout decodedToken={decodedToken} isTokenExpired={isExpired} setToken={setToken}>
+                        <Routes>
+                            <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
+                            <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
+                            <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
+                            <Route path="/login" element={<LoginPage setToken={setToken}/>}/>
+                            {/* Ruta protegida */}
+                            <Route element={<ProtectedRoute isAuthenticated={token}/>}>
+                                <Route path="/" element={<h1>Landing pagee</h1>}/>
+                                <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
+                                <Route path="/profesor" element={<UsuarioTodos/>}/>
+                                <Route path="/profesor/:idProfesor" element={<UsuarioUnico/>}/>
+                                <Route path="/asignaturas" element={<AsignaturasUsuario/>}/>
+                                <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
+                                <Route path="/uploadData" element={<UploadPage/>}/>
+                            </Route>
+                            {/* Ruta protegida */}
+                            <Route path="*" element={<h1>404</h1>}/>
+                        </Routes>
+                    </BasicLayout>
+                </AppGlobal.Provider>
+                <ToastContainer/>
             </BrowserRouter>
         </>
     )
 }
+
+export default AppGlobal;
 
