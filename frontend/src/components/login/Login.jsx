@@ -1,83 +1,107 @@
+import {mostrarToast} from "../../utils/Notificaciones.js";
+import {
+    Button,
+    Card,
+    CardBody,
+    CardFooter,
+    CardHeader,
+    Checkbox,
+    Input,
+    Typography
+} from "@material-tailwind/react";
+import {useContext, useState} from "react";
+import {useNavigate} from 'react-router-dom';
+import AppGlobal from "../../App.jsx";
 
-import { BotonBase } from "../inputs/buttons/BotonBase.jsx";
-import { InputTexto } from "../inputs/InputTexto.jsx";
-import { EtiquetaPersonalizada } from "../formField/EtiquetaPersonalizada.jsx";
-import { Link } from "react-router-dom";
-import { mostrarToast } from "../../utils/Notificaciones.js";
-import { Navigate } from "react-router-dom";
-import PropTypes from "prop-types";
+export function Login({setToken}) {
+    const DEFAULT_USER = "admin";
+    const DEFAULT_PASSWORD = "1234";
 
-const manejarSubmit = async (event, nombreUsuario, contrasena, setIsAuthenticated) => {
-    event.preventDefault();
-    const credentials = {
-        email: nombreUsuario,
-        password: contrasena
-    }
-    if (nombreUsuario === '' || contrasena === '') {
-        mostrarToast('Datos incompletos', 'warning');
-        return
-    }
-    const respuesta = fetch('https://reqres.in/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    });
-    respuesta.then(async (res) => {
-        const data = await res.json();
-        if (res.ok) {
-            // Guardar el token en el estado global o en local storage
-            localStorage.setItem('tokenAppGuardias', data.token);
-            setIsAuthenticated(true);
-            mostrarToast('Login correcto ' + data.token, 'success');
-        } else {
-            console.error(data.error);
-            mostrarToast('Error en el login', 'error');
+    const [nombreUsuario, setNombreUsuario] = useState(DEFAULT_USER);
+    const [contrasena, setContrasena] = useState(DEFAULT_PASSWORD);
+
+    const navigate = useNavigate();
+
+    const manejarSubmit = async (event, nombreUsuario, contrasena, setToken) => {
+        event.preventDefault();
+        const credentials = {
+            username: nombreUsuario,
+            password: contrasena
         }
+        if (nombreUsuario === '' || contrasena === '') {
+            mostrarToast('Datos incompletos', 'warning');
+            return
+        }
+        const respuesta = fetch('http://localhost:8000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(credentials)
+        });
+        respuesta.then(async (res) => {
+            const data = await res.json();
+            console.log(data)
+            if (res.ok) {
+                // Guardar el token en el estado global o en local storage
+                setToken(data.access_token);
+                localStorage.setItem('tokenAppGuardias', data.access_token);
+                mostrarToast('Login correcto', 'success');
+                navigate('/dashboard')
+            } else {
+                console.error(data.error);
+                mostrarToast('Error en el login', 'error');
+            }
 
-    }).catch((error) => {
-        mostrarToast('No se ha podido comunicar con el servidor', 'error');
-    });
-}
-
-export function Login({setIsAuthenticated}) {
-    const DEFAULT_USER = "eve.holt@reqres.in";
-    const DEFAULT_PASSWORD = "cityslicka";
-    let nombreUsuario = DEFAULT_USER;
-    let contrasena = DEFAULT_PASSWORD;
-
-    // funcion que se ejecuta al enviar el formulario
+        }).catch((error) => {
+            mostrarToast('No se ha podido comunicar con el servidor', 'error');
+        });
+    }
 
     const manejarNombre = (e) => {
-        nombreUsuario = e.target.value;
-    }
-    const manejarContrasena = (e) => {
-        contrasena = e.target.value;
+        setNombreUsuario(e.target.value);
     }
 
-    // componente que devuelve el formulario para iniciar sesion en la aplicacion
+    const manejarContrasena = (e) => {
+        setContrasena(e.target.value);
+    }
+
+
     return (
-        <form onSubmit={(event) => manejarSubmit(event, nombreUsuario, contrasena, setIsAuthenticated)}
-              className='flex flex-col gap-1 w-full max-w-xs m-auto bg-white shadow-md rounded p-8 items-start '>
-            <EtiquetaPersonalizada>Nombre de usuario</EtiquetaPersonalizada>
-            <InputTexto type="text" name="nombre" placeholder='Introduce DNI del usuario' onChange={manejarNombre}
-                        className='mb-2'/>
-            <EtiquetaPersonalizada>Constraseña</EtiquetaPersonalizada>
-            <InputTexto type="password" name="contrasena" placeholder='Introduce contraseña del usuario'
-                        onChange={manejarContrasena}/>
-            <BotonBase type="submit"
-                       className='mt-4'>
-                Iniciar sesion</BotonBase>
-        </form>
-    )
-}
-Login.prototype = {
-    manejarSubmit: PropTypes.func.isRequired
-}
-manejarSubmit.propTypes = {
-    event: PropTypes.object.isRequired,
-    nombreUsuario: PropTypes.string.isRequired,
-    contrasena: PropTypes.string.isRequired,
-    setIsAuthenticated: PropTypes.func.isRequired
+        <Card className="m-5 max-w-sm mx-auto">
+            <CardHeader
+                variant="gradient"
+                color="gray"
+                className="mb-4 grid h-28 place-items-center"
+            >
+                <Typography variant="h3" color="white">
+                    Sign In
+                </Typography>
+            </CardHeader>
+            <CardBody className="flex flex-col gap-4">
+                <Input
+                    label="Email"
+                    size="lg"
+                    value={nombreUsuario}
+                    onChange={manejarNombre}
+                />
+                <Input
+                    label="Password"
+                    size="lg"
+                    type="password"
+                    value={contrasena}
+                    onChange={manejarContrasena}
+                />
+            </CardBody>
+            <CardFooter className="pt-0">
+                <Button variant="gradient" fullWidth
+                        onClick={(event) => manejarSubmit(event, nombreUsuario, contrasena, setToken)}>
+                    Sign In
+                </Button>
+                <div className="-ml-2.5">
+                    <Checkbox label="Remember Me"/>
+                </div>
+            </CardFooter>
+        </Card>
+    );
 }
