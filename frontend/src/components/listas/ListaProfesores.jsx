@@ -137,7 +137,7 @@ export function ListaProfesores() {
                                     <div className='flex gap-2 w-full justify-center'>
                                         <Tooltip content="Editar Usuario">
                                             <Button variant="gradient" className='p-3'
-                                                    onClick={() => navigate(`/profesor/${row.id_profesor}`, {usuario: row})}>
+                                                    onClick={() => navigate(`/profesor/${row.id_profesor}/mod`, { state: { defaultUser: row, modify: true } })}>
                                                 <EditIcon/>
                                             </Button>
                                         </Tooltip>
