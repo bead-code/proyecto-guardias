@@ -107,7 +107,7 @@ export function ListaProfesores() {
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - profesores.length) : 0;
     return (
         <Paper className='max-w-4xl mx-auto h-full'>
-            <TableContainer className='max-w-4xl mx-auto max-h-svh'>
+            <TableContainer className='max-w-4xl mx-auto max-h-[calc(100vh-250px)]'>
                 <Table aria-label="custom table" stickyHeader>
                     <TableHead>
                         <TableRow>
