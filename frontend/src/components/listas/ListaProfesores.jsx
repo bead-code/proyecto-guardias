@@ -109,7 +109,7 @@ export function ListaProfesores() {
                                 <TableCell component="th" scope="row">
                                     <div className='flex gap-2 items-center'>
                                         <Avatar {...stringAvatar(row)} />
-                                        <Typography variant='lead' autoCapitalize='true' className='capitalize'>
+                                        <Typography variant='lead' className='capitalize'>
                                             {row.nombre}
                                         </Typography>
                                     </div>
