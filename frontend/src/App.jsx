@@ -28,19 +28,20 @@ export function App() {
                 <AppGlobal.Provider value={{token, decodedToken, isExpired}}>
                     <BasicLayout decodedToken={decodedToken} isTokenExpired={isExpired} setToken={setToken}>
                         <Routes>
-                            <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
-                            <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
-                            <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
                             <Route path="/login" element={<LoginPage setToken={setToken}/>}/>
-                            {/* Ruta protegida */}
                             <Route element={<ProtectedRoute isAuthenticated={token}/>}>
                                 <Route path="/" element={<h1>Landing pagee</h1>}/>
+                                <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
+                                <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
+                                <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
                                 <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
                                 <Route path="/profesor" element={<UsuarioTodos/>}/>
                                 <Route path="/profesor/:idProfesor" element={<UsuarioUnico/>}/>
+                                <Route path="/profesor/:idProfesor/mod" element={<UsuarioUnico modify={true}/>}/>
                                 <Route path="/asignaturas" element={<AsignaturasUsuario/>}/>
                                 <Route path="/proximaguardia" element={<ProximaGuardia/>}/>
                                 <Route path="/uploadData" element={<UploadPage/>}/>
+                                <Route path="/" element={<UploadPage/>}/>
                             </Route>
                             {/* Ruta protegida */}
                             <Route path="*" element={<h1>404</h1>}/>
