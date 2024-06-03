@@ -9,9 +9,8 @@ import {
     Input,
     Typography
 } from "@material-tailwind/react";
-import {useContext, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from 'react-router-dom';
-import AppGlobal from "../../App.jsx";
 
 export function Login({setToken}) {
     const DEFAULT_USER = "admin";
