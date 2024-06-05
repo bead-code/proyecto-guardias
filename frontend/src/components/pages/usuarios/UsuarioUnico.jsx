@@ -16,7 +16,6 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
     const [isEditingName, setIsEditingName] = useState(false);
     const [usuario, setUsuario] = useState(defaultUser);
     const [color, setColor] = useState(usuario?.color || '');
-    const [roles, setRoles] = useState([]);
     const {idProfesor} = useParams();
     const {token} = useContext(AppGlobal);
     const usernameField = useRef(null);
@@ -50,7 +49,7 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
 
     const handleSaveUser = (valueToChange, setEditingFunction) => {
         setEditingFunction(false);
-        fetch(`http://localhost:8080/profesor/${idProfesor}`, {
+        fetch(`http://localhost:8000/profesor/${idProfesor}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
