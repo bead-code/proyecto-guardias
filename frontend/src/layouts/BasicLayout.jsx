@@ -4,8 +4,6 @@ import {Footer} from "../components/layout/Footer.jsx";
 import {ToastContainer} from "react-toastify";
 
 export function BasicLayout({decodedToken, isTokenExpired, setToken, children = ''}) {
-    console.log("decodedToken")
-    console.log(!isTokenExpired)
 
     return (
         <div className="flex flex-col min-h-screen">
