@@ -96,7 +96,7 @@ export function ListaProfesores() {
                             <TableRow key={row.id_profesor}>
                                 <TableCell component="th" scope="row">
                                     <div className='flex gap-2 items-center'>
-                                        <AvatarModificado profesor={row}{...stringAvatar(row)} />
+                                        <AvatarModificado profesor={row}/>
                                     </div>
                                 </TableCell>
                                 <TableCell style={{width: 200}} align="center">
