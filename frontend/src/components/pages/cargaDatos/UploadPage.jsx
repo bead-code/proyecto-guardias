@@ -2,9 +2,25 @@ import {EtiquetaPersonalizada} from "../../formField/EtiquetaPersonalizada.jsx";
 import * as PropTypes from "prop-types";
 import {useRef, useState} from "react";
 import {Navigate} from "react-router-dom";
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 
-function FileShow({fichero, handleRemove}) {
+const VisuallyHiddenInput = styled('input')({
+    clip: 'rect(0 0 0 0)',
+    clipPath: 'inset(50%)',
+    height: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    whiteSpace: 'nowrap',
+    width: 1,
+});
+
+
+function FileShow({ fichero, handleRemove }) {
     // Limitar la longitud del nombre del fichero a mostrar
     const MAX_LENGTH = 20;
     const nombreFichero = fichero.name.length > MAX_LENGTH
@@ -13,44 +29,40 @@ function FileShow({fichero, handleRemove}) {
 
     // Componente que muestra el nombre del fichero subido y permite eliminarlo
     return (
-        <div className='flex gap-2 justify-between'>
-            <h2 className='content-center'>{nombreFichero}</h2>
-            <button className='border-2 border-red-500 rounded-full text-red-900 p-1 hover:bg-red-200'
+        <div className='flex gap-2 justify-between items-center'>
+            <span>{nombreFichero}</span>
+            <Button variant='outlined' color='error'
                     onClick={handleRemove}>Eliminar
-            </button>
+            </Button>
         </div>
     )
 }
-
 function InputFile({texto, fichero, setFichero, props}) {
-    const handleClick = event => {
-        hiddenFileInput.current.click();
-    };
-    const handleChange = event => {
+    // Manejar la eliminacion del fichero
+    const handleRemove = () => {
+        setFichero(null);
+    }
+    const handleFileChange = (event) => {
         const fileUploaded = event.target.files[0];
         console.log(fileUploaded)
         setFichero(fileUploaded);
         // handleFile(fileUploaded);
     };
-    const hiddenFileInput = useRef(null);
-
     return (
         <div className={'flex flex-col w-1/2 gap-2 min-h-full justify-between'}>
             <EtiquetaPersonalizada>{texto}</EtiquetaPersonalizada>
             {fichero
-                ? <FileShow fichero={fichero} handleRemove={() => setFichero(null)}/>
-                : <>
-                    <button className='border-2 border-blue-500 rounded-full hover:bg-blue-200 p-1'
-                            onClick={handleClick}>
-                        Upload a file
-                    </button>
-                    <input
-                        type="file"
-                        onChange={handleChange}
-                        ref={hiddenFileInput}
-                        style={{display: 'none'}} // Make the file input element invisible
-                    /></>
-            }
+                ? <FileShow fichero={fichero} handleRemove={handleRemove} />
+                : <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+            >
+                Upload file
+                <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+            </Button>}
         </div>
     )
 }
@@ -90,10 +102,10 @@ export function UploadPage({handleFile}) {
                     <InputFile texto={'Subir fichero de relaciones '} fichero={ficheroRelaciones}
                                setFichero={setFicheroRelaciones}/>
                 </div>
-                <button type='submit'
+                <Button type='submit' variant='outlined'
                         className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2'>Cargar
                     datos
-                </button>
+                </Button>
             </form>
         </>
     );
