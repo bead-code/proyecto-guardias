@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {
     Navbar,
     Collapse,
@@ -8,8 +8,10 @@ import {
 import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
 import {NavLink} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import AppGlobal from "../../App.jsx";
 
-function NavList({onElementClicked, setToken, isUserAuthenticated}) {
+function NavList({decodedToken, onElementClicked, setToken, isUserAuthenticated}) {
+    console.log(decodedToken)
     const navigate = useNavigate();
     const handleLogout = () => {
         console.log("logout")
@@ -21,13 +23,17 @@ function NavList({onElementClicked, setToken, isUserAuthenticated}) {
     const navItems = [
         {id: 3, url: '/dashboard', content: 'Dashboard'},
         {id: 4, url: '/usuario/1/asignaturas', content: 'AsignaturasUsuario'},
-        {id: 5, url: '/proximaguardia', content: 'ProximaGuardia'},
+        {id: 5, url: '/guardia', content: 'ProximaGuardia'},
         {id: 6, url: '/gruposGuardias', content: 'GruposGuardias'},
         {id: 7, url: '/guardias', content: 'Guardias'},
         {id: 8, url: '/gruposGuardias/1', content: 'GrupoGuardia'},
         {id: 9, url: '/uploadData', content: 'UploadData'},
-        {id: 10, url: '/profesor', content: 'Profesores'},
+        {id: 10, url: '/profesor', content: 'Profesores'}
     ]
+    if (decodedToken) {
+        navItems.push(
+            {id: 11, url: `/profesor/${decodedToken.sub}`, content: 'Mi usuario'})
+    }
     return (
         <ul className="my-2 flex flex-col flex-wrap place-content-center lg:place-content-end gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
             {navItems.map((navItem) => {
@@ -51,12 +57,14 @@ function NavList({onElementClicked, setToken, isUserAuthenticated}) {
     );
 }
 
-export function ModifiedNavBar({decodedToken, isExpired, setToken}) {
+export function ModifiedNavBar({setToken}) {
+    const {decodedToken, isExpired} = useContext(AppGlobal);
     if (isExpired) {
         return '';
     }
     const [showMenu, setShowMenu] = useState(false);
-
+    console.log("decodedT")
+    console.log(decodedToken)
     const onMenuClick = () => {
         setShowMenu(false);
     }
@@ -84,7 +92,7 @@ export function ModifiedNavBar({decodedToken, isExpired, setToken}) {
                     Aplicacion guardias
                 </Typography>
                 <div className="hidden lg:block">
-                    <NavList isUserAuthenticated={!isExpired} setToken={setToken}/>
+                    <NavList decodedToken={decodedToken} isUserAuthenticated={!isExpired} setToken={setToken}/>
                 </div>
                 <IconButton
                     variant="text"
