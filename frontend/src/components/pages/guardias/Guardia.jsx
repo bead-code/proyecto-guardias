@@ -2,9 +2,14 @@ import {Tipografia} from "../../tipografia/Tipografia.jsx";
 import {mostrarToast} from "../../../utils/Notificaciones.js";
 import {Link, Navigate} from "react-router-dom";
 import {toast} from "react-toastify";
+import {useContext} from "react";
+import AppGlobal from "../../../App.jsx";
+import {Card, CardBody, CardHeader, Typography} from "@material-tailwind/react";
+import {AvatarModificado} from "../../usuarios/AvatarModificado.jsx";
 
 
-export function ProximaGuardia({idProfesor}) {
+export function Guardia() {
+    const {decodeToken} = useContext(AppGlobal);
     const manejarAceptar = async ({idProfesor, fecha, hora}) => {
 
 
@@ -51,7 +56,7 @@ export function ProximaGuardia({idProfesor}) {
         console.log("manejarRechazar")
     }
 
-    const proximaGuardia = {
+    const guardia = {
         id: 1,
         fecha: "2022-01-31",
         horaInicio: "14:10",
@@ -59,9 +64,9 @@ export function ProximaGuardia({idProfesor}) {
         aula: "A001",
         curso: "1ESO",
         profesorAusente: {
-            nick: "profesor1",
+            username: "profesor1",
+            nombre: "Pepe grillo",
             color: "#FF0000",
-            telefono: "123456789"
         },
         profesorSustituto: {
             nick: "profesor3",
@@ -69,7 +74,7 @@ export function ProximaGuardia({idProfesor}) {
             telefono: "123456789"
         }
     }
-    proximaGuardia.fecha = new Date(proximaGuardia.fecha).toLocaleDateString()
+    guardia.fecha = new Date(guardia.fecha).toLocaleDateString()
     const porcentaje = -50
     let textoPorcentaje = `Llevas el mismo porcentaje de guardias que la media del grupo de guardias ¿Quieres aceptarla?`
     if (porcentaje > 0) {
@@ -80,28 +85,16 @@ export function ProximaGuardia({idProfesor}) {
 
     // Componente que muestra la proxima guardia en una tarjeta
     return (
-        <div className="flex flex-col gap-4 w-full max-w-3xl m-auto bg-white shadow-md rounded p-8 items-start my-5">
-            <Tipografia className="text-3xl">Guardia
-                dia {proximaGuardia.fecha}</Tipografia>
-            <Tipografia className="text-xl">Hora: {proximaGuardia.horaInicio} - {proximaGuardia.horaFin}</Tipografia>
-            <Tipografia className="text-lg">Aula: {proximaGuardia.aula}</Tipografia>
-            <Tipografia className="text-lg">Curso: {proximaGuardia.curso}</Tipografia>
-            <Tipografia className="text-lg">Profesor ausente: {proximaGuardia.profesorAusente.nick}</Tipografia>
-            <Tipografia className="text-lg">Profesor sustituto: {proximaGuardia.profesorSustituto.nick}</Tipografia>
-            <Tipografia className="text-lg">{textoPorcentaje}</Tipografia>
-            <div className="flex gap-4 justify-center w-full">
-                <Link to="/" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-                      onClick={() => manejarAceptar({
-                          idProfesor: idProfesor,
-                          fecha: proximaGuardia.fecha,
-                          hora: proximaGuardia.horaInicio
-                      })}>Aceptar
-                </Link>
-                <Link to="/" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                      onClick={manejarRechazar}>Rechazar
-                </Link>
-            </div>
-        </div>
+        <Card>
+            <CardHeader variant='gradient' color='gray'></CardHeader>
+            <CardBody>
+                <Typography variant='lead' > Hora: {guardia.fecha}</Typography>
+                <Typography variant='paragraph'>Aula: {guardia.aula}</Typography>
+                <Typography variant='paragraph'>Curso: {guardia.curso}</Typography>
+                <Typography variant='paragraph'>Profesor ausente: <AvatarModificado profesor={guardia.profesorAusente}/></Typography>
+                <Typography variant='paragraph'>Aula: {guardia.aula}</Typography>
+            </CardBody>
+        </Card>
     )
 }
 

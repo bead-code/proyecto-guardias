@@ -8,7 +8,7 @@ import {BasicLayout} from "./layouts/BasicLayout.jsx";
 import {LoginPage} from "./components/pages/login/LoginPage.jsx";
 import {AsignaturasUsuario} from "./components/pages/asignaturas/AsignaturasUsuario.jsx";
 import {ProtectedRoute} from "./components/protectedRoute/ProtectedRoute.jsx";
-import {ProximaGuardia} from "./components/pages/guardias/ProximaGuardia.jsx";
+import {Guardia} from "./components/pages/guardias/Guardia.jsx";
 import {ListaGuardias} from "./components/listas/ListaGuardias.jsx";
 import {GrupoGuardia} from "./components/pages/gruposGuardias/GrupoGuardia.jsx";
 import {UploadPage} from "./components/pages/cargaDatos/UploadPage.jsx";
