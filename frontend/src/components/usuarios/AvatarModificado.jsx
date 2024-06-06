@@ -28,7 +28,7 @@ function stringAvatar(profesor) {
 
 export function AvatarModificado({profesor, className, ...props}) {
     return (
-        <div className='flex gap-2'>
+        <div className={`flex gap-2 ${className}`}>
             <Avatar {...stringAvatar(profesor)} />
             <Typography variant='lead' className='capitalize'>
                 {profesor.nombre}
