@@ -64,7 +64,7 @@ def update_profesor(id: int, request: ProfesorUpdate, db: Session):
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error al actualizar profesor la aula en la base de datos")
+        raise HTTPException(status_code=400)
 
 def delete_profesor(id: int, db: Session):
     profesor = get_profesor_by_id(id, db)
