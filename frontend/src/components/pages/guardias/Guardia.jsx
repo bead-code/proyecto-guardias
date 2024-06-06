@@ -87,12 +87,18 @@ export function Guardia() {
     return (
         <Card>
             <CardHeader variant='gradient' color='gray'></CardHeader>
-            <CardBody>
-                <Typography variant='lead' > Hora: {guardia.fecha}</Typography>
-                <Typography variant='paragraph'>Aula: {guardia.aula}</Typography>
-                <Typography variant='paragraph'>Curso: {guardia.curso}</Typography>
-                <Typography variant='paragraph'>Profesor ausente: <AvatarModificado profesor={guardia.profesorAusente}/></Typography>
-                <Typography variant='paragraph'>Aula: {guardia.aula}</Typography>
+            <CardBody className='justify-end'>
+                <Typography variant='small' className='text-left'>Guardia día {guardia.fecha}</Typography>
+                <Typography variant='lead' className='text-left'>Hora: {guardia.fecha}</Typography>
+                <Typography variant='paragraph' className='text-left'>Aula: {guardia.aula}</Typography>
+                <Typography variant='paragraph' className='text-left'>Curso: {guardia.curso}</Typography>
+                <div className='flex gap-3 align-middle'>
+                    <Typography variant='paragraph' className='text-left flex gap-4'>
+                        Profesor ausente:
+                    </Typography>
+                    <AvatarModificado className='inline h' profesor={guardia.profesorAusente}/>
+                </div>
+                <Typography variant='paragraph' className='text-left'>Aula: {guardia.aula}</Typography>
             </CardBody>
         </Card>
     )
