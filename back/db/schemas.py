@@ -1,9 +1,6 @@
-from datetime import date, datetime
-from typing import Optional
-
+from datetime import date, time
+from typing import Optional, List
 from pydantic import BaseModel, Field
-from sqlalchemy import Date
-
 
 # LOGIN
 class Token(BaseModel):
@@ -23,8 +20,7 @@ class RolUpdate(BaseModel):
 
 class RolDTO(BaseModel):
     id_rol: int
-    nombre:str
-
+    nombre: str
 
 # PROFESORES
 class ProfesorCreate(BaseModel):
@@ -45,8 +41,7 @@ class ProfesorDTO(BaseModel):
     color: Optional[str]
     rol: Optional[RolDTO]
     class Config:
-        from_atributes = True
-
+        from_attributes = True
 
 class ProfesorCalendario(BaseModel):
     nombre: str
@@ -57,7 +52,7 @@ class ProfesorAuth(BaseModel):
     rol: RolDTO
 
     class Config:
-        from_atributes = True
+        from_attributes = True
 
 # CURSOS
 class CursoCreate(BaseModel):
@@ -76,8 +71,10 @@ class CursoCalendario(BaseModel):
 # ACTIVIDAD
 class ActividadCreate(BaseModel):
     nombre: str
+
 class ActividadUpdate(BaseModel):
     nombre: str
+
 class ActividadDTO(BaseModel):
     id_actividad: int
     nombre: str
@@ -113,20 +110,19 @@ class ClaseDTO(BaseModel):
 class ClaseCalendario(BaseModel):
     nombre: str
 
-
 # TRAMO HORARIO
 class TramoHorarioCreate(BaseModel):
     nombre: str
-    hora_inicio: datetime.date
-    hora_fin: datetime.date
+    hora_inicio: time
+    hora_fin: time
+
     class Config:
         arbitrary_types_allowed = True
 
-
 class TramoHorarioUpdate(BaseModel):
     nombre: str
-    hora_inicio: datetime.date
-    hora_fin: datetime.date
+    hora_inicio: time
+    hora_fin: time
 
     class Config:
         arbitrary_types_allowed = True
@@ -134,16 +130,18 @@ class TramoHorarioUpdate(BaseModel):
 class TramoHorarioDTO(BaseModel):
     id_tramo_horario: int
     nombre: str
-    hora_inicio: datetime.time
-    hora_fin: datetime.time
+    hora_inicio: time
+    hora_fin: time
+
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
 
 class TramoHorarioCalendario(BaseModel):
     nombre: str
-    hora_inicio: datetime.time
-    hora_fin: datetime.time
+    hora_inicio: time
+    hora_fin: time
+
     class Config:
         arbitrary_types_allowed = True
         from_attributes = True
@@ -162,7 +160,6 @@ class CalendarioCreate(BaseModel):
     ausencia: bool = Field(False, description="Indica si hay ausencia del profesor")
 
     class Config:
-        arbitrary_types_allowed = True
         from_attributes = True
 
 class CalendarioDTO(BaseModel):
@@ -172,12 +169,10 @@ class CalendarioDTO(BaseModel):
     curso: CursoDTO
     clase: ClaseDTO
     aula: AulaDTO
-    fecha: datetime.date
+    fecha: date
     dia: int
     tramo_horario: TramoHorarioDTO
     ausencia: bool
 
     class Config:
-        arbitrary_types_allowed = True
         from_attributes = True
-
