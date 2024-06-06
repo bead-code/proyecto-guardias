@@ -1,5 +1,8 @@
+from fastapi import HTTPException
 from sqlalchemy import create_engine, MetaData, text
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker, declarative_base
+import logging
 
 hostname = "localhost"
 username = "root"
@@ -31,12 +34,14 @@ def truncate_all_tables():
         try:
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 0;'))
             for table in reversed(meta.sorted_tables):
-                conn.execute(text(f'TRUNCATE TABLE {table.name}'))
+                result = conn.execute(text(f"SHOW TABLES LIKE '{table.name}';")).fetchone()
+                if result:
+                    conn.execute(text(f'TRUNCATE TABLE {table.name}'))
 
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 1;'))
-
             trans.commit()
-            print("Todos los datos han sido eliminados de todas las tablas.")
-        except:
+            logging.info("Todos los datos han sido eliminados de todas las tablas existentes.")
+        except SQLAlchemyError as e:
             trans.rollback()
-            raise
+            print(f"Error al eliminar los datos: {e}")
+            raise HTTPException(status_code=500, detail="Error al eliminar los datos de las tablas")
