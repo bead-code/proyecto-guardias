@@ -30,7 +30,6 @@ class ProfesorCreate(BaseModel):
 
 class ProfesorUpdate(BaseModel):
     nombre: Optional[str] = None
-    password: Optional[str] = None
     color: Optional[str] = None
     id_rol: Optional[int] = None
 
