@@ -55,17 +55,16 @@ def create_profesor(request: ProfesorCreate, db: Session, ):
 
 def update_profesor(id: int, request: ProfesorUpdate, db: Session):
     profesor = get_profesor_by_id(id, db)
-
-
     for key, value in request.dict(exclude_unset=True).items():
         setattr(profesor, key, value)
     try:
         db.commit()
         db.refresh(profesor)
+        return profesor
     except Exception as e:
         db.rollback()
         logging.error(f"Error occurred: {str(e)}")
-        raise HTTPException(status_code=500, detail=f"Error el profesor la aula en la base de datos")
+        raise HTTPException(status_code=500, detail=f"Error al actualizar profesor la aula en la base de datos")
 
 def delete_profesor(id: int, db: Session):
     profesor = get_profesor_by_id(id, db)
