@@ -1,9 +1,10 @@
 import logging
+from datetime import date
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from db.models import Profesor, Rol
+from db.models import Profesor, Rol, Calendario
 from db.schemas import ProfesorCreate, ProfesorUpdate
 
 
@@ -79,3 +80,16 @@ def delete_profesor(id: int, db: Session):
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
 
 
+def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: int, db: Session):
+    profesores = (
+        db.query(Profesor)
+        .join(Calendario, Calendario.id_profesor == Profesor.id_profesor)
+        .filter(Calendario.fecha == fecha)
+        .filter(Calendario.id_tramo_horario == id_tramo_horario)
+        .filter(Calendario.id_actividad == 65)
+        .filter(Profesor.activo == True)
+        .all()
+    )
+    if not profesores:
+        raise HTTPException(status_code=404, detail="No hay profesores disponibles en este tramo horario")
+    return profesores
