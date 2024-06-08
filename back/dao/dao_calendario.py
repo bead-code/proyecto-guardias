@@ -1,8 +1,10 @@
+from datetime import datetime
+
 from fastapi import HTTPException
 from starlette import status
 
 from db.database import Session
-from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario
+from db.models import Profesor, Actividad, Aula, Curso, Clase, Calendario, TramoHorario
 from db.schemas import CalendarioCreate
 
 
@@ -61,3 +63,17 @@ def get_calendario_by_id_profesor(id_profesor: int, db: Session):
     return calendario
 
 
+def get_actual_calendario_by_id_profesor(id_profesor, db):
+    current_day = datetime.now().weekday() + 1
+    current_time = datetime.now().time()
+    calendario = (db.query(Calendario)
+             .filter(Calendario.id_profesor == id_profesor)
+             .filter(Calendario.activo == True)
+             .filter(Calendario.dia == current_day)
+             .join(TramoHorario, Calendario.id_tramo_horario == TramoHorario.id_tramo_horario
+                   .filter(TramoHorario.hora_inicio >= current_time)
+                   .filter(TramoHorario.hora_fin <= current_time))).all()
+
+    if not calendario:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No hay clases para el profesor en la hora actual")
+    return calendario
