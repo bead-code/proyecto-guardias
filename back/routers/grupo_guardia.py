@@ -1,7 +1,8 @@
 import logging
-from typing import List
 
-from fastapi import APIRouter, Depends
+from typing import List, Tuple, Dict
+
+from fastapi import APIRouter, Depends, HTTPException
 from starlette import status
 
 from dao import dao_guardia, dao_grupo_guardia
@@ -13,12 +14,19 @@ router = APIRouter(
     tags=["grupo_guardia"]
 )
 
-@router.get('/', response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
-async def get_guardias_pendientes_by_grupo_guardia(id_tramo: int, dia: int, db: Session = Depends(get_db)):
+@router.get('/{identificador}', response_model=List[ProfesorDTO], status_code=status.HTTP_200_OK)
+async def get_grupo_guardia(identificador: str, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
-    return dao_grupo_guardia.get_guardias_pendientes_by_grupo_guardia(id_tramo, dia, db)
+    try:
+        id_tramo, dia = identificador.split('-')
+        return dao_grupo_guardia.get_grupo_guardia(int(id_tramo), int(dia), db)
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Error en la solicitud"
+        )
 
-@router.get('/{id_tramo}', response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
-async def get_guardias_asignadas_by_tramo(id_tramo: int, dia: int, db: Session = Depends(get_db)):
+@router.get('', response_model=Dict[Tuple[int, int], List[ProfesorDTO]], status_code=status.HTTP_200_OK)
+async def get_guardias(db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
-    return dao_grupo_guardia.get_guardias_pendientes_by_grupo_guardia(id_tramo,dia, db)
+    return dao_grupo_guardia.get_grupos_guardia(db)
