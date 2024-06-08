@@ -35,6 +35,20 @@ def get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db):
         )
     return calendario
 
+def get_guardias(db: Session):
+    calendario = (
+        db.query(Calendario)
+        .filter(Calendario.ausencia == True)
+        .filter(Calendario.activo == True)
+        .all()
+    )
+    if not calendario:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay guardias en el calendario"
+        )
+    return calendario
+
 def get_guardias_asignadas(db: Session):
     calendario = (
         db.query(Calendario)
