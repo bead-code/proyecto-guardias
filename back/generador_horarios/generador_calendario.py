@@ -1,11 +1,10 @@
 import pandas as pd
-
 from db.database import Session
 from db.models import Calendario
 import logging
 
 
-def load_calendario(df_calendario=pd.DataFrame()):
+def generate_calendario(df_calendario=pd.DataFrame()):
     db = Session()
     calendarios = []
     for index, calendario in df_calendario.iterrows():
@@ -13,7 +12,7 @@ def load_calendario(df_calendario=pd.DataFrame()):
             id_profesor=calendario['ID_PROFESOR'] if calendario['ID_PROFESOR'] is not None else 9999,
             id_profesor_sustituto=calendario['ID_PROFESOR_SUSTITUTO'] if calendario.get(
                 'ID_PROFESOR_SUSTITUTO') is not None else 9999,
-            id_actividad=calendario['ID_ACTIVIDAD'] if calendario['ID_ACTIVIDAD'] is not None else 9999,
+            id_actividad=calendario['ID_MATERIA'] if calendario['ID_MATERIA'] is not None else 65,
             id_curso=int(calendario['ID_CURSO']) if calendario['ID_CURSO'] is not None else 9999,
             id_clase=calendario['ID_CLASE'] if calendario['ID_CLASE'] is not None else 9999,
             id_aula=calendario['ID_AULA'] if calendario['ID_AULA'] is not None else 9999,
