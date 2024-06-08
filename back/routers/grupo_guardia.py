@@ -20,7 +20,7 @@ async def get_grupo_guardia(id_tramo: int, dia: int, db: Session = Depends(get_d
     return dao_grupo_guardia.get_grupo_guardia(int(id_tramo), int(dia), db)
 
 
-@router.get('', response_model=Dict[Tuple[int, int], List[ProfesorDTO]], status_code=status.HTTP_200_OK)
-async def get_guardias(db: Session = Depends(get_db)):
+@router.get('/all', response_model=Dict[Tuple[int, int], List[ProfesorDTO]], status_code=status.HTTP_200_OK)
+async def get_grupo_guardias(db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
     return dao_grupo_guardia.get_grupos_guardia(db)
