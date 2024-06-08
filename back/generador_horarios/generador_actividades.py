@@ -8,17 +8,16 @@ from db.models import Actividad
 
 def load_actividades_from_xml(dataframes: pd.DataFrame):
     df_asignaturas = dataframes.get('MATERIAS', pd.DataFrame())
+    df_actividades_complementarias = dataframes.get("ACTIVIDADES", pd.DataFrame())
+    df_asignaturas.rename(columns={"X_MATERIAOMG": "id_actividad", "D_MATERIAC": "nombre"}, inplace=True)
+    df_actividades_complementarias.rename(columns={"X_ACTIVIDAD": "id_actividad", "D_ACTIVIDAD": "nombre"}, inplace=True)
+    df_asignaturas = pd.concat([df_asignaturas, df_actividades_complementarias], ignore_index=True)
     db = Session()
     actividades = []
-    new_actividad = Actividad(
-        id_actividad = 9999,
-        nombre = "actividad complementaria"
-    )
-    db.add(new_actividad)
     for index, actividad in df_asignaturas.iterrows():
         new_actividad = Actividad(
-            id_actividad=actividad['X_MATERIAOMG'],
-            nombre=actividad['D_MATERIAC']
+            id_actividad=actividad['id_actividad'],
+            nombre=actividad['nombre']
         )
         actividades.append(new_actividad)
     db.add_all(actividades)
