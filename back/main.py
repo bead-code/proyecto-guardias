@@ -2,10 +2,10 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from db.database import Base, engine, truncate_all_tables
-from generador_horarios.conversor_xml_to_df import load_tables_from_path, load_calendario_from_path
+from generador_horarios.conversor_xml_to_df import load_tables, load_calendario
 from generador_horarios.generador_actividades import load_actividades_from_xml
 from generador_horarios.generador_aulas import load_aulas_from_xml
-from generador_horarios.generador_calendario import load_calendario
+from generador_horarios.generador_calendario import generate_calendario
 from generador_horarios.generador_clases import load_clases_from_xml
 from generador_horarios.generador_cursos import load_cursos_from_xml
 from generador_horarios.generador_profesores import load_profesores_from_xml
@@ -46,13 +46,13 @@ Base.metadata.create_all(bind=engine)
 
 def init_data():
     generar_roles()
-    load_profesores_from_xml(load_tables_from_path())
-    load_aulas_from_xml(load_tables_from_path())
-    load_cursos_from_xml(load_tables_from_path())
-    load_actividades_from_xml(load_tables_from_path())
-    load_tramos_horarios_from_xml(load_tables_from_path())
-    load_clases_from_xml(load_tables_from_path())
-    load_calendario(load_calendario_from_path())
+    load_profesores_from_xml(load_tables())
+    load_aulas_from_xml(load_tables())
+    load_cursos_from_xml(load_tables())
+    load_actividades_from_xml(load_tables())
+    load_tramos_horarios_from_xml(load_tables())
+    load_clases_from_xml(load_tables())
+    generate_calendario(load_calendario())
 
 
 @app.on_event("startup")
