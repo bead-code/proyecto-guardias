@@ -51,7 +51,7 @@ async def get_calendario_by_id_profesor(
     return dao_calendario.get_calendario_by_id_profesor(profesor_id, db)
 
 @router.get(
-    "/hora_actual/{profesor_id}",
+    "/profesor/{profesor_id}",
     summary="Devuelve el calendario de un profesor en base a la hora actual",
     description="Esta llamada devuelve el calendario de un profesor en base a la hora actual",
     response_model=List[CalendarioDTO],
