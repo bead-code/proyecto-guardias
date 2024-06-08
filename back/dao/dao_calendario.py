@@ -54,17 +54,10 @@ def create_calendario(calendario: CalendarioCreate, db: Session,):
     return db_calendario
 
 
-def get_calendario_profesor(profesor_codidgo: str, db: Session):
-    calendario = db.query(Calendario).filter(Profesor.codigo == profesor_codidgo).filter(Calendario.activo == True).all()
+def get_calendario_by_id_profesor(id_profesor: int, db: Session):
+    calendario = db.query(Calendario).filter(Profesor.id_profesor == id_profesor).filter(Calendario.activo == True).all()
     if not calendario:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
     return calendario
-
-
-
-
-
-
-
 
 
