@@ -50,6 +50,22 @@ async def get_calendario_by_id_profesor(
     logging.info(f"Request recibida...")
     return dao_calendario.get_calendario_by_id_profesor(profesor_id, db)
 
+@router.get(
+    "/hora_actual/{profesor_id}",
+    summary="Devuelve el calendario de un profesor en base a la hora actual",
+    description="Esta llamada devuelve el calendario de un profesor en base a la hora actual",
+    response_model=List[CalendarioDTO],
+    status_code=status.HTTP_200_OK
+)
+async def get_calendario_actual_by_id_profesor(
+        profesor_id: int,
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
+    check_roles_and_id(profesor_id, current_user)
+    logging.info(f"Request recibida...")
+    return dao_calendario.get_actual_calendario_by_id_profesor(profesor_id, db)
+
 @router.post(
     "/generar_calendario/",
     summary="Genera el calendario para el año actual",
