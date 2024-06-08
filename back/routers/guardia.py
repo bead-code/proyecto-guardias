@@ -1,20 +1,25 @@
 from datetime import date
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 import logging
 
 from starlette import status
 
 from dao import dao_guardia
 from db.database import Session, get_db
-from db.schemas import CalendarioDTO
+from db.schemas import CalendarioDTO, ProfesorDTO
+from security.oauth2 import get_current_profesor, check_roles_and_id
 
 router = APIRouter(
     prefix="/guardias",
     tags=["guardias"],
 )
 
+@router.get("/fecha/{fecha}/tramo/{id_tramo_horario}", response_model=CalendarioDTO, status_code=status.HTTP_200_OK)
+async def get_guardias_by_fecha_tramo(fecha: date, id_tramo_horario: int, db: Session = Depends(get_db)):
+    logging.info(f"Request recibida....")
+    return dao_guardia.get_guardias_by_fecha_tramo(fecha, id_tramo_horario, db)
 
 @router.get("/asignadas", response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
 async def get_guardias_asignadas(db: Session = Depends(get_db)):
@@ -31,7 +36,28 @@ async def get_guardias_by_profesor(id_profesor: int, db: Session = Depends(get_d
     logging.info(f"Request recibida....")
     return dao_guardia.get_guardias_by_profesor(id_profesor, db, date)
 
-@router.put("/{id_profesor}", response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
-async def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, db: Session = Depends(get_db)):
+@router.post("", response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
+async def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, id_tramo_horario: int,  db: Session = Depends(get_db)):
+    if fecha_inicio > fecha_fin:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="La fecha de inicio no puede ser mayor a la fecha de fin"
+        )
     logging.info(f"Request recibida....")
-    return dao_guardia.create_guardia(id_profesor, fecha_inicio, fecha_fin, db)
+    return dao_guardia.create_guardia(id_profesor, fecha_inicio, id_tramo_horario, fecha_fin, db)
+
+@router.put(
+    "/{id}",
+    summary="Asigna un profesor sustituto a un calendario",
+    description="Esta llamada asigna un profesor sustituto a un calendario",
+    status_code=status.HTTP_200_OK
+)
+async def asignar_profesor_sustituto(
+        id: int,
+        id_profesor_sustituto: int,
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
+    check_roles_and_id(current_user.id_profesor, current_user)
+    logging.info(f"Request recibida...")
+    return dao_guardia.assign_profesor_sustituto(id, id_profesor_sustituto, db)
