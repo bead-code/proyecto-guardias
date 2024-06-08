@@ -1,6 +1,9 @@
 from datetime import date, time
-from typing import Optional, List
-from pydantic import BaseModel, Field
+from typing import Optional, Annotated
+
+from pydantic import BaseModel, Field, StringConstraints
+
+Color = Annotated[str, StringConstraints(pattern=r'^#(?:[0-9a-fA-F]{3}){1,2}$')]
 
 # LOGIN
 class Token(BaseModel):
@@ -30,14 +33,14 @@ class ProfesorCreate(BaseModel):
 
 class ProfesorUpdate(BaseModel):
     nombre: Optional[str] = None
-    color: Optional[str] = None
+    color: Optional[Color] = None
     id_rol: Optional[int] = None
 
 class ProfesorDTO(BaseModel):
     id_profesor: int
     username: Optional[str]
     nombre: Optional[str]
-    color: Optional[str]
+    color: Optional[Color]
     rol: Optional[RolDTO]
     class Config:
         from_attributes = True
