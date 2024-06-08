@@ -48,7 +48,7 @@ def get_profesores(
     return dao_profesor.get_profesores(db)
 
 @router.get(
-    '/calendario/fecha/{fecha}/tramo_horario/{id_tramo_horario}',
+    '',
     summary="Devuelve una lista de profesores disponibles para una id de calendario",
     description="Esta llamada devuelve una lista de profesores disponibles para una id de calendario",
     response_description="Lista de profesores disponibles",
