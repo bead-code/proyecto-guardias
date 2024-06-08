@@ -16,10 +16,10 @@ router = APIRouter(
     tags=["guardias"],
 )
 
-@router.get("/fecha/{fecha}/tramo/{id_tramo_horario}", response_model=CalendarioDTO, status_code=status.HTTP_200_OK)
-async def get_guardias_by_fecha_tramo(fecha: date, id_tramo_horario: int, db: Session = Depends(get_db)):
+@router.get("", response_model=CalendarioDTO, status_code=status.HTTP_200_OK)
+async def get_guardias_by_fecha_tramo_id_profesor(id_profesor: int, fecha: date, id_tramo_horario: int, db: Session = Depends(get_db)):
     logging.info(f"Request recibida....")
-    return dao_guardia.get_guardias_by_fecha_tramo(fecha, id_tramo_horario, db)
+    return dao_guardia.get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db)
 
 @router.get("/asignadas", response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
 async def get_guardias_asignadas(db: Session = Depends(get_db)):

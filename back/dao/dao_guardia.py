@@ -18,9 +18,10 @@ def get_guardia_by_id(id: int, db: Session):
         )
     return calendario
 
-def get_guardias_by_fecha_tramo(fecha, id_tramo_horario, db):
+def get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db):
     calendario = (
         db.query(Calendario)
+        .filter(Calendario.id_profesor == id_profesor)
         .filter(Calendario.fecha == fecha)
         .filter(Calendario.id_tramo_horario == id_tramo_horario)
         .filter(Calendario.activo == True)
