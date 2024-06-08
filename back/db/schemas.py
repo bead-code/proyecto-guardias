@@ -165,6 +165,7 @@ class CalendarioCreate(BaseModel):
         from_attributes = True
 
 class CalendarioDTO(BaseModel):
+    id_calendario: int
     profesor: ProfesorDTO
     profesor_sustituto: ProfesorDTO
     actividad: ActividadDTO
