@@ -34,7 +34,7 @@ def load_profesores_from_xml(dataframes: pd.DataFrame):
         username="admin",
         nombre="admin",
         password=Hash.argon2("1234"),
-        id_rol=4
+        id_rol=1
     )
     profesores.append(new_profesor)
     for index, profesor in df_profesores.iterrows():
