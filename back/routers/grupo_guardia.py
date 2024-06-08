@@ -14,17 +14,11 @@ router = APIRouter(
     tags=["grupo_guardia"]
 )
 
-@router.get('/{identificador}', response_model=List[ProfesorDTO], status_code=status.HTTP_200_OK)
-async def get_grupo_guardia(identificador: str, db: Session = Depends(get_db)):
+@router.get('', response_model=List[ProfesorDTO], status_code=status.HTTP_200_OK)
+async def get_grupo_guardia(id_tramo: int, dia: int, db: Session = Depends(get_db)):
     logging.info(f"Request recibida...")
-    try:
-        id_tramo, dia = identificador.split('-')
-        return dao_grupo_guardia.get_grupo_guardia(int(id_tramo), int(dia), db)
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Error en la solicitud"
-        )
+    return dao_grupo_guardia.get_grupo_guardia(int(id_tramo), int(dia), db)
+
 
 @router.get('', response_model=Dict[Tuple[int, int], List[ProfesorDTO]], status_code=status.HTTP_200_OK)
 async def get_guardias(db: Session = Depends(get_db)):
