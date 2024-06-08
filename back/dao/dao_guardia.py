@@ -26,7 +26,7 @@ def get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db):
         .filter(Calendario.id_tramo_horario == id_tramo_horario)
         .filter(Calendario.activo == True)
         .filter(Calendario.ausencia == True)
-        .all()
+        .first()
     )
     if not calendario:
         raise HTTPException(
