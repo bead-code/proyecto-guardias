@@ -47,6 +47,7 @@ def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Dep
         raise HTTPException(status_code=401, detail="Token inválido")
     return profesor
 
+
 def check_roles(current_user: ProfesorDTO):
     if current_user.rol not in ALOWED_ROLES:
         raise HTTPException(
@@ -54,12 +55,14 @@ def check_roles(current_user: ProfesorDTO):
             detail="No tienes permisos para realizar esta acción"
         )
 
+
 def check_roles_and_id(id: int, current_user: ProfesorDTO):
-    if current_user.rol not in ALOWED_ROLES or current_user.id_profesor != id:
+    if current_user.id_profesor != id and current_user.rol not in ALOWED_ROLES:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="No tienes permisos para realizar esta acción"
         )
+
 
 def check_delete(id: int, current_user: ProfesorDTO):
     if current_user.rol not in ALOWED_ROLES or current_user.id_profesor == id:
