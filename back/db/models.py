@@ -69,7 +69,7 @@ class TramoHorario(Base):
 
 class Calendario(Base):
     __tablename__ = 'calendario'
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id_calendario = Column(Integer, primary_key=True, index=True, autoincrement=True)
     id_profesor = Column(Integer, ForeignKey('profesores.id_profesor'), nullable=False)
     id_profesor_sustituto = Column(Integer, ForeignKey('profesores.id_profesor'), nullable=True)
     id_actividad = Column(Integer, ForeignKey('actividades.id_actividad'), nullable=True)
