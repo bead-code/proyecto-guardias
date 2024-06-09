@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 from typing import Optional
 
 from fastapi import HTTPException
@@ -6,7 +6,8 @@ from sqlalchemy import Date
 from starlette import status
 
 from db.database import Session
-from db.models import Calendario, Profesor
+from db.models import Calendario, Profesor, TramoHorario
+import logging
 
 
 def get_guardia_by_id(id: int, db: Session):
@@ -96,31 +97,41 @@ def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
     return calendario
 
 
-def create_guardia(id_profesor: int, fecha_inicio: date, id_tramo_horario: id, fecha_fin: date, db: Session):
+def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_inicio: time,
+                   hora_fin: time, db: Session):
+    tramo_inicio = db.query(TramoHorario).filter(TramoHorario.hora_inicio <= hora_inicio,
+                                                 TramoHorario.hora_fin > hora_inicio).first()
+    tramo_fin = db.query(TramoHorario).filter(TramoHorario.hora_inicio <= hora_fin,
+                                              TramoHorario.hora_fin > hora_fin).first()
+
+    if not tramo_inicio or not tramo_fin:
+        raise HTTPException(status_code=404, detail="Tramo horario no encontrado")
+
     try:
-        updated_rows = db.query(Calendario).filter(
+        update_query = db.query(Calendario).filter(
             Calendario.id_profesor == id_profesor,
             Calendario.fecha >= fecha_inicio,
             Calendario.fecha <= fecha_fin,
-            Calendario.id_tramo_horario == id_tramo_horario
-        ).update({"ausencia": True}, synchronize_session='fetch')
-        if updated_rows == 0:
-            raise HTTPException(status_code=404, detail="No se encontraron registros para actualizar")
-
-        updated_schedules = db.query(Calendario).filter(
-            Calendario.id_profesor == id_profesor,
-            Calendario.fecha >= fecha_inicio,
-            Calendario.fecha <= fecha_fin,
-            Calendario.ausencia == True
-        ).all()
-
+            Calendario.id_tramo_horario >= tramo_inicio.id_tramo_horario,
+            Calendario.id_tramo_horario <= tramo_fin.id_tramo_horario
+        ).update({Calendario.ausencia: True}, synchronize_session=False)
         db.commit()
-
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
 
-    return updated_schedules
+    if update_query == 0:
+        raise HTTPException(status_code=404, detail="No se encontraron registros para actualizar")
+    registros_actualizados = db.query(Calendario).filter(
+        Calendario.id_profesor == id_profesor,
+        Calendario.fecha >= fecha_inicio,
+        Calendario.fecha <= fecha_fin,
+        Calendario.id_tramo_horario >= tramo_inicio.id_tramo_horario,
+        Calendario.id_tramo_horario <= tramo_fin.id_tramo_horario,
+        Calendario.ausencia == True
+    ).all()
+    db.commit()
+    return registros_actualizados
 
 def assign_profesor_sustituto(id_calendario: int, id_profesor_sustituto: int, db: Session):
     db_calendario = db.query(Calendario).filter(Calendario.id_calendario == id_calendario).filter(Calendario.activo == True).first()

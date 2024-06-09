@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, time
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -42,14 +42,14 @@ async def get_guardias_by_profesor(id_profesor: int, db: Session = Depends(get_d
     return dao_guardia.get_guardias_by_profesor(id_profesor, db, date)
 
 @router.post("", response_model=List[CalendarioDTO], status_code=status.HTTP_200_OK)
-async def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, id_tramo_horario: int,  db: Session = Depends(get_db)):
+async def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_inicio: time, hora_fin: time, db: Session = Depends(get_db)):
     if fecha_inicio > fecha_fin:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="La fecha de inicio no puede ser mayor a la fecha de fin"
         )
     logging.info(f"Request recibida....")
-    return dao_guardia.create_guardia(id_profesor, fecha_inicio, id_tramo_horario, fecha_fin, db)
+    return dao_guardia.create_guardia(id_profesor, fecha_inicio, fecha_fin, hora_inicio, hora_fin,db)
 
 @router.put(
     "/{id}",
