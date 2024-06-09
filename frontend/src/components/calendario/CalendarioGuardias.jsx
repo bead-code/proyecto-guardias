@@ -2,15 +2,23 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'; // for week and day views
 import interactionPlugin from "@fullcalendar/interaction";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import esLocale from '@fullcalendar/core/locales/es';
+import AppGlobal from "../../App.jsx";
 
 export function CalendarioGuardias() {
     const navigate = useNavigate();
+    const {token} = useContext(AppGlobal)
     const [guardias, setGuardias] = useState([]);
     useEffect(() => {
-        fetch(`http://localhost:8000/guardias/all`)
+        fetch(`http://localhost:8000/guardias/all`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 setGuardias(data);
