@@ -30,6 +30,22 @@ def get_profesores(
 
 
 @router.get(
+    '/disponible',
+    summary="Devuelve todos los profesores disponibles en una fecha y tramo horario",
+    description="Esta llamada devuelve todos los profesores disponibles en una fecha y tramo horario",
+    response_description="Lista de todos los profesores disponibles en una fecha y tramo horario",
+    status_code=status.HTTP_200_OK
+)
+def get_profesores_disponibles_by_id_calendario(
+        fecha: date,
+        id_tramo_horario: int,
+        current_user: ProfesorDTO = Depends(check_admin_role),
+        db: Session = Depends(get_db)
+):
+    logger.info(f"Request recibida de {current_user.username}: Obtener profesores disponibles en fecha {fecha} y tramo horario {id_tramo_horario}")
+    return dao_profesor.get_profesores_disponibles_by_id_calendario(fecha, id_tramo_horario, db)
+
+@router.get(
     '/{id}',
     summary="Devuelve un profesor de la base de datos",
     description="Esta llamada devuelve un profesor en base al nick o el código del mismo",
@@ -47,22 +63,6 @@ def get_profesor(
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     return dao_profesor.get_profesor_by_id(id, db)
 
-
-@router.get(
-    '/disponible',
-    summary="Devuelve todos los profesores disponibles en una fecha y tramo horario",
-    description="Esta llamada devuelve todos los profesores disponibles en una fecha y tramo horario",
-    response_description="Lista de todos los profesores disponibles en una fecha y tramo horario",
-    status_code=status.HTTP_200_OK
-)
-def get_profesores_disponibles_by_id_calendario(
-        fecha: date,
-        id_tramo_horario: int,
-        current_user: ProfesorDTO = Depends(check_admin_role),
-        db: Session = Depends(get_db)
-):
-    logger.info(f"Request recibida de {current_user.username}: Obtener profesores disponibles en fecha {fecha} y tramo horario {id_tramo_horario}")
-    return dao_profesor.get_profesores_disponibles_by_id_calendario(fecha, id_tramo_horario, db)
 
 @router.post(
     '/',
