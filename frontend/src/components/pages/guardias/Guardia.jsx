@@ -1,105 +1,176 @@
 import {mostrarToast} from "../../../utils/Notificaciones.js";
-import {Link, Navigate} from "react-router-dom";
+import Select from '@mui/material/Select';
+import {useParams} from "react-router-dom";
 import {toast} from "react-toastify";
-import {useContext} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import AppGlobal from "../../../App.jsx";
-import {Card, CardBody, CardHeader, Typography} from "@material-tailwind/react";
+import {Button, Card, CardBody, CardHeader, Typography} from "@material-tailwind/react";
 import {AvatarModificado} from "../../usuarios/AvatarModificado.jsx";
-
+import {Box, FormControl, InputLabel, MenuItem} from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function Guardia() {
-    const {decodeToken} = useContext(AppGlobal);
-    const manejarAceptar = async ({idProfesor, fecha, hora}) => {
+    const {fecha, tramoHorario, idProfesor} = useParams();
+    const {decodeToken, token} = useContext(AppGlobal);
+    const campoSustituto = useRef();
+    const [guardia, setGuardia] = useState(undefined);
+    const [profesorAsignadoModificado, setProfesorAsignadoModificado] = useState(null);
+    const [profesoresDisponibles, setProfesoresDisponibles] = useState([]);
 
-
-        const respuesta = fetch("https://localhost:8000/guardias/1/aceptar", {
-            method: "POST",
+    useEffect(() => {
+        fetch(`http://localhost:8000/guardias?id_profesor=${idProfesor}&fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+            method: "GET",
             headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_profesor: idProfesor,
-            },)
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
         })
-        const toastGuardia = toast.loading('Procesando peticion de tomar la guardia', {position: "bottom-right"})
+            .then(async (res) => {
+                const data = await res.json();
+                if (res.ok) {
+                    setGuardia(data);
+                    setProfesorAsignadoModificado(data.profesor_sustituto?.id_profesor ?? 9999);
+                } else {
+                    mostrarToast("Error al cargar la guardia", "error");
+                }
+            });
 
-        respuesta.then(async (res) => {
-            const data = await res.json();
-            if (res.ok) {
+        fetch(`http://localhost:8000/profesor?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then(async (res) => {
+                const data = await res.json();
+                if (res.ok) {
+                    setProfesoresDisponibles(data);
+                } else {
+                    mostrarToast("Error al cargar los profesores disponibles", "error");
+                }
+            });
+    }, [token]);
+
+    if (!guardia) {
+        return (
+            <Card className='max-w-4xl max-h-[calc(100vh-300px)] m-auto'>
+                <CardHeader variant='gradient' color='gray'>
+                    <Typography variant='h2' className='p-3'>Guardia</Typography>
+                </CardHeader>
+                <CardBody className='gap-5 flex-grow justify-between'>
+                    <CircularProgress/>
+                </CardBody>
+            </Card>);
+    }
+
+    const handleCambioProfesorSustituto = (event) => {
+        const profesor = event.target.value;
+        setProfesorAsignadoModificado(profesor);
+    };
+
+    const actualizarGuardia = (nuevoProfesor) => {
+        let profesorSustituto = profesoresDisponibles.find((profesor) => profesor.id_profesor === nuevoProfesor);
+        setGuardia({
+            ...guardia,
+            profesor_sustituto: profesorSustituto ? profesorSustituto : 9999
+        });
+    };
+
+    const manejarAceptar = () => {
+        actualizarGuardia(profesorAsignadoModificado);
+
+        const toastGuardia = toast.loading('Procesando petición de tomar la guardia', {position: "bottom-right"});
+
+        fetch(`http://localhost:8000/guardias/${guardia.id_calendario}?id_profesor_sustituto=${profesorAsignadoModificado ?? 9999}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error('Error al asignar la guardia');
+                }
                 toast.update(toastGuardia, {
-                    render: 'Guardia aceptada correctamente',
+                    render: 'Guardia aceptada',
                     type: 'success',
                     isLoading: false,
-                    autoClose: 3000
-                })
-            } else {
+                    autoClose: 3000,
+                });
+            })
+            .catch(() => {
                 toast.update(toastGuardia, {
-                    render: 'Ha ocurrido un error al asignar la guardia del dia ' + fecha + " a las " + hora + ". Por favor, inténtelo de nuevo.",
+                    render: 'Error al aceptar la guardia',
                     type: 'error',
                     isLoading: false,
-                    autoClose: 3000
-                })
-            }
+                    autoClose: 3000,
+                });
+            });
+    };
 
-        }).catch((error) => {
-            toast.update(toastGuardia, {
-                render: 'Ha ocurrido un error al asignar la guardia del dia ' + fecha + " a las " + hora + ". Por favor, inténtelo de nuevo.",
-                type: 'error',
-                isLoading: false,
-                autoClose: 3000
-            })
-        });
-        Navigate({to: "/"})
-    }
     const manejarRechazar = () => {
-        console.log("manejarRechazar")
-    }
+        setProfesorAsignadoModificado(guardia.profesor_sustituto?.id_profesor || 9999);
+    };
 
-    const guardia = {
-        id: 1,
-        fecha: "2022-01-31",
-        horaInicio: "14:10",
-        horaFin: "14:30",
-        aula: "A001",
-        curso: "1ESO",
-        profesorAusente: {
-            username: "profesor1",
-            nombre: "Pepe grillo",
-            color: "#FF0000",
-        },
-        profesorSustituto: {
-            nick: "profesor3",
-            color: "#FF0000",
-            telefono: "123456789"
-        }
-    }
-    guardia.fecha = new Date(guardia.fecha).toLocaleDateString()
-    const porcentaje = -50
-    let textoPorcentaje = `Llevas el mismo porcentaje de guardias que la media del grupo de guardias ¿Quieres aceptarla?`
-    if (porcentaje > 0) {
-        textoPorcentaje = `Llevas un ${Math.abs(porcentaje)}% de guardias más que la media del grupo de guardias ¿Quieres aceptarla?`
-    } else if (porcentaje < 0) {
-        textoPorcentaje = `Llevas ${Math.abs(porcentaje)}% de guardias menos que la media del grupo de guardias ¿Quieres aceptarla?`
-    }
+    const formatoFecha = new Date(guardia.fecha).toLocaleDateString();
+    const porcentaje = -50;
+    const textoPorcentaje =
+        porcentaje > 0
+            ? `Llevas un ${Math.abs(porcentaje)}% de guardias más que la media del grupo de guardias. ¿Quieres aceptarla?`
+            : `Llevas ${Math.abs(porcentaje)}% de guardias menos que la media del grupo de guardias. ¿Quieres aceptarla?`;
 
-    // Componente que muestra la proxima guardia en una tarjeta
+    console.log('guardia.profesor_sustituto?.id_profesor')
+    console.log(guardia.profesor_sustituto?.id_profesor ?? 'yippie')
+    console.log(profesorAsignadoModificado)
+
+
     return (
-        <Card>
-            <CardHeader variant='gradient' color='gray'></CardHeader>
-            <CardBody className='justify-end'>
-                <Typography variant='small' className='text-left'>Guardia día {guardia.fecha}</Typography>
-                <Typography variant='lead' className='text-left'>Hora: {guardia.fecha}</Typography>
-                <Typography variant='paragraph' className='text-left'>Aula: {guardia.aula}</Typography>
-                <Typography variant='paragraph' className='text-left'>Curso: {guardia.curso}</Typography>
-                <div className='flex gap-3 align-middle'>
-                    <Typography variant='paragraph' className='text-left flex gap-4'>
-                        Profesor ausente:
-                    </Typography>
-                    <AvatarModificado className='inline h' profesor={guardia.profesorAusente}/>
+        <Card className='max-w-4xl max-h-[calc(100vh-300px)] m-auto'>
+            <CardHeader variant='gradient' color='gray'>
+                <Typography variant='h2' className='p-3'>Guardia</Typography>
+            </CardHeader>
+            <CardBody className='gap-5 flex-grow justify-between'>
+                <Typography variant='lead' className='text-left'><b>Día:</b> {formatoFecha}</Typography>
+                <Typography variant='lead'
+                            className='text-left'><b>Hora:</b> {guardia.tramo_horario.hora_inicio} - {guardia.tramo_horario.hora_fin}
+                </Typography>
+                <Typography variant='lead' className='text-left'><b>Aula:</b> {guardia.aula.nombre}</Typography>
+                <Typography variant='lead' className='text-left'><b>Curso:</b> {guardia.curso.nombre}</Typography>
+                <div className='flex flex-wrap gap-3 place-items-center h-20'>
+                    <Typography variant='lead' className='text-left flex gap-4 place-items-center'><b>Profesor
+                        ausente:</b></Typography>
+                    <AvatarModificado className='inline' profesor={guardia.profesor}/>
                 </div>
-                <Typography variant='paragraph' className='text-left'>Aula: {guardia.aula}</Typography>
+                <div className='flex flex-wrap gap-3 place-items-center h-20'>
+                    <Typography variant='lead' className='text-left flex gap-4 place-items-center min-w-44'><b>Profesor
+                        sustituto:</b></Typography>
+                    <FormControl fullWidth>
+                        <InputLabel id="etiqueta">Sustituto</InputLabel>
+                        <Select
+                            ref={campoSustituto}
+                            labelId="etiqueta"
+                            label="Sustituto"
+                            value={profesorAsignadoModificado}
+                            onChange={handleCambioProfesorSustituto}
+                        >
+                            <MenuItem className='h-16' value={9999}>Sin asignar</MenuItem>
+                            {profesoresDisponibles.map((profesor) => (
+                                <MenuItem className='h-16' value={profesor.id_profesor} key={profesor.id_profesor}>
+                                    <AvatarModificado disableOnClick className='inline' profesor={profesor}/>
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </div>
+                {(profesorAsignadoModificado ?? 9999) !== (guardia.profesor_sustituto?.id_profesor ?? 9999) && (
+                    <div className='flex gap-3 place-items-center h-20 w-full'>
+                        <Button variant='filled' color='green' onClick={manejarAceptar}>Confirmar</Button>
+                        <Button variant='filled' color='red' onClick={manejarRechazar}>Cancelar</Button>
+                    </div>
+                )}
             </CardBody>
         </Card>
-    )
+    );
 }
-
