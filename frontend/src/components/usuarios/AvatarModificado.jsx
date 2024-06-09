@@ -1,5 +1,6 @@
 import Avatar from "@mui/material/Avatar";
 import {Typography} from "@material-tailwind/react";
+import {Link} from "react-router-dom";
 
 function calculateTextColor(backgroundColor) {
     let color = "#000000";
@@ -26,12 +27,22 @@ function stringAvatar(profesor) {
     };
 }
 
-export function AvatarModificado({profesor, className, ...props}) {
+export function AvatarModificado({profesor, className, disableOnClick = false, ...props}) {
+    if (disableOnClick) {
+        return (
+            <div className={`flex gap-2 ${className}`}>
+                <Avatar {...stringAvatar(profesor)} className='border-2'/>
+                <Typography variant='lead' className='capitalize'>
+                    {profesor.nombre}
+                </Typography>
+            </div>
+        )
+    }
     return (
-        <div className={`flex gap-2 ${className}`}>
-            <Avatar {...stringAvatar(profesor)} />
+        <Link to={`/profesor/${profesor.id_profesor}`} className={`flex flex-wrap gap-2 ${className}`}>
+            <Avatar {...stringAvatar(profesor)} className='border-2'/>
             <Typography variant='lead' className='capitalize'>
                 {profesor.nombre}
             </Typography>
-        </div>)
+        </Link>)
 }
