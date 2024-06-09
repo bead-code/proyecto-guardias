@@ -84,21 +84,24 @@ def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
 
 def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_inicio: time,
                    hora_fin: time, db: Session):
-    tramo_inicio = db.query(TramoHorario).filter(TramoHorario.hora_inicio <= hora_inicio,
-                                                 TramoHorario.hora_fin > hora_inicio).first()
-    tramo_fin = db.query(TramoHorario).filter(TramoHorario.hora_inicio <= hora_fin,
-                                              TramoHorario.hora_fin > hora_fin).first()
-
-    if not tramo_inicio or not tramo_fin:
-        raise HTTPException(status_code=404, detail="Tramo horario no encontrado")
-
+    tramo_inicio = db.query(TramoHorario).filter(TramoHorario.hora_inicio <= hora_inicio).order_by(TramoHorario.hora_inicio.desc()).first()
+    tramo_fin = db.query(TramoHorario).filter(TramoHorario.hora_fin >= hora_fin).order_by(TramoHorario.hora_fin.asc()).first()
+    update_query = 0
     try:
-        update_query = db.query(Calendario).filter(
+        update_query += db.query(Calendario).filter(
             Calendario.id_profesor == id_profesor,
-            Calendario.fecha >= fecha_inicio,
-            Calendario.fecha <= fecha_fin,
-            Calendario.id_tramo_horario >= tramo_inicio.id_tramo_horario,
+            Calendario.fecha == fecha_inicio,
+            Calendario.id_tramo_horario >= tramo_inicio.id_tramo_horario
+        ).update({Calendario.ausencia: True}, synchronize_session=False)
+        update_query += db.query(Calendario).filter(
+            Calendario.id_profesor == id_profesor,
+            Calendario.fecha == fecha_fin,
             Calendario.id_tramo_horario <= tramo_fin.id_tramo_horario
+        ).update({Calendario.ausencia: True}, synchronize_session=False)
+        update_query += db.query(Calendario).filter(
+            Calendario.id_profesor == id_profesor,
+            Calendario.fecha > fecha_inicio,
+            Calendario.fecha < fecha_fin
         ).update({Calendario.ausencia: True}, synchronize_session=False)
         db.commit()
     except Exception as e:
