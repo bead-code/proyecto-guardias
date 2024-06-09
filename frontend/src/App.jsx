@@ -29,9 +29,10 @@ export function App() {
                 <BasicLayout isTokenExpired={isExpired} setToken={setToken}>
                     <Routes>
                         <Route path="/login" element={<LoginPage setToken={setToken}/>}/>
-                        <Route element={<ProtectedRoute isAuthenticated={token}/>}>
+                        <Route element={<ProtectedRoute />}>
                             <Route path="/" element={<h1>Landing pagee</h1>}/>
                             <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
+                            <Route path="/guardias/:fecha/tramo/:tramoHorario/profesor/:idProfesor" element={<Guardia></Guardia>}/>
                             <Route path="/gruposGuardias" element={<ListaGuardias></ListaGuardias>}/>
                             <Route path="/gruposGuardias/:idGrupo" element={<GrupoGuardia></GrupoGuardia>}/>
                             <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
