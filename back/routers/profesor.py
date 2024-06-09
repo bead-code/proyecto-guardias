@@ -14,6 +14,23 @@ router = APIRouter(
 )
 
 @router.get(
+    '/all',
+    summary="Devuelve todos los profesores de la base de datos",
+    description="Esta llamada devuelve todos los profesores de la base de datos",
+    response_description="Lista de todos los profesores de la base de datos",
+    response_model=List[ProfesorDTO],
+    status_code=status.HTTP_200_OK
+)
+def get_profesores(
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
+    logger.info(f"Request recibida de {current_user.username}: Obtener todos los profesores")
+    check_roles(current_user)
+    return dao_profesor.get_profesores(db)
+
+
+@router.get(
     '/{id}',
     summary="Devuelve un profesor de la base de datos",
     description="Esta llamada devuelve un profesor en base al nick o el código del mismo",
@@ -30,22 +47,6 @@ def get_profesor(
     check_roles_and_id(id, current_user)
     return dao_profesor.get_profesor_by_id(id, db)
 
-
-@router.get(
-    '/',
-    summary="Devuelve todos los profesores de la base de datos",
-    description="Esta llamada devuelve todos los profesores de la base de datos",
-    response_description="Lista de todos los profesores de la base de datos",
-    response_model=List[ProfesorDTO],
-    status_code=status.HTTP_200_OK
-)
-def get_profesores(
-        current_user: ProfesorDTO = Depends(get_current_profesor),
-        db: Session = Depends(get_db)
-):
-    logger.info(f"Request recibida de {current_user.username}: Obtener todos los profesores")
-    check_roles(current_user)
-    return dao_profesor.get_profesores(db)
 
 @router.get(
     '',
