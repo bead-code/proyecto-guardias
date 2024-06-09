@@ -61,6 +61,8 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
                 console.log("Error al actualizar el usuario");
                 mostrarToast(`No se ha podido actualizar el usuario`, 'error');
                 setUsuario({...usuario});  // Reset to previous state
+            } else {
+                mostrarToast(`Usuario actualizado correctamente`, 'success');
             }
         }).catch((error) => {
             console.log("Error al actualizar el usuario");
@@ -83,7 +85,6 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
     const handleSaveColor = () => {
         handleSaveUser({color: color}, setIsEditedColor);
     }
-
     return (
         <Card className='max-w-screen-2xl m-auto'>
             <CardHeader variant="gradient" color="gray" className='flex justify-center py-5 gap-2'>
@@ -91,105 +92,110 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
             </CardHeader>
             <CardBody className='text-center'>
                 <div className="flex flex-col gap-4">
-                    <div className='flex flex-row gap-2'>
+                    <div className='flex flex-wrap flex-row gap-2'>
                         <Typography variant='h4' color="black" size="xl">Nombre de usuario:</Typography>
                         <Typography variant='lead' color="black" size="xl" className='mr-auto'
                                     ref={usernameField}>{usuario.username ? usuario.username : 'No asignado'}</Typography>
-                        {modify ? (isEditingUsername ? <>
-                                <Tooltip content="Cancelar">
+                        {modify ? (isEditingUsername ?
+                                <div className='flex gap-2'>
+                                    <Tooltip content="Cancelar">
+                                        <Button
+                                            onClick={() => {
+                                                usernameField.current.contentEditable = 'false';
+                                                setIsEditingUsername(false);
+                                                usernameField.current.innerText = usuario.username ? usuario.username : 'No asignado';
+                                            }}
+                                            color="red"
+                                            size='lg'
+                                            variant='text'
+                                        >
+                                            <CloseIcon/>
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip content="Guardar">
+                                        <Button
+                                            onClick={() => {
+                                                handleSaveUser({username: usernameField.current.innerText}, setIsEditingUsername)
+                                            }}
+                                            color="green"
+                                            size='lg'
+                                            variant='text'
+                                        >
+                                            <DoneIcon/>
+                                        </Button>
+                                    </Tooltip>
+                                </div> : <Tooltip content="Editar">
                                     <Button
                                         onClick={() => {
-                                            usernameField.current.contentEditable = 'false';
-                                            setIsEditingUsername(false);
-                                            usernameField.current.innerText = usuario.username ? usuario.username : 'No asignado';
+                                            usernameField.current.contentEditable = 'true';
+                                            setIsEditingUsername(true);
+                                            usernameField.current.focus();
                                         }}
-                                        color="red"
                                         size='lg'
                                         variant='text'
                                     >
-                                        <CloseIcon/>
+                                        <EditIcon/>
                                     </Button>
-                                </Tooltip>
-                                <Tooltip content="Guardar">
-                                    <Button
-                                        onClick={() => {
-                                            handleSaveUser({username: usernameField.current.innerText}, setIsEditingUsername)
-                                        }}
-                                        color="green"
-                                        size='lg'
-                                        variant='text'
-                                    >
-                                        <DoneIcon/>
-                                    </Button>
-                                </Tooltip>
-                            </> : <Tooltip content="Editar">
-                                <Button
-                                    onClick={() => {
-                                        usernameField.current.contentEditable = 'true';
-                                        setIsEditingUsername(true);
-                                        usernameField.current.focus();
-                                    }}
-                                    size='lg'
-                                    variant='text'
-                                >
-                                    <EditIcon/>
-                                </Button>
-                            </Tooltip>)
+                                </Tooltip>)
                             : <></>}
                     </div>
-                    <div className='flex flex-row gap-2'>
+                    <div className='flex flex-wrap flex-row gap-2'>
                         <Typography variant='h4' color="black" size="xl">Nombre:</Typography>
                         <Typography variant='lead' color="black" size="xl" className='mr-auto'
                                     ref={nameField}>{usuario.nombre}</Typography>
-                        {modify ? (isEditingName ? <>
-                                <Tooltip content="Cancelar">
+                        {modify ? (isEditingName ?
+                                <div className='flex gap-2'>
+                                    <Tooltip content="Cancelar">
+                                        <Button
+                                            onClick={() => {
+                                                nameField.current.contentEditable = 'false';
+                                                setIsEditingName(false);
+                                                nameField.current.innerText = usuario.nombre;
+                                            }}
+                                            color="red"
+                                            size='lg'
+                                            variant='text'
+                                        >
+                                            <CloseIcon/>
+                                        </Button>
+                                    </Tooltip>
+                                    <Tooltip content="Guardar">
+                                        <Button
+                                            onClick={() => {
+                                                handleSaveUser({nombre: nameField.current.innerText}, setIsEditingName)
+                                            }}
+                                            color="green"
+                                            size='lg'
+                                            variant='text'
+                                        >
+                                            <DoneIcon/>
+                                        </Button>
+                                    </Tooltip>
+                                </div> : <Tooltip content="Editar">
                                     <Button
                                         onClick={() => {
-                                            nameField.current.contentEditable = 'false';
-                                            setIsEditingName(false);
-                                            nameField.current.innerText = usuario.nombre;
+                                            nameField.current.contentEditable = 'true';
+                                            setIsEditingName(true);
+                                            nameField.current.focus();
                                         }}
-                                        color="red"
                                         size='lg'
                                         variant='text'
                                     >
-                                        <CloseIcon/>
+                                        <EditIcon/>
                                     </Button>
-                                </Tooltip>
-                                <Tooltip content="Guardar">
-                                    <Button
-                                        onClick={() => {
-                                            handleSaveUser({nombre: nameField.current.innerText}, setIsEditingName)
-                                        }}
-                                        color="green"
-                                        size='lg'
-                                        variant='text'
-                                    >
-                                        <DoneIcon/>
-                                    </Button>
-                                </Tooltip>
-                            </> : <Tooltip content="Editar">
-                                <Button
-                                    onClick={() => {
-                                        nameField.current.contentEditable = 'true';
-                                        setIsEditingName(true);
-                                        nameField.current.focus();
-                                    }}
-                                    size='lg'
-                                    variant='text'
-                                >
-                                    <EditIcon/>
-                                </Button>
-                            </Tooltip>)
+                                </Tooltip>)
                             : <></>}
                     </div>
-                    <div className='flex flex-row gap-2'>
+                    <div className='flex flex-wrap flex-row gap-2'>
                         <Typography variant='h4' color="black" size="xl">Cargo:</Typography>
                         <Typography variant='lead' color="black" size="xl"
                                     className='mr-auto capitalize'>{usuario.rol.nombre}</Typography>
                     </div>
-                    <div className='flex flex-row gap-2'>
-                        <MuiColorInput value={color} onChange={handleInputColor} format="hex" ref={colorEditer}/>
+                    <div className='flex flex-wrap flex-row gap-2'>
+                        {modify ?
+                            <MuiColorInput value={color} onChange={handleInputColor} format="hex" ref={colorEditer}/> :
+                            <MuiColorInput value={color} onChange={handleInputColor} format="hex" ref={colorEditer}
+                                           disabled/>}
                         {modify ? (isEditedColor && <>
                                 <Tooltip content="Cancelar">
                                     <Button
