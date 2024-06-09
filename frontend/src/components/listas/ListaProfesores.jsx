@@ -79,7 +79,7 @@ export function ListaProfesores() {
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - profesores.length) : 0;
     return (
         <Paper className='max-w-4xl mx-auto h-full'>
-            <TableContainer className='max-w-4xl mx-auto max-h-[calc(100vh-250px)]'>
+            <TableContainer className='max-w-4xl mx-auto max-h-[calc(100vh-300px)]'>
                 <Table aria-label="custom table" stickyHeader>
                     <TableHead>
                         <TableRow>
@@ -103,7 +103,7 @@ export function ListaProfesores() {
                                     <Typography variant='lead' className='lowercase'>{row.rol.nombre}</Typography>
                                 </TableCell>
                                 <TableCell style={{width: 160}} align="center">
-                                    <div className='flex gap-2 w-full justify-center'>
+                                    <div className='flex flex-wrap gap-2 w-full justify-center'>
                                         <Tooltip content="Editar Usuario">
                                             <Button variant="gradient" className='p-3'
                                                     onClick={() => navigate(`/profesor/${row.id_profesor}/mod`, { state: { defaultUser: row, modify: true } })}>
@@ -132,10 +132,7 @@ export function ListaProfesores() {
                 count={profesores.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-
-
                 onPageChange={handleChangePage}
-
                 onRowsPerPageChange={handleChangeRowsPerPage}
             />
         </Paper>
