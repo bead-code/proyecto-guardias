@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from dao import dao_profesor
 from db.database import get_db
 from db.schemas import ProfesorDTO, ProfesorCreate, ProfesorUpdate
-from security.oauth2 import get_current_profesor, check_roles, check_roles_and_id, check_delete
+from security.oauth2 import get_current_profesor, check_admin_role
 from utils.logger import logger
 
 router = APIRouter(
@@ -22,11 +22,10 @@ router = APIRouter(
     status_code=status.HTTP_200_OK
 )
 def get_profesores(
-        current_user: ProfesorDTO = Depends(get_current_profesor),
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los profesores")
-    check_roles(current_user)
     return dao_profesor.get_profesores(db)
 
 
@@ -44,25 +43,25 @@ def get_profesor(
         db: Session = Depends(get_db)
 ):
     logger.info(f"Request recibida de {current_user.username}: Obtener profesor con ID {id}")
-    check_roles_and_id(id, current_user)
+    if current_user.id_profesor != id:
+        raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     return dao_profesor.get_profesor_by_id(id, db)
 
 
 @router.get(
-    '',
-    summary="Devuelve una lista de profesores disponibles para una id de calendario",
-    description="Esta llamada devuelve una lista de profesores disponibles para una id de calendario",
-    response_description="Lista de profesores disponibles",
-    response_model=List[ProfesorDTO],
+    '/disponible',
+    summary="Devuelve todos los profesores disponibles en una fecha y tramo horario",
+    description="Esta llamada devuelve todos los profesores disponibles en una fecha y tramo horario",
+    response_description="Lista de todos los profesores disponibles en una fecha y tramo horario",
     status_code=status.HTTP_200_OK
 )
 def get_profesores_disponibles_by_id_calendario(
         fecha: date,
         id_tramo_horario: int,
-        current_user: ProfesorDTO = Depends(get_current_profesor),
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
-    check_roles_and_id(current_user.id_profesor, current_user)
+    logger.info(f"Request recibida de {current_user.username}: Obtener profesores disponibles en fecha {fecha} y tramo horario {id_tramo_horario}")
     return dao_profesor.get_profesores_disponibles_by_id_calendario(fecha, id_tramo_horario, db)
 
 @router.post(
@@ -75,11 +74,10 @@ def get_profesores_disponibles_by_id_calendario(
 )
 def create_profesor(
         request: ProfesorCreate,
-        current_user: ProfesorDTO = Depends(get_current_profesor),
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
     logger.info(f"Request recibida de {current_user.username}: Crear profesor con datos {request}")
-    check_roles(current_user)
     return dao_profesor.create_profesor(request, db)
 
 @router.put(
@@ -95,8 +93,9 @@ def update_profesor(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    if current_user.id_profesor != id and current_user.rol.id < 3:
+        raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     logger.info(f"Request recibida de {current_user.username}: Actualizar profesor con ID {id} con datos {request}")
-    check_roles_and_id(id, current_user)
     return dao_profesor.update_profesor(id, request, db)
 
 
@@ -111,7 +110,6 @@ def delete_profesor(
         db: Session = Depends(get_db)
 ):
     logger.info(f"Request recibida de {current_user.username}: Eliminar profesor con ID {id}")
-    check_delete(id, current_user)
     if current_user.id_profesor == id:
         raise HTTPException(status_code=409, detail="No se puede eliminar al profesor autenticado actualmente")
     dao_profesor.delete_profesor(id, db)

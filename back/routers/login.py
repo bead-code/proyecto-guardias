@@ -13,8 +13,17 @@ router = APIRouter(
     tags=["login"],
 )
 
-@router.post("", response_model=Token, status_code=status.HTTP_200_OK)
-def get_token(request: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+@router.post(
+    "",
+    summary="Obtener token de acceso",
+    description="Esta llamada devuelve un token de acceso en base a las credenciales del profesor",
+    response_description="Token de acceso",
+    response_model=Token,
+    status_code=status.HTTP_200_OK)
+def get_token(
+        request: OAuth2PasswordRequestForm = Depends(),
+        db: Session = Depends(get_db)
+):
     profesor = dao_profesor.get_profesor_by_username(request.username, db)
     rol = dao_rol.get_rol_by_id(profesor.id_rol, db)
     if not profesor:
