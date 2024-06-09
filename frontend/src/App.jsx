@@ -16,6 +16,7 @@ import {ToastContainer} from "react-toastify";
 import {UsuarioTodos} from "./components/pages/usuarios/UsuarioTodos.jsx";
 import {UsuarioUnico} from "./components/pages/usuarios/UsuarioUnico.jsx";
 import {CalendarioGuardias} from "./components/calendario/CalendarioGuardias.jsx";
+import {AusenciaUsuario} from "./components/pages/ausencias/AusenciaUsuario.jsx";
 
 
 export const AppGlobal = createContext();
@@ -40,6 +41,7 @@ export function App() {
                             <Route path="/dashboard" element={<h1>Dashboard</h1>}/>
                             <Route path="/profesor" element={<UsuarioTodos/>}/>
                             <Route path="/profesor/:idProfesor" element={<UsuarioUnico/>}/>
+                            <Route path="/ausencia/crear/:idProfesor" element={<AusenciaUsuario/>}/>
                             <Route path="/profesor/:idProfesor/mod" element={<UsuarioUnico modify={true}/>}/>
                             <Route path="/asignaturas" element={<AsignaturasUsuario/>}/>
                             <Route path="/guardia" element={<Guardia/>}/>

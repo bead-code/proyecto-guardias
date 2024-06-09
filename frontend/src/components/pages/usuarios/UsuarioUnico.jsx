@@ -223,6 +223,18 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
                             </>)
                             : <></>}
                     </div>
+                    <div className='flex flex-wrap flex-row gap-2 justify-end'>
+                        <Button
+                            onClick={() => {
+                                navigate(`/ausencia/crear/${idProfesor}`);2
+                            }}
+                            color="red"
+                            size='lg'
+                            variant='text'
+                        >
+                            <Typography variant='small'>Crear ausencia</Typography>
+                        </Button>
+                    </div>
                 </div>
             </CardBody>
         </Card>
