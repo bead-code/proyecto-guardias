@@ -33,18 +33,14 @@ async def get_guardias_by_fecha_tramo_id_profesor(
     logger.info(f"Request recibida de {current_user.username}: Obtener guardias con ID profesor {id_profesor}, fecha {fecha} y tramo horario {id_tramo_horario}")
     return dao_guardia.get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db)
 
-@router.get(
-    "",
+@router.get("/all", 
     summary="Devuelve todas las guardias de la base de datos",
     description="Esta llamada devuelve todas las guardias de la base de datos",
     response_description="Lista de todas las guardias de la base de datos",
-    response_model=List[CalendarioDTO],
+    response_model=List[CalendarioDTO], 
     status_code=status.HTTP_200_OK)
-async def get_guardias(
-        current_user: ProfesorDTO = Depends(check_admin_role),
-        db: Session = Depends(get_db)
-):
-    logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
+async def get_guardias(db: Session = Depends(get_db)):
+    logging.info(f"Request recibida....")
     return dao_guardia.get_guardias(db)
 
 @router.get(
