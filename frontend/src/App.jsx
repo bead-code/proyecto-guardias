@@ -15,7 +15,7 @@ import {UploadPage} from "./components/pages/cargaDatos/UploadPage.jsx";
 import {ToastContainer} from "react-toastify";
 import {UsuarioTodos} from "./components/pages/usuarios/UsuarioTodos.jsx";
 import {UsuarioUnico} from "./components/pages/usuarios/UsuarioUnico.jsx";
-import {Calendario} from "./components/calendario/Calendario.jsx";
+import {CalendarioGuardias} from "./components/calendario/CalendarioGuardias.jsx";
 
 
 export const AppGlobal = createContext();
@@ -30,7 +30,7 @@ export function App() {
                 <BasicLayout isTokenExpired={isExpired} setToken={setToken}>
                     <Routes>
                         <Route path="/login" element={<LoginPage setToken={setToken}/>}/>
-                        <Route path="/guardias" element={<Calendario/>}/>
+                        <Route path="/guardias" element={<CalendarioGuardias/>}/>
                         <Route element={<ProtectedRoute />}>
                             <Route path="/" element={<h1>Landing pagee</h1>}/>
                             <Route path="/guardias" element={<ListaGuardias></ListaGuardias>}/>
