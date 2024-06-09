@@ -77,7 +77,7 @@ export function UploadPage({handleFile}) {
         const formData = new FormData();
         formData.append('ficheroIds', ficheroIds);
         formData.append('ficheroRelaciones', ficheroRelaciones);
-        fetch('https://localhost:8000/horario/upload_xml', {
+        fetch('http://localhost:8000/horario/upload_xml', {
             method: 'POST',
             body: formData
         }).then((res) => {

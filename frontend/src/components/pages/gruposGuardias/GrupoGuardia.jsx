@@ -7,7 +7,7 @@ export function GrupoGuardia() {
     const { idGrupo, pepe } = useParams()
     const [grupoGuardia, setGrupoGuardia] = useState({})
     useEffect(() => {
-        fetch(`https://localhost:8080/gruposGuardias/${idGrupo}`)
+        fetch(`http://localhost:8080/gruposGuardias/${idGrupo}`)
             .then(res => res.json())
             .then(data => {
                 setGrupoGuardia(data)

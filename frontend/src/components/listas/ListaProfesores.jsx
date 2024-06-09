@@ -61,7 +61,7 @@ export function ListaProfesores() {
     const loadProfesores = () => {
         console.log("token")
         console.log(token)
-        fetch(`http://localhost:8000/profesor?page=${page}&limit=${rowsPerPage}`, {
+        fetch(`http://localhost:8000/profesor/all`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

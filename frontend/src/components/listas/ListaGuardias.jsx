@@ -21,7 +21,7 @@ export function ListaGuardias() {
     const {id} = useParams()
     const [guardias, setGuardias] = useState([])
     useEffect(() => {
-        fetch(`https://localhost:8080/guardias`)
+        fetch(`http://localhost:8080/guardias`)
             .then(res => res.json())
             .then(data => {
                 setGuardias(data)
