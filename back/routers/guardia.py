@@ -125,7 +125,7 @@ async def asignar_profesor_sustituto(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
-    if current_user.id_profesor != id_profesor_sustituto and current_user.rol.id_rol < 3  :
+    if current_user.id_profesor != id_profesor_sustituto and current_user.rol.id_rol > 3  :
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="No tienes permisos para acceder a este recurso"
