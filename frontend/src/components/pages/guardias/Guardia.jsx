@@ -1,4 +1,3 @@
-import {Tipografia} from "../../tipografia/Tipografia.jsx";
 import {mostrarToast} from "../../../utils/Notificaciones.js";
 import {Link, Navigate} from "react-router-dom";
 import {toast} from "react-toastify";

@@ -83,9 +83,9 @@ export function ListaProfesores() {
                 <Table aria-label="custom table" stickyHeader>
                     <TableHead>
                         <TableRow>
-                            <TableCell align="left">Usuario</TableCell>
-                            <TableCell align="center">Rol</TableCell>
-                            <TableCell align="center">Acciones</TableCell>
+                            <TableCell align="left"><Typography variant='h4'>Usuario</Typography></TableCell>
+                            <TableCell align="center"><Typography variant='h4'>Rol</Typography></TableCell>
+                            <TableCell align="center"><Typography variant='h4'>Acciones</Typography></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody className='overflow-scroll max-h-96'>

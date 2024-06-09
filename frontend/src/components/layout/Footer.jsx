@@ -1,9 +1,9 @@
-import {Tipografia} from "../tipografia/Tipografia.jsx";
+import {Typography} from "@material-tailwind/react";
 
 export function Footer() {
     return (
         <footer className="bg-gray-800 text-white text-center py-4 max-h-32">
-            <Tipografia className='text-white content-center'>© 2024 Todos los derechos reservados</Tipografia>
+            <Typography className='text-white content-center'>© 2024 Todos los derechos reservados</Typography>
         </footer>
     )
 }
