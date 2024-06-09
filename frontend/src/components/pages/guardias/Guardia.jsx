@@ -35,7 +35,7 @@ export function Guardia() {
                 }
             });
 
-        fetch(`http://localhost:8000/profesor?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+        fetch(`http://localhost:8000/profesor/disponible?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -127,7 +127,7 @@ export function Guardia() {
 
 
     return (
-        <Card className='max-w-4xl max-h-[calc(100vh-300px)] m-auto'>
+        <Card className='max-w-4xl lg:max-h-[calc(100vh-300px)] m-auto'>
             <CardHeader variant='gradient' color='gray'>
                 <Typography variant='h2' className='p-3'>Guardia</Typography>
             </CardHeader>
@@ -138,15 +138,15 @@ export function Guardia() {
                 </Typography>
                 <Typography variant='lead' className='text-left'><b>Aula:</b> {guardia.aula.nombre}</Typography>
                 <Typography variant='lead' className='text-left'><b>Curso:</b> {guardia.curso.nombre}</Typography>
-                <div className='flex flex-wrap gap-3 place-items-center h-20'>
+                <div className='flex flex-wrap gap-3 place-items-center h-24'>
                     <Typography variant='lead' className='text-left flex gap-4 place-items-center'><b>Profesor
                         ausente:</b></Typography>
                     <AvatarModificado className='inline' profesor={guardia.profesor}/>
                 </div>
-                <div className='flex flex-wrap gap-3 place-items-center h-20'>
+                <div className='flex flex-wrap gap-3 place-items-center'>
                     <Typography variant='lead' className='text-left flex gap-4 place-items-center min-w-44'><b>Profesor
                         sustituto:</b></Typography>
-                    <FormControl fullWidth>
+                    <FormControl className='max-w-96'>
                         <InputLabel id="etiqueta">Sustituto</InputLabel>
                         <Select
                             ref={campoSustituto}
