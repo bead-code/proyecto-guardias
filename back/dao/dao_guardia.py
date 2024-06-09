@@ -43,11 +43,6 @@ def get_guardias(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
-    if not calendario:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No hay guardias en el calendario"
-        )
     return calendario
 
 def get_guardias_asignadas(db: Session):
@@ -58,11 +53,6 @@ def get_guardias_asignadas(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
-    if not calendario:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No hay guardias cubiertas"
-        )
     return calendario
 
 def get_guardias_pendientes(db: Session):
@@ -73,11 +63,6 @@ def get_guardias_pendientes(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
-    if not calendario:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="No hay guardias sin cubrir"
-        )
     return calendario
 
 
