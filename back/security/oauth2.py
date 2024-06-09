@@ -1,3 +1,9 @@
+"""
+Este módulo proporciona utilidades para la autenticación y autorización en la aplicación FastAPI.
+
+Incluye la creación y verificación de tokens de acceso JWT, y funciones para obtener el profesor actual y verificar roles administrativos.
+"""
+
 import logging
 from datetime import datetime, timedelta, UTC
 
@@ -10,23 +16,54 @@ from db.database import Session, get_db
 from db.models import Profesor
 from db.schemas import ProfesorDTO
 
+# Esquema OAuth2 para obtener el token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
+# Configuración del token JWT
 SECRET_KEY = '77407c7339a6c00544e51af1101c4abb4aea2a31157ca5f7dfd87da02a628107'
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 180
 MINIMUM_ADMIN_ROLE = 3
 
+def create_access_token(data: dict) -> str:
+    """
+    Crea un token de acceso JWT.
 
-def create_access_token(data: dict):
+    Parameters
+    ----------
+    data : dict
+        Datos a codificar en el token.
+
+    Returns
+    -------
+    str
+        Token de acceso JWT codificado.
+    """
     to_encode = data.copy()
     expire = datetime.now(UTC) + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+def verify_access_token(token: str) -> dict:
+    """
+    Verifica la validez de un token de acceso JWT.
 
-def verify_access_token(token: str):
+    Parameters
+    ----------
+    token : str
+        Token de acceso JWT.
+
+    Returns
+    -------
+    dict
+        Payload decodificado del token si es válido.
+
+    Raises
+    ------
+    HTTPException
+        Si el token ha expirado o es inválido.
+    """
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return payload
@@ -35,8 +72,27 @@ def verify_access_token(token: str):
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="El token es inválido")
 
+def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Depends(get_db)) -> Profesor:
+    """
+    Obtiene el profesor actual a partir del token de acceso.
 
-def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Depends(get_db)):
+    Parameters
+    ----------
+    token : str
+        Token de acceso JWT.
+    db : Session
+        Sesión de la base de datos.
+
+    Returns
+    -------
+    Profesor
+        El profesor actual.
+
+    Raises
+    ------
+    HTTPException
+        Si el token es inválido o no se encuentra al profesor.
+    """
     payload = verify_access_token(token)
     id_profesor = payload.get("sub")
     if id_profesor is None:
@@ -47,8 +103,25 @@ def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Dep
         raise HTTPException(status_code=401, detail="Token inválido")
     return profesor
 
+def check_admin_role(current_profesor: ProfesorDTO = Depends(get_current_profesor)) -> ProfesorDTO:
+    """
+    Verifica que el profesor actual tenga el rol de administrador.
 
-def check_admin_role(current_profesor: ProfesorDTO = Depends(get_current_profesor)):
+    Parameters
+    ----------
+    current_profesor : ProfesorDTO
+        El profesor actual.
+
+    Returns
+    -------
+    ProfesorDTO
+        El profesor actual si tiene rol de administrador.
+
+    Raises
+    ------
+    HTTPException
+        Si el profesor no tiene permisos de administrador.
+    """
     if current_profesor.rol.id_rol > MINIMUM_ADMIN_ROLE:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
