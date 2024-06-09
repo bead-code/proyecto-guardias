@@ -93,7 +93,7 @@ def update_profesor(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
-    if current_user.id_profesor != id and current_user.rol.id < 3:
+    if current_user.id_profesor != id and current_user.rol.id_rol < 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     logger.info(f"Request recibida de {current_user.username}: Actualizar profesor con ID {id} con datos {request}")
     return dao_profesor.update_profesor(id, request, db)

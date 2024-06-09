@@ -43,7 +43,7 @@ async def get_calendario_by_id_profesor(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
-    if current_user.id != profesor_id and current_user.id_rol < 3:
+    if current_user.id != profesor_id and current_user.rol.id_rol < 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID profesor {profesor_id}")
     return dao_calendario.get_calendario_by_id_profesor(profesor_id, db)
@@ -61,7 +61,7 @@ async def get_calendario_actual_by_id_profesor(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
-    if current_user.id != profesor_id and current_user.id_rol < 3:
+    if current_user.id != profesor_id and current_user.rol.id_rol < 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario actual con ID profesor {profesor_id}")
     return dao_calendario.get_actual_calendario_by_id_profesor(profesor_id, db)
@@ -77,7 +77,7 @@ async def upload_tables(
         calenario: UploadFile = File(...),
         current_user: ProfesorDTO = Depends(get_current_profesor)
 ):
-    if current_user.id_rol != 1:
+    if current_user.rol.id_rol != 1:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     tablas_byte = await tablas.read()
     horarios_byte = await calenario.read()

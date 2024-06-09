@@ -49,7 +49,7 @@ def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Dep
 
 
 def check_admin_role(current_profesor: ProfesorDTO = Depends(get_current_profesor)):
-    if current_profesor.rol.id < MINIMUM_ADMIN_ROLE:
+    if current_profesor.rol.id_rol < MINIMUM_ADMIN_ROLE:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="No tienes permisos para realizar esta acción"
