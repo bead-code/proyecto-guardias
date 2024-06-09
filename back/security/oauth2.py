@@ -15,7 +15,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 SECRET_KEY = '77407c7339a6c00544e51af1101c4abb4aea2a31157ca5f7dfd87da02a628107'
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 180
-MIN_ROL = 3
+MINIMUM_ADMIN_ROLE = 3
 
 
 def create_access_token(data: dict):
@@ -48,26 +48,11 @@ def get_current_profesor(token: str = Security(oauth2_scheme), db: Session = Dep
     return profesor
 
 
-def check_roles(current_user: ProfesorDTO):
-    if current_user.rol.id_rol > MIN_ROL:
+def check_admin_role(current_profesor: ProfesorDTO = Depends(get_current_profesor)):
+    if current_profesor.rol.id < MINIMUM_ADMIN_ROLE:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="No tienes permisos para realizar esta acción"
         )
+    return current_profesor
 
-
-def check_roles_and_id(id: int, current_user: ProfesorDTO):
-    if current_user.rol.id_rol > MIN_ROL:
-        if current_user.id_profesor != id:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="No tienes permisos para realizar esta acción"
-            )
-
-
-def check_delete(id: int, current_user: ProfesorDTO):
-    if current_user.id_profesor == id or current_user.rol.id_rol > MIN_ROL:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="No tienes permisos para realizar esta acción"
-        )
