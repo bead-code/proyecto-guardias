@@ -39,15 +39,13 @@ def truncate_all_tables():
     """
     meta = MetaData()
     meta.reflect(bind=engine)
+    Session.close_all()
     with engine.connect() as conn:
         trans = conn.begin()
         try:
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 0;'))
             for table in reversed(meta.sorted_tables):
-                result = conn.execute(text(f"SHOW TABLES LIKE '{table.name}';")).fetchone()
-                if result:
-                    conn.execute(text(f'TRUNCATE TABLE {table.name}'))
-
+                conn.execute(text(f'TRUNCATE TABLE {table.name}'))
             conn.execute(text('SET FOREIGN_KEY_CHECKS = 1;'))
             trans.commit()
             logging.info("Todos los datos han sido eliminados de todas las tablas existentes.")
