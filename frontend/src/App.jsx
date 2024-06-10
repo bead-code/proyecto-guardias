@@ -39,7 +39,7 @@ export function App() {
                     <Routes>
                         <Route path="/login" element={<LoginPage setToken={setToken} />} />
                         <Route element={<ProtectedRoute redirectTo='/login'/>}>
-                            <Route path="/" element={<Navigate to="/guardia" />} />
+                            <Route path="/" element={<h1>Pagina principal</h1>} />
                             <Route path="/guardias" element={<CalendarioGuardias />} />
                             <Route path="/guardias/:fecha/tramo/:tramoHorario/profesor/:idProfesor" element={<Guardia />} />
                             <Route path="/gruposGuardias" element={<ListaGuardias />} />
