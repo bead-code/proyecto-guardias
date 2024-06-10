@@ -2,7 +2,8 @@ from fastapi import HTTPException
 from db.database import Session
 from db.models import Clase
 from db.schemas import ClaseCreate, ClaseUpdate
-import logging
+from utils.logger import logger
+
 
 def get_clase_by_id(id: int, db: Session):
     """
@@ -18,7 +19,9 @@ def get_clase_by_id(id: int, db: Session):
     """
     clase = db.query(Clase).filter(Clase.id_clase == id).filter(Clase.activo == True).first()
     if not clase:
+        logger.error(f"La clase con ID {id} no existe en la base de datos")
         raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
+    logger.info(f"Clase retornada exitosamente")
     return clase
 
 def get_clase_by_nombre(nombre: str, db: Session):
@@ -35,7 +38,9 @@ def get_clase_by_nombre(nombre: str, db: Session):
     """
     clase = db.query(Clase).filter(Clase.nombre == nombre).filter(Clase.activo == True).first()
     if not clase:
+        logger.error(f"La clase con nombre {nombre} no existe en la base de datos")
         raise HTTPException(status_code=404, detail="La clase no existe en la base de datos")
+    logger.info(f"Clase retornada exitosamente")
     return clase
 
 def get_clases(db: Session):
@@ -50,7 +55,9 @@ def get_clases(db: Session):
     """
     clases = db.query(Clase).filter(Clase.activo == True).all()
     if not clases:
+        logger.error("No hay clases registradas en la base de datos")
         raise HTTPException(status_code=404, detail="No hay clases registradas en la base de datos")
+    logger.info("Clases retornadas exitosamente")
     return clases
 
 def create_clase(request: ClaseCreate, db: Session):
@@ -67,6 +74,7 @@ def create_clase(request: ClaseCreate, db: Session):
     """
     clase = db.query(Clase).filter(Clase.nombre == request.nombre).first()
     if clase:
+        logger.error(f"La clase con nombre {request.nombre} ya existe en la base de datos")
         raise HTTPException(status_code=409, detail="La clase ya existe en la base de datos")
     new_clase = Clase(
         nombre=request.nombre,
@@ -75,10 +83,11 @@ def create_clase(request: ClaseCreate, db: Session):
     try:
         db.commit()
         db.refresh(new_clase)
+        logger.info(f"Clase creada exitosamente")
         return new_clase
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar la clase en la BBDD: {str(e)}")
 
 def update_clase(id: int, request: ClaseUpdate, db: Session):
@@ -100,10 +109,11 @@ def update_clase(id: int, request: ClaseUpdate, db: Session):
     try:
         db.commit()
         db.refresh(clase)
+        logger.info(f"Clase actualizada exitosamente")
         return clase
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al modificar la clase en la base de datos")
 
 def delete_clase(id: int, db: Session):
@@ -121,8 +131,10 @@ def delete_clase(id: int, db: Session):
     try:
         db.commit()
         db.refresh(clase)
+        logger.info(f"Clase eliminada exitosamente")
     except Exception as e:
         db.rollback()
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error borrando la clase de la base de datos: {str(e)}")
 
 
