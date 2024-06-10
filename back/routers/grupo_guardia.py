@@ -48,7 +48,7 @@ async def get_grupo_guardia(
     response_description="Lista de todos los grupos de guardia de la base de datos",
     response_model=Dict[Tuple[int, int], List[ProfesorDTO]],
     status_code=status.HTTP_200_OK)
-async def get_grupo_guardias(
+async def get_grupos_guardia(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):

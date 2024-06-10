@@ -20,7 +20,7 @@ router = APIRouter(
     response_description="El curso de la base de datos",
     response_model=CursoDTO,
     status_code=status.HTTP_200_OK)
-async def get_curso(
+async def get_curso_by_id(
         id: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)

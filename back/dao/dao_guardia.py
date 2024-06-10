@@ -30,9 +30,9 @@ def get_guardia_by_id(id: int, db: Session):
     logger.info(f"Guardia retornada exitosamente")
     return calendario
 
-def get_guardias_by_fecha_tramo(id_profesor: int, fecha: date, id_tramo_horario: int, db: Session):
+def get_guardia_by_fecha_tramo(id_profesor: int, fecha: date, id_tramo_horario: int, db: Session):
     """
-    Obtiene guardias por fecha y tramo horario.
+    Obtiene la guardia de un profesor filtrada por fecha y tramo horario.
 
     :param id_profesor: El ID del profesor.
     :type id_profesor: int

@@ -16,19 +16,19 @@ router = APIRouter(
 
 @router.get(
     "",
-    summary="Devuelve todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
-    description="Esta llamada devuelve todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
-    response_description="Lista de todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
+    summary="Devuelve la guardia de un profesor filtrada por fecha y tramo horario",
+    description="Esta llamada devuelve la guardia de un profesor filtrada por fecha y tramo horario",
+    response_description="La guardia encontrada",
     response_model=CalendarioDTO,
     status_code=status.HTTP_200_OK)
-async def get_guardias_by_fecha_tramo_id_profesor(
+async def get_guardia_by_fecha_tramo(
         id_profesor: int,
         fecha: date,
         id_tramo_horario: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)):
     """
-    Obtiene todas las guardias por fecha, tramo horario e ID del profesor.
+    Obtiene la guardia de un profesor filtrada por fecha, tramo horario e ID del profesor.
 
     :param id_profesor: El ID del profesor.
     :type id_profesor: int
@@ -44,7 +44,7 @@ async def get_guardias_by_fecha_tramo_id_profesor(
     :rtype: CalendarioDTO
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener guardias con ID profesor {id_profesor}, fecha {fecha} y tramo horario {id_tramo_horario}")
-    return dao_guardia.get_guardias_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db)
+    return dao_guardia.get_guardia_by_fecha_tramo(id_profesor, fecha, id_tramo_horario, db)
 
 @router.get("/all",
     summary="Devuelve todas las guardias de la base de datos",
@@ -192,7 +192,7 @@ async def create_guardia(
     description="Esta llamada asigna un profesor sustituto a un calendario",
     status_code=status.HTTP_200_OK
 )
-async def asignar_profesor_sustituto(
+async def assign_profesor_sustituto(
         id: int,
         id_profesor_sustituto: int,
         current_user: ProfesorDTO = Depends(get_current_profesor),
