@@ -1,8 +1,8 @@
 from fastapi import HTTPException
 from starlette import status
-
 from db.database import Session
 from db.models import Calendario, Profesor
+from utils.logger import logger
 
 id_actividad_guardia = 65
 
@@ -31,10 +31,12 @@ def get_grupo_guardia(id_tramo: int, dia: int, db: Session):
         .all()
     )
     if not profesor:
+        logger.error("No hay guardias asignadas a este grupo de guardia")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No hay guardias asignadas a este grupo de guardia"
         )
+    logger.info("Grupo de guardia retornado exitosamente")
     return profesor
 
 def get_grupos_guardia(db: Session):
@@ -53,9 +55,16 @@ def get_grupos_guardia(db: Session):
         .filter(Calendario.id_actividad == id_actividad_guardia)
         .all()
     )
+    if not resultados:
+        logger.error("No hay grupos de guardia registrados en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay grupos de guardia registrados en la base de datos"
+        )
     grupos_guardia = {}
     for dia, id_tramo_horario, profesor in resultados:
         if (dia, id_tramo_horario) not in grupos_guardia:
             grupos_guardia[(dia, id_tramo_horario)] = []
         grupos_guardia[(dia, id_tramo_horario)].append(profesor)
+    logger.info("Grupos de guardia retornados exitosamente")
     return grupos_guardia
