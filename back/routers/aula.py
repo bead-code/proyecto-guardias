@@ -5,7 +5,7 @@ from starlette import status
 from dao import dao_calendario
 from db.database import Session, get_db
 from db.schemas import CalendarioDTO, ProfesorDTO
-from generador_horarios.generador_tablas import generate_tables_from_files
+from generador_calendario.generador_tablas import generate_tables_from_files
 from security.oauth2 import get_current_profesor, check_admin_role
 from utils.logger import logger
 
