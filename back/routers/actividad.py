@@ -20,7 +20,7 @@ router = APIRouter(
     response_model=ActividadDTO,
     status_code=status.HTTP_200_OK
 )
-async def get_asignatura_by_id(
+async def get_actividad_by_id(
         id: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
@@ -48,7 +48,7 @@ async def get_asignatura_by_id(
     response_model=ActividadDTO,
     status_code=status.HTTP_200_OK
 )
-async def get_asignatura_by_nombre(
+async def get_actividad_by_nombre(
         nombre: str,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
