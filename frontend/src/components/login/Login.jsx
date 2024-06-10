@@ -46,7 +46,7 @@ export function Login({ setToken }) {
                 setToken(data.access_token);
                 localStorage.setItem('tokenAppGuardias', data.access_token);
                 mostrarToast('Login correcto', 'success');
-                navigate('/dashboard');
+                navigate('/');
             } else {
                 console.error(data.error);
                 mostrarToast('Error en el login', 'error');
