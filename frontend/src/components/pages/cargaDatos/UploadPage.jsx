@@ -49,7 +49,7 @@ function InputFile({texto, fichero, setFichero, props}) {
         // handleFile(fileUploaded);
     };
     return (
-        <div className={'flex flex-col w-1/2 gap-2 min-h-full justify-between'}>
+        <div className={'flex flex-col lg:w-1/2 w-full gap-2 min-h-full justify-between'}>
             <EtiquetaPersonalizada>{texto}</EtiquetaPersonalizada>
             {fichero
                 ? <FileShow fichero={fichero} handleRemove={handleRemove} />
@@ -96,7 +96,7 @@ export function UploadPage({handleFile}) {
     return (<>
             <form onSubmit={manejarSubida}
                   className='flex flex-col gap-5 w-full max-w-xl m-auto bg-white shadow-md rounded p-8 items-center'>
-                <div className='flex w-full gap-5'>
+                <div className='flex lg:flex-nowrap flex-wrap justify-center w-full gap-5'>
                     <InputFile texto={'Subir fichero de identificadores'} fichero={ficheroIds}
                                setFichero={setFicheroIds}/>
                     <InputFile texto={'Subir fichero de relaciones '} fichero={ficheroRelaciones}
