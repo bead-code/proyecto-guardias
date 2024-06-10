@@ -8,7 +8,7 @@ roles = {
     4: "PROFESOR"
 }
 
-def generarate_roles():
+def generate_roles():
     """
     Genera roles predeterminados en la base de datos.
 
