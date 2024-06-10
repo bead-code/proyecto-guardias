@@ -5,8 +5,8 @@ from io import BytesIO
 import pandas as pd
 from fastapi import HTTPException
 
-table_path = './generador_horarios/Exportacion_hacia_generadores_de_horarios.xml'
-schedule_path = './generador_horarios/Horario.xml'
+table_path = './generador_calendario/Exportacion_hacia_generadores_de_horarios.xml'
+schedule_path = './generador_calendario/Horario.xml'
 
 
 def load_tables(file: BytesIO = None):
@@ -45,7 +45,6 @@ def load_tables(file: BytesIO = None):
         dataframes = {}
         for key, value in data.items():
             dataframes[key] = pd.DataFrame(value)
-
         return dataframes
     except Exception as e:
         raise HTTPException(status_code=400, detail="El archivo de que contiene las tablas no es válido")
