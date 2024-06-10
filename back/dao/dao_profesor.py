@@ -1,15 +1,10 @@
-import logging
-from datetime import date
-
-from fastapi import HTTPException
-from sqlalchemy.orm import Session
-
-import logging
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Profesor, Rol, Calendario
 from db.schemas import ProfesorCreate, ProfesorUpdate
 from datetime import date
+from utils.logger import logger
+
 
 def get_profesor_by_id(id: int, db: Session):
     """
@@ -25,7 +20,9 @@ def get_profesor_by_id(id: int, db: Session):
     """
     profesor = db.query(Profesor).filter(Profesor.id_profesor == id).filter(Profesor.activo == True).first()
     if not profesor:
+        logger.error(f"El profesor con ID {id} no existe en la base de datos")
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
+    logger.info(f"Profesor retornado existosamente")
     return profesor
 
 def get_profesor_by_username(username: str, db: Session):
@@ -42,7 +39,9 @@ def get_profesor_by_username(username: str, db: Session):
     """
     profesor = db.query(Profesor).filter(Profesor.username == username).filter(Profesor.activo == True).first()
     if not profesor:
+        logger.info(f"El profesor con username {username} no existe en la base de datos")
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
+    logger.info(f"Profesor retornado exitosamente")
     return profesor
 
 def get_profesores(db: Session):
@@ -57,7 +56,9 @@ def get_profesores(db: Session):
     """
     profesores = db.query(Profesor).filter(Profesor.activo == True).all()
     if not profesores:
+        logger.error("No hay profesores registrados en la base de datos")
         raise HTTPException(status_code=404, detail="No hay profesores registrados en la base de datos")
+    logger.info(f"Profesores retornados existosamente")
     return profesores
 
 def create_profesor(request: ProfesorCreate, db: Session):
@@ -74,9 +75,11 @@ def create_profesor(request: ProfesorCreate, db: Session):
     """
     rol = db.query(Rol).filter(Rol.id == request.rol_id).filter(Profesor.activo == True).first()
     if not rol:
+        logger.error("Rol incorrecto")
         raise HTTPException(status_code=404, detail="Rol incorrecto")
     profesor = db.query(Profesor).filter(Profesor.username == request.username).filter(Profesor.activo == True).first()
     if profesor:
+        logger.error("El profesor ya existe en la BBDD")
         raise HTTPException(status_code=409, detail="El profesor ya existe en la BBDD")
     new_profesor = Profesor(
         username=request.username,
@@ -86,12 +89,12 @@ def create_profesor(request: ProfesorCreate, db: Session):
 
     db.add(new_profesor)
     try:
-        logging.info("Insertando el profesor en la base de datos...")
+        logger.info("Insertando el profesor en la base de datos...")
         db.commit()
         db.refresh(new_profesor)
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar al profesor en la base de datos: {str(e)}")
 
     return new_profesor
@@ -116,10 +119,11 @@ def update_profesor(id: int, request: ProfesorUpdate, db: Session):
     try:
         db.commit()
         db.refresh(profesor)
+        logger.info("Profesor actualizado en la base de datos")
         return profesor
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=400)
 
 def delete_profesor(id: int, db: Session):
@@ -137,10 +141,10 @@ def delete_profesor(id: int, db: Session):
     try:
         db.commit()
         db.refresh(profesor)
-        logging.info("Profesor insertado en la base de datos")
+        logger.info("Profesor borrado en la base de datos")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
 
 def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: int, db: Session):
@@ -167,5 +171,7 @@ def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: i
         .all()
     )
     if not profesores:
+        logger.error("No hay profesores disponibles en este tramo horario")
         raise HTTPException(status_code=404, detail="No hay profesores disponibles en este tramo horario")
+    logger.info("Profesores disponibles retornados existosamente")
     return profesores
