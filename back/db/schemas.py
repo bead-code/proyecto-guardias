@@ -116,15 +116,6 @@ class ProfesorDTO(BaseModel):
     class Config:
         from_attributes = True
 
-class ProfesorCalendario(BaseModel):
-    """
-    Modelo para representar un profesor en el calendario.
-
-    :param nombre: El nombre del profesor.
-    :type nombre: str
-    """
-    nombre: str
-
 class ProfesorAuth(BaseModel):
     """
     Modelo para representar los datos de autenticación de un profesor.
@@ -172,15 +163,6 @@ class CursoDTO(BaseModel):
     :type nombre: str
     """
     id_curso: int
-    nombre: str
-
-class CursoCalendario(BaseModel):
-    """
-    Modelo para representar un curso en el calendario.
-
-    :param nombre: El nombre del curso.
-    :type nombre: str
-    """
     nombre: str
 
 # ACTIVIDAD
@@ -254,15 +236,6 @@ class AulaDTO(BaseModel):
     id_aula: int
     nombre: str
 
-class AulaCalendario(BaseModel):
-    """
-    Modelo para representar un aula en el calendario.
-
-    :param nombre: El nombre del aula.
-    :type nombre: str
-    """
-    nombre: str
-
 # CLASES
 class ClaseCreate(BaseModel):
     """
@@ -294,14 +267,6 @@ class ClaseDTO(BaseModel):
     id_clase: int
     nombre: str
 
-class ClaseCalendario(BaseModel):
-    """
-    Modelo para representar una clase en el calendario.
-
-    :param nombre: El nombre de la clase.
-    :type nombre: str
-    """
-    nombre: str
 
 # TRAMO HORARIO
 class TramoHorarioCreate(BaseModel):
@@ -362,24 +327,6 @@ class TramoHorarioDTO(BaseModel):
         arbitrary_types_allowed = True
         from_attributes = True
 
-class TramoHorarioCalendario(BaseModel):
-    """
-    Modelo para representar un tramo horario en el calendario.
-
-    :param nombre: El nombre del tramo horario.
-    :type nombre: str
-    :param hora_inicio: La hora de inicio del tramo horario.
-    :type hora_inicio: time
-    :param hora_fin: La hora de fin del tramo horario.
-    :type hora_fin: time
-    """
-    nombre: str
-    hora_inicio: time
-    hora_fin: time
-
-    class Config:
-        arbitrary_types_allowed = True
-        from_attributes = True
 
 #CALENDARIO
 class CalendarioCreate(BaseModel):
