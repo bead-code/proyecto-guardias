@@ -1,4 +1,3 @@
-import logging
 from datetime import date, time
 from typing import Optional
 from fastapi import HTTPException
@@ -6,6 +5,8 @@ from sqlalchemy import Date
 from starlette import status
 from db.database import Session
 from db.models import Calendario, Profesor, TramoHorario
+from utils.logger import logger
+
 
 def get_guardia_by_id(id: int, db: Session):
     """
@@ -21,10 +22,12 @@ def get_guardia_by_id(id: int, db: Session):
     """
     calendario = db.query(Calendario).filter(Calendario.id == id).filter(Calendario.ausencia == True).first()
     if not calendario:
+        logger.error(f"La guardia con ID {id} no existe en la base de datos")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No se encontró la guardia"
         )
+    logger.info(f"Guardia retornada exitosamente")
     return calendario
 
 def get_guardias_by_fecha_tramo(id_profesor: int, fecha: date, id_tramo_horario: int, db: Session):
@@ -53,10 +56,12 @@ def get_guardias_by_fecha_tramo(id_profesor: int, fecha: date, id_tramo_horario:
         .first()
     )
     if not calendario:
+        logger.error(f"No hay guardias asignadas para el profesor {id_profesor} en la fecha {fecha} y tramo horario {id_tramo_horario}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No hay guardias asignadas a este tramo horario"
         )
+    logger.info(f"Guardia retornada exitosamente")
     return calendario
 
 def get_guardias(db: Session):
@@ -74,6 +79,13 @@ def get_guardias(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
+    if not calendario:
+        logger.error("No hay guardias asignadas en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay guardias asignadas en la base de datos"
+        )
+    logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
 def get_guardias_asignadas(db: Session):
@@ -92,6 +104,13 @@ def get_guardias_asignadas(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
+    if not calendario:
+        logger.error("No hay guardias asignadas en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay guardias asignadas en la base de datos"
+        )
+    logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
 def get_guardias_pendientes(db: Session):
@@ -110,6 +129,13 @@ def get_guardias_pendientes(db: Session):
         .filter(Calendario.activo == True)
         .all()
     )
+    if not calendario:
+        logger.error("No hay guardias pendientes en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay guardias pendientes en la base de datos"
+        )
+    logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
 def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
@@ -135,9 +161,11 @@ def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
         query = query.filter(Calendario.fecha == date)
     calendario = query.all()
     if not calendario:
+        logger.error(f"No hay guardias asignadas al profesor {id}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="No hay guardias asignadas a este profesor")
+    logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
 def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_inicio: time,
@@ -181,11 +209,13 @@ def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_i
             Calendario.fecha < fecha_fin
         ).update({Calendario.ausencia: True}, synchronize_session=False)
         db.commit()
+        logger.info("Calendario actualizado exitosamente")
     except Exception as e:
-        db.rollback()
+        logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}"
         raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
 
     if update_query == 0:
+        logger.error("No se encontraron registros para actualizar")
         raise HTTPException(status_code=404, detail="No se encontraron registros para actualizar")
     registros_actualizados = db.query(Calendario).filter(
         Calendario.id_profesor == id_profesor,
@@ -196,6 +226,7 @@ def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_i
         Calendario.ausencia == True
     ).all()
     db.commit()
+    logger.info("Registros actualizados retornados exitosamente")
     return registros_actualizados
 
 def assign_profesor_sustituto(id_calendario: int, id_profesor_sustituto: int, db: Session):
@@ -214,16 +245,22 @@ def assign_profesor_sustituto(id_calendario: int, id_profesor_sustituto: int, db
     """
     db_calendario = db.query(Calendario).filter(Calendario.id_calendario == id_calendario).filter(Calendario.activo == True).first()
     if not db_calendario:
+        logger.error(f"Registro con ID {id_calendario} no encontrado en el calendario")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Registro no encontrado en el calendario")
     db_profesor_sustituto = db.query(Profesor).filter(Profesor.id_profesor == id_profesor_sustituto).first()
     if not db_profesor_sustituto:
+        logger.error(f"Profesor sustituto con ID {id_profesor_sustituto} no encontrado en la base de datos")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor sustituto no encontrado en la base de datos")
     db_calendario.id_profesor_sustituto = id_profesor_sustituto
     try:
         db.commit()
+        db.refresh(db_calendario)
+        logger.info("Profesor sustituto asignado exitosamente")
+        return db_calendario
     except Exception as e:
+        logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
-    return db_calendario
+
 
 
 
