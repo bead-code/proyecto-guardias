@@ -1,43 +1,29 @@
-import {useContext, useEffect, useState} from "react";
-import {
-    Navbar,
-    Collapse,
-    Typography,
-    IconButton, Button,
-} from "@material-tailwind/react";
-import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {NavLink} from "react-router-dom";
-import {useNavigate} from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { Navbar, Collapse, Typography, IconButton, Button } from "@material-tailwind/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppGlobal from "../../App.jsx";
 
-function NavList({decodedToken, onElementClicked, setToken, isUserAuthenticated}) {
-    console.log(decodedToken)
+const navItems = [
+    { id: 6, url: '/gruposGuardias', content: 'GruposGuardias', maxRoleNumber: 3},
+    { id: 7, url: '/guardias', content: 'Guardias', maxRoleNumber: 3},
+    { id: 9, url: '/uploadData', content: 'UploadData', maxRoleNumber: 1},
+    { id: 10, url: '/profesor', content: 'Profesores', maxRoleNumber: 3}
+];
+
+function NavList({ decodedToken, isUserAuthenticated, setToken, onElementClicked }) {
     const navigate = useNavigate();
+    const {token} = useContext(AppGlobal);
     const handleLogout = () => {
-        console.log("logout")
         setToken(null);
         localStorage.removeItem('tokenAppGuardias');
         navigate('/login');
-
-    }
-    const navItems = [
-        {id: 3, url: '/dashboard', content: 'Dashboard'},
-        {id: 4, url: '/usuario/1/asignaturas', content: 'AsignaturasUsuario'},
-        {id: 5, url: '/guardia', content: 'ProximaGuardia'},
-        {id: 6, url: '/gruposGuardias', content: 'GruposGuardias'},
-        {id: 7, url: '/guardias', content: 'Guardias'},
-        {id: 8, url: '/gruposGuardias/1', content: 'GrupoGuardia'},
-        {id: 9, url: '/uploadData', content: 'UploadData'},
-        {id: 10, url: '/profesor', content: 'Profesores'}
-    ]
-    if (decodedToken) {
-        navItems.push(
-            {id: 11, url: `/profesor/${decodedToken.sub}`, content: 'Mi usuario'})
-    }
+    };
     return (
         <ul className="my-2 flex flex-col flex-wrap place-content-center lg:place-content-end gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-            {navItems.map((navItem) => {
-                return (<Typography
+            {navItems.map((navItem) => (
+                <Typography
                     as="li"
                     variant="small"
                     color="blue-gray"
@@ -48,29 +34,38 @@ function NavList({decodedToken, onElementClicked, setToken, isUserAuthenticated}
                     <NavLink to={navItem.url} className="flex items-center hover:text-blue-500 transition-colors">
                         {navItem.content}
                     </NavLink>
-                </Typography>)
-            })}
-            {isUserAuthenticated && <Button onClick={()=>{handleLogout()}}>Log out</Button>}
-
-
+                </Typography>
+            ))}
+            {decodedToken && (
+                <Typography
+                    as="li"
+                    variant="small"
+                    color="blue-gray"
+                    className="p-1 font-medium"
+                    onClick={onElementClicked}
+                >
+                    <NavLink to={`/profesor/${decodedToken.sub}/mod`} className="flex items-center hover:text-blue-500 transition-colors">
+                        Mi Usuario
+                    </NavLink>
+                </Typography>
+            )}
+            {isUserAuthenticated && <Button onClick={handleLogout}>Log out</Button>}
         </ul>
     );
 }
 
-export function ModifiedNavBar({setToken}) {
-    const {decodedToken, isExpired} = useContext(AppGlobal);
-    if (isExpired) {
-        return '';
-    }
+export function ModifiedNavBar({ setToken }) {
+    const { decodedToken, isExpired } = useContext(AppGlobal);
     const [showMenu, setShowMenu] = useState(false);
-    console.log("decodedT")
-    console.log(decodedToken)
+    const navigate = useNavigate();
+
     const onMenuClick = () => {
         setShowMenu(false);
-    }
+    };
+
     const handleWindowResize = () => {
         window.innerWidth >= 960 && setShowMenu(false);
-    }
+    };
 
     useEffect(() => {
         window.addEventListener("resize", handleWindowResize);
@@ -79,6 +74,10 @@ export function ModifiedNavBar({setToken}) {
             window.removeEventListener("resize", handleWindowResize);
         };
     }, []);
+
+    if (isExpired) {
+        return null;
+    }
 
     return (
         <Navbar className="mx-auto max-w-screen-2xl px-6 py-3">
@@ -92,7 +91,11 @@ export function ModifiedNavBar({setToken}) {
                     Aplicacion guardias
                 </Typography>
                 <div className="hidden lg:block">
-                    <NavList decodedToken={decodedToken} isUserAuthenticated={!isExpired} setToken={setToken}/>
+                    <NavList
+                        decodedToken={decodedToken}
+                        isUserAuthenticated={!isExpired}
+                        setToken={setToken}
+                    />
                 </div>
                 <IconButton
                     variant="text"
@@ -101,14 +104,18 @@ export function ModifiedNavBar({setToken}) {
                     onClick={() => setShowMenu(!showMenu)}
                 >
                     {showMenu ? (
-                        <XMarkIcon className="h-6 w-6" strokeWidth={2}/>
+                        <XMarkIcon className="h-6 w-6" strokeWidth={2} />
                     ) : (
-                        <Bars3Icon className="h-6 w-6" strokeWidth={2}/>
+                        <Bars3Icon className="h-6 w-6" strokeWidth={2} />
                     )}
                 </IconButton>
             </div>
             <Collapse open={showMenu}>
-                <NavList onElementClicked={onMenuClick} isUserAuthenticated={!isExpired} setToken={setToken}/>
+                <NavList
+                    onElementClicked={onMenuClick}
+                    isUserAuthenticated={!isExpired}
+                    setToken={setToken}
+                />
             </Collapse>
         </Navbar>
     );

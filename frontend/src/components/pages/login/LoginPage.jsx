@@ -1,10 +1,7 @@
-import {Login} from '../../login/Login.jsx';
+import { Login } from '../../login/Login.jsx';
 
-
-
-export function LoginPage({ setToken, ...props }) {
+export function LoginPage({ setToken }) {
     return (
-            <Login setToken={setToken} {...props}/>
-
-    )
+        <Login setToken={setToken} />
+    );
 }

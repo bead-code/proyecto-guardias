@@ -1,6 +1,6 @@
 import {mostrarToast} from "../../../utils/Notificaciones.js";
 import Select from '@mui/material/Select';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {toast} from "react-toastify";
 import {useContext, useEffect, useRef, useState} from "react";
 import AppGlobal from "../../../App.jsx";
@@ -16,7 +16,7 @@ export function Guardia() {
     const [guardia, setGuardia] = useState(undefined);
     const [profesorAsignadoModificado, setProfesorAsignadoModificado] = useState(null);
     const [profesoresDisponibles, setProfesoresDisponibles] = useState([]);
-
+    const navigate = useNavigate();
     useEffect(() => {
         fetch(`http://localhost:8000/guardias?id_profesor=${idProfesor}&fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
             method: "GET",
@@ -90,19 +90,30 @@ export function Guardia() {
             }
         })
             .then((res) => {
-                if (!res.ok) {
-                    throw new Error('Error al asignar la guardia');
+                    if (!res.ok) {
+                        throw new Error('Error al asignar la guardia');
+                    }
+                    if (profesorAsignadoModificado === 9999) {
+                        toast.update(toastGuardia, {
+                            render: 'Guardia desasignada',
+                            type: 'success',
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                    } else {
+                        toast.update(toastGuardia, {
+                            render: 'Guardia asignada',
+                            type: 'success',
+                            isLoading: false,
+                            autoClose: 3000,
+                        });
+                    }
+                    navigate('/guardias');
                 }
-                toast.update(toastGuardia, {
-                    render: 'Guardia aceptada',
-                    type: 'success',
-                    isLoading: false,
-                    autoClose: 3000,
-                });
-            })
+            )
             .catch(() => {
                 toast.update(toastGuardia, {
-                    render: 'Error al aceptar la guardia',
+                    render: 'Error al asignar la guardia',
                     type: 'error',
                     isLoading: false,
                     autoClose: 3000,
@@ -165,9 +176,9 @@ export function Guardia() {
                     </FormControl>
                 </div>
                 {(profesorAsignadoModificado ?? 9999) !== (guardia.profesor_sustituto?.id_profesor ?? 9999) && (
-                    <div className='flex gap-3 place-items-center h-20 w-full'>
-                        <Button variant='filled' color='green' onClick={manejarAceptar}>Confirmar</Button>
+                    <div className='flex gap-3 place-items-center justify-end h-20 w-full'>
                         <Button variant='filled' color='red' onClick={manejarRechazar}>Cancelar</Button>
+                        <Button variant='filled' color='green' onClick={manejarAceptar}>Confirmar</Button>
                     </div>
                 )}
             </CardBody>

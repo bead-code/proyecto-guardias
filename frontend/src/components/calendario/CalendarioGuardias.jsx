@@ -2,33 +2,50 @@ import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid'; // for week and day views
 import interactionPlugin from "@fullcalendar/interaction";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import esLocale from '@fullcalendar/core/locales/es';
 import AppGlobal from "../../App.jsx";
 
 export function CalendarioGuardias() {
     const navigate = useNavigate();
-    const {token} = useContext(AppGlobal)
+    const { token } = useContext(AppGlobal);
     const [guardias, setGuardias] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
-        fetch(`http://localhost:8000/guardias/all`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
+        const fetchGuardias = async () => {
+            try {
+                const response = await fetch(`http://localhost:8000/guardias/all`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Error al obtener los datos de guardias');
+                }
+                const data = await response.json();
                 setGuardias(data);
-            });
-    }, []);
+                setLoading(false);
+            } catch (error) {
+                console.error(error);
+                setLoading(false);
+            }
+        };
+        fetchGuardias();
+    }, [token]);
+
+    const handleEventClick = (info) => {
+        console.log(info.event.extendedProps.url);
+        navigate(info.event.extendedProps.url);
+    };
 
     let eventosGuardias = guardias.map((guardia) => {
         let color = 'green';
         if (guardia.profesor_sustituto.id_profesor === 9999) {
-            color = 'red';
+            color = 'orange';
         }
 
         return {
@@ -44,24 +61,25 @@ export function CalendarioGuardias() {
 
     return (
         <div className='max-w-4xl max-h-[calc(100vh-300px)] mx-auto'>
-            <FullCalendar
-                height={'calc(100vh - 300px)'}
-                initialView={'dayGridMonth'}
-                plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-                headerToolbar={{
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                }}
-                weekends={false}
-                events={eventosGuardias}
-                eventClick={(info) => {
-                    console.log(info.event.extendedProps.url);
-                    navigate(info.event.extendedProps.url);
-                }}
-                locales={esLocale}
-                locale={'es'}
-            />
+            {loading ? (
+                <p>Cargando...</p>
+            ) : (
+                <FullCalendar
+                    height={'calc(100vh - 300px)'}
+                    initialView={'dayGridMonth'}
+                    plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+                    headerToolbar={{
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                    }}
+                    weekends={false}
+                    events={eventosGuardias}
+                    eventClick={handleEventClick}
+                    locales={esLocale}
+                    locale={'es'}
+                />
+            )}
         </div>
     );
 }
