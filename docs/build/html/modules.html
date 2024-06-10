@@ -646,7 +646,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas">Schemas para la validación de los datos de entrada y salida de las rutas.</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas">Schemas para la validación de los datos de entrada y salida de las rutas</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#token-de-acceso">Token de Acceso</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#schema-del-token-de-acceso">Schema del Token de Acceso</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#db.schemas.Token"><code class="docutils literal notranslate"><span class="pre">Token</span></code></a></li>
@@ -784,7 +784,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="#generador-de-calendario">Generador de calendario</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas">Conversor que permite convertir un archivo XML en distintos dataframes de pandas.</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas">Conversor que permite convertir un archivo XML en distintos dataframes de pandas</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos">Convertir un archivo XML en los dataframes necesarios para crear las tablas de la base de datos</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#generador_calendario.conversor_xml_to_df.load_tables"><code class="docutils literal notranslate"><span class="pre">load_tables()</span></code></a></li>
 </ul>
@@ -857,10 +857,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto">Generador de tablas de la base de datos a partir de dos archivos XML por defecto</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#generador_calendario.generador_tablas.generate_tables_from_path"><code class="docutils literal notranslate"><span class="pre">generate_tables_from_path()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">Generador de las tablas de la base de datos a partir de dos archivo XML</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_tablas.generate_tables_from_files"><code class="docutils literal notranslate"><span class="pre">generate_tables_from_files()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">Generador de las tablas de la base de datos a partir de dos archivo XML</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador_calendario.generador_tablas.generate_tables_from_files"><code class="docutils literal notranslate"><span class="pre">generate_tables_from_files()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -895,7 +895,7 @@
 <h1>Utilidades de Seguridad<a class="headerlink" href="#utilidades-de-seguridad" title="Link to this heading"></a></h1>
 <p>Funciones y utilidades para encriptar y verificar de contraseñas usando el algoritmo Argon2.</p>
 <section id="encriptar-contrasena">
-<span id="security-hash"></span><h2>Encriptar Contraseña<a class="headerlink" href="#encriptar-contrasena" title="Link to this heading"></a></h2>
+<h2>Encriptar Contraseña<a class="headerlink" href="#encriptar-contrasena" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="security.hash.Hash.argon2">
 <span class="sig-prename descclassname"><span class="pre">security.hash.Hash.</span></span><span class="sig-name descname"><span class="pre">argon2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">password</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#security.hash.Hash.argon2" title="Link to this definition"></a></dt>
@@ -3442,7 +3442,7 @@
 <h3>Generar Calendario a partir de dos archivos XML<a class="headerlink" href="#generar-calendario-a-partir-de-dos-archivos-xml" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.calendario.upload_tables">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">upload_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calenario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.upload_tables" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">upload_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.upload_tables" title="Link to this definition"></a></dt>
 <dd><p>Genera el calendario para el año actual a partir de los archivos XML enviados.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parámetros<span class="colon">:</span></dt>
@@ -3929,7 +3929,7 @@
 </section>
 </section>
 <section id="schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas">
-<h1>Schemas para la validación de los datos de entrada y salida de las rutas.<a class="headerlink" href="#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas" title="Link to this heading"></a></h1>
+<h1>Schemas para la validación de los datos de entrada y salida de las rutas<a class="headerlink" href="#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas" title="Link to this heading"></a></h1>
 <section id="token-de-acceso">
 <h2>Token de Acceso<a class="headerlink" href="#token-de-acceso" title="Link to this heading"></a></h2>
 <section id="schema-del-token-de-acceso">
@@ -4403,7 +4403,7 @@
 <section id="generador-de-calendario">
 <h1>Generador de calendario<a class="headerlink" href="#generador-de-calendario" title="Link to this heading"></a></h1>
 <section id="conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas">
-<h2>Conversor que permite convertir un archivo XML en distintos dataframes de pandas.<a class="headerlink" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas" title="Link to this heading"></a></h2>
+<h2>Conversor que permite convertir un archivo XML en distintos dataframes de pandas<a class="headerlink" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas" title="Link to this heading"></a></h2>
 <section id="convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos">
 <h3>Convertir un archivo XML en los dataframes necesarios para crear las tablas de la base de datos<a class="headerlink" href="#convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -4691,8 +4691,9 @@ Si ocurre un error durante la inserción, la transacción es revertida.</p>
 tramos horarios y clases a partir de datos XML predeterminados.</p>
 </dd></dl>
 
+</section>
 <section id="generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">
-<h3>Generador de las tablas de la base de datos a partir de dos archivo XML<a class="headerlink" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml" title="Link to this heading"></a></h3>
+<h2>Generador de las tablas de la base de datos a partir de dos archivo XML<a class="headerlink" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="generador_calendario.generador_tablas.generate_tables_from_files">
 <span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_tablas.</span></span><span class="sig-name descname"><span class="pre">generate_tables_from_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_tablas.generate_tables_from_files" title="Link to this definition"></a></dt>
@@ -4710,7 +4711,6 @@ y luego genera el calendario a partir de los datos proporcionados.</p>
 </dl>
 </dd></dl>
 
-</section>
 </section>
 </section>
 
