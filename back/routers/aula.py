@@ -1,135 +1,109 @@
-from io import BytesIO
 from typing import List
-from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
+
+from fastapi import APIRouter, Depends
 from starlette import status
-from dao import dao_calendario
+
+from dao import dao_aula
 from db.database import Session, get_db
-from db.schemas import CalendarioDTO, ProfesorDTO
-from generador_calendario.generador_tablas import generate_tables_from_files
+from db.schemas import AulaDTO, AulaUpdate, AulaCreate, ProfesorDTO
+import logging
+
 from security.oauth2 import get_current_profesor, check_admin_role
 from utils.logger import logger
 
 router = APIRouter(
-    prefix="/calendario",
-    tags=["calendario"],
+    prefix="/aula",
+    tags=["aula"],
 )
 
 @router.get(
     "/{id}",
-    summary="Devuelve un calendario de la base de datos",
-    description="Esta llamada devuelve un calendario en base a su id",
-    response_description="El calendario de la base de datos",
-    response_model=CalendarioDTO,
+    summary="Devuelve un aula de la base de datos",
+    description="Esta llamada devuelve un aula en base al ID de la misma",
+    response_description="El aula de la base de datos",
+    response_model=AulaDTO,
     status_code=status.HTTP_200_OK
 )
-def get_calendario_by_id(
+async def get_aula_by_id(
         id: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
-    """
-    Obtiene un calendario por su ID.
-
-    :param id: El ID del calendario a buscar.
-    :type id: int
-    :param current_user: El usuario actual con rol de administrador.
-    :type current_user: ProfesorDTO
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: El calendario encontrado.
-    :rtype: CalendarioDTO
-    """
-    logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID {id}")
-    return dao_calendario.get_calendario_by_id(id, db)
+    logger.info(f"Request recibida de {current_user.username}: Obtener aula con ID {id}")
+    return dao_aula.get_aula_by_id(id, db)
 
 @router.get(
-    "/{profesor_id}",
-    summary="Devuelve el calendario de un profesor",
-    description="Esta llamada devuelve el calendario de un profesor en base a su id",
-    response_model=List[CalendarioDTO],
+    "/nombre/{nombre",
+    summary="Devuelve un aula de la base de datos",
+    description="Esta llamada devuelve un aula en base al nombre de la misma",
+    response_description="El aula de la base de datos",
+    response_model=AulaDTO,
     status_code=status.HTTP_200_OK
 )
-async def get_calendario_by_id_profesor(
-        profesor_id: int,
-        current_user: ProfesorDTO = Depends(get_current_profesor),
+async def get_aula_by_nombre(
+        nombre: str,
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
-    """
-    Obtiene el calendario de un profesor por su ID.
-
-    :param profesor_id: El ID del profesor.
-    :type profesor_id: int
-    :param current_user: El usuario actual.
-    :type current_user: ProfesorDTO
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: El calendario del profesor encontrado.
-    :rtype: List[CalendarioDTO]
-    :raises HTTPException: Si el usuario actual no tiene permisos para realizar esta acción.
-    """
-    if current_user.id != profesor_id and current_user.rol.id_rol > 3:
-        raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
-    logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID profesor {profesor_id}")
-    return dao_calendario.get_calendario_by_id_profesor(profesor_id, db)
+    logger.info(f"Request recibida de {current_user.username}: Obtener aula con nombre {nombre}")
+    return dao_aula.get_aula_by_nombre(nombre, db)
 
 @router.get(
-    "/profesor/{profesor_id}",
-    summary="Devuelve el calendario de un profesor en base a la hora actual",
-    description="Esta llamada devuelve el calendario de un profesor en base a la hora actual",
-    response_description="El calendario de la base de datos",
-    response_model=List[CalendarioDTO],
-    status_code=status.HTTP_200_OK
-)
-async def get_calendario_actual_by_id_profesor(
-        profesor_id: int,
-        current_user: ProfesorDTO = Depends(get_current_profesor),
+    "/",
+    summary="Devuelve todas las aulas de la base de datos",
+    description="Esta llamada devuelve todas las aulas de la base de datos",
+    response_description="Lista de todas las aulas de la base de datos",
+    response_model=List[AulaDTO],
+    status_code=status.HTTP_200_OK)
+async def get_aulas(
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
-    """
-    Obtiene el calendario actual de un profesor por su ID.
-
-    :param profesor_id: El ID del profesor.
-    :type profesor_id: int
-    :param current_user: El usuario actual.
-    :type current_user: ProfesorDTO
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: El calendario actual del profesor encontrado.
-    :rtype: List[CalendarioDTO]
-    :raises HTTPException: Si el usuario actual no tiene permisos para realizar esta acción.
-    """
-    if current_user.id != profesor_id and current_user.rol.id_rol > 3:
-        raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
-    logger.info(f"Request recibida de {current_user.username}: Obtener calendario actual con ID profesor {profesor_id}")
-    return dao_calendario.get_actual_calendario_by_id_profesor(profesor_id, db)
+    logger.info(f"Request recibida de {current_user.username}: Obtener todas las aulas")
+    return dao_aula.get_aulas(db)
 
 @router.post(
-    "/generar_calendario/",
-    summary="Genera el calendario para el año actual",
-    description="Esta llamada genera el calendario para el año actual",
+    "/",
+    summary="Crea un aula en la base de datos",
+    description="Esta llamada crea un aula en la base de datos",
+    response_description="El aula creado en la base de datos",
+    response_model=AulaDTO,
+    status_code=status.HTTP_201_CREATED
+)
+async def create_aula(
+        resquest: AulaCreate,
+        current_user: ProfesorDTO = Depends(check_admin_role),
+        db: Session = Depends(get_db)):
+    logger.info(f"Request recibida de {current_user.username}: Crear aula con nombre {resquest.nombre}")
+    return dao_aula.create_aula(resquest, db)
+
+
+@router.put(
+    "{id}",
+    summary="Actualiza un aula de la base de datos",
+    description="Esta llamada actualiza un aula en base al ID de la misma",
+    response_description="El aula actualizado en la base de datos",
+    response_model=AulaDTO,
     status_code=status.HTTP_200_OK
 )
-async def upload_tables(
-        tablas: UploadFile = File(...),
-        calenario: UploadFile = File(...),
-        current_user: ProfesorDTO = Depends(get_current_profesor)
+async def update_aula(
+        id: int, request: AulaUpdate,
+        current_user: ProfesorDTO = Depends(check_admin_role),
+        db: Session = Depends(get_db)
 ):
-    """
-    Genera el calendario para el año actual a partir de archivos de tablas y horarios.
+    logger.info(f"Request recibida de {current_user.username}: Actualizar aula con ID {id}")
+    return dao_aula.update_aula(id, request, db)
 
-    :param tablas: Archivo de tablas.
-    :type tablas: UploadFile
-    :param calenario: Archivo de calendario.
-    :type calenario: UploadFile
-    :param current_user: El usuario actual.
-    :type current_user: ProfesorDTO
-    :returns: Un mensaje indicando que los horarios se generaron correctamente.
-    :rtype: dict
-    :raises HTTPException: Si el usuario actual no tiene permisos para realizar esta acción.
-    """
-    if current_user.rol.id_rol != 1:
-        raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
-    tablas_byte = await tablas.read()
-    horarios_byte = await calenario.read()
-    generate_tables_from_files(BytesIO(tablas_byte), BytesIO(horarios_byte))
-    return {"message": "Horarios generados correctamente"}
+@router.delete(
+    "/{id}",
+    summary="Elimina un aula de la base de datos",
+    description="Esta llamada elimina un aula en base al ID de la misma",
+    status_code=status.HTTP_204_NO_CONTENT
+)
+async def delete_aula(
+        id: int,
+        current_user: ProfesorDTO = Depends(check_admin_role),
+        db: Session = Depends(get_db)
+):
+    logger.info(f"Request recibida de {current_user.username}: Eliminar aula con ID {id}")
+    return dao_aula.delete_aula(id, db)
