@@ -1,10 +1,11 @@
-import logging
+from typing import Dict
 import pandas as pd
 from db.database import Session
 from db.models import Aula
+from utils.logger import logger
 
 
-def load_aulas_from_xml(dataframes: pd.DataFrame = pd.DataFrame()):
+def generate_aulas_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """
     Carga aulas desde un DataFrame de pandas y las inserta en la base de datos.
 
@@ -46,7 +47,7 @@ def load_aulas_from_xml(dataframes: pd.DataFrame = pd.DataFrame()):
 
     try:
         db.commit()
-        logging.info(f"Aulas insertadas -> {len(aulas)}")
+        logger.info(f"Aulas insertadas -> {len(aulas)}")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")

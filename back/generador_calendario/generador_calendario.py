@@ -1,10 +1,10 @@
 import pandas as pd
 from db.database import Session
 from db.models import Calendario
-import logging
+from utils.logger import logger
 
 
-def generate_calendario(df_calendario: pd.DataFrame = pd.DataFrame()):
+def generate_calendario_from_dataframe(df_calendario: pd.DataFrame):
     """
     Genera entradas de calendario y las inserta en la base de datos.
 
@@ -47,8 +47,8 @@ def generate_calendario(df_calendario: pd.DataFrame = pd.DataFrame()):
 
     try:
         db.commit()
-        logging.info(f"Calendarios insertados -> {len(calendarios)}")
+        logger.info(f"Calendarios insertados -> {len(calendarios)}")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
 

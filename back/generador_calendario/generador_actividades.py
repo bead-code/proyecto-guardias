@@ -1,10 +1,11 @@
-import logging
+from typing import Dict
 import pandas as pd
 from db.database import Session
 from db.models import Actividad
+from utils.logger import logger
 
 
-def load_actividades_from_xml(dataframes: pd.DataFrame):
+def generate_actividades_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """
     Carga actividades desde un DataFrame de pandas y las inserta en la base de datos.
 
@@ -49,7 +50,7 @@ def load_actividades_from_xml(dataframes: pd.DataFrame):
 
     try:
         db.commit()
-        logging.info(f"Actividades insertadas -> {len(actividades)}")
+        logger.info(f"Actividades insertadas -> {len(actividades)}")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")

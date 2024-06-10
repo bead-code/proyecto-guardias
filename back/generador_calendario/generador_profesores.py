@@ -1,11 +1,12 @@
-import logging
+from typing import Dict
 import pandas as pd
 from db.database import Session
 from db.models import Profesor
 from security.hash import Hash
+from utils.logger import logger
 
 
-def load_profesores_from_xml(dataframes: pd.DataFrame):
+def generate_profesores_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """
     Carga profesores desde un DataFrame de pandas y los inserta en la base de datos.
 
@@ -77,7 +78,7 @@ def load_profesores_from_xml(dataframes: pd.DataFrame):
 
     try:
         db.commit()
-        logging.info(f"Profesores insertados -> {len(profesores)}")
+        logger.info(f"Profesores insertados -> {len(profesores)}")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
