@@ -1,3 +1,31 @@
+"""
+API Router para gestionar las operaciones CRUD del calendario.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Calendario` en la base de datos.
+
+Rutas
+-----
+
+* **GET /calendario/{id}**: Obtiene un calendario por su ID.
+* **GET /calendario/{profesor_id}**: Obtiene el calendario de un profesor por su ID.
+* **GET /calendario/profesor/{profesor_id}**: Obtiene el calendario actual de un profesor.
+* **POST /calendario/**: Crea un nuevo calendario.
+* **POST /calendario/generar_calendario/**: Genera el calendario para el año actual a partir de los XML enviados.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from io import BytesIO
 from typing import List
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
@@ -29,6 +57,14 @@ def get_calendario_by_id(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un calendario por su ID.
+
+    :param id: ID del calendario.
+    :param current_user: Usuario autenticado con permisos de administrador.
+    :param db: Sesión de la base de datos.
+    :return: CalendarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID {id}")
     return dao_calendario.get_calendario_by_id(id, db)
 
@@ -45,6 +81,14 @@ async def get_calendario_by_id_profesor(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene el calendario de un profesor por su ID.
+
+    :param profesor_id: ID del profesor.
+    :param current_user: Usuario autenticado.
+    :param db: Sesión de la base de datos.
+    :return: List[CalendarioDTO]
+    """
     if current_user.id != profesor_id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID profesor {profesor_id}")
@@ -59,11 +103,19 @@ async def get_calendario_by_id_profesor(
     response_model=List[CalendarioDTO],
     status_code=status.HTTP_200_OK
 )
-async def get_calendario_actual_by_id_profesor(
+async def get_actual_calendario_by_id_profesor(
         profesor_id: int,
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene el calendario actual de un profesor por su ID.
+
+    :param profesor_id: ID del profesor.
+    :param current_user: Usuario autenticado.
+    :param db: Sesión de la base de datos.
+    :return: List[CalendarioDTO]
+    """
     if current_user.id != profesor_id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario actual con ID profesor {profesor_id}")
@@ -83,6 +135,14 @@ async def create_calendario(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Crea un nuevo calendario.
+
+    :param calendario: Datos para crear un nuevo calendario.
+    :param current_user: Usuario autenticado con permisos de administrador.
+    :param db: Sesión de la base de datos.
+    :return: CalendarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Crear calendario con datos {calendario}")
     return dao_calendario.create_calendario(calendario, db)
 
@@ -98,11 +158,20 @@ async def upload_tables(
         calenario: UploadFile = File(...),
         current_user: ProfesorDTO = Depends(get_current_profesor)
 ):
+    """
+    Genera el calendario para el año actual a partir de los archivos XML enviados.
+
+    :param tablas: Archivo XML con las tablas.
+    :param calenario: Archivo XML con el calendario.
+    :param current_user: Usuario autenticado.
+    :return: Mensaje de éxito.
+    """
     if current_user.rol.id_rol != 1:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     tablas_byte = await tablas.read()
     horarios_byte = await calenario.read()
     generate_tables_from_files(BytesIO(tablas_byte), BytesIO(horarios_byte))
     return {"message": "Horarios generados correctamente"}
+
 
 
