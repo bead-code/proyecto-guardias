@@ -1,8 +1,7 @@
 import {EtiquetaPersonalizada} from "../../formField/EtiquetaPersonalizada.jsx";
-import * as PropTypes from "prop-types";
-import {useRef, useState} from "react";
-import {Navigate} from "react-router-dom";
-import { styled } from '@mui/material/styles';
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {styled} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
@@ -20,7 +19,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 
-function FileShow({ fichero, handleRemove }) {
+function FileShow({fichero, handleRemove}) {
     // Limitar la longitud del nombre del fichero a mostrar
     const MAX_LENGTH = 20;
     const nombreFichero = fichero.name.length > MAX_LENGTH
@@ -37,6 +36,7 @@ function FileShow({ fichero, handleRemove }) {
         </div>
     )
 }
+
 function InputFile({texto, fichero, setFichero, props}) {
     // Manejar la eliminacion del fichero
     const handleRemove = () => {
@@ -52,17 +52,17 @@ function InputFile({texto, fichero, setFichero, props}) {
         <div className={'flex flex-col lg:w-1/2 w-full gap-2 min-h-full justify-between'}>
             <EtiquetaPersonalizada>{texto}</EtiquetaPersonalizada>
             {fichero
-                ? <FileShow fichero={fichero} handleRemove={handleRemove} />
+                ? <FileShow fichero={fichero} handleRemove={handleRemove}/>
                 : <Button
-                component="label"
-                role={undefined}
-                variant="contained"
-                tabIndex={-1}
-                startIcon={<CloudUploadIcon />}
-            >
-                Upload file
-                <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
-            </Button>}
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<CloudUploadIcon/>}
+                >
+                    Upload file
+                    <VisuallyHiddenInput type="file" onChange={handleFileChange}/>
+                </Button>}
         </div>
     )
 }
@@ -70,6 +70,7 @@ function InputFile({texto, fichero, setFichero, props}) {
 export function UploadPage({handleFile}) {
     const [ficheroIds, setFicheroIds] = useState(null);
     const [ficheroRelaciones, setFicheroRelaciones] = useState(null);
+    const navigate = useNavigate();
 
     const manejarSubida = (e) => {
         e.preventDefault();
@@ -89,7 +90,7 @@ export function UploadPage({handleFile}) {
         }).catch((error) => {
             console.error('Error al subir los datos');
         });
-        Navigate({to: "/"});
+        navigate("/");
     }
 
 
