@@ -211,7 +211,7 @@ def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_i
         db.commit()
         logger.info("Calendario actualizado exitosamente")
     except Exception as e:
-        logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}"
+        logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
 
     if update_query == 0:
