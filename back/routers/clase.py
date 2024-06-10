@@ -1,5 +1,4 @@
 from typing import List
-
 from fastapi import APIRouter, Depends
 from starlette import status
 from dao import dao_clase
@@ -13,7 +12,6 @@ router = APIRouter(
     tags=["clase"],
 )
 
-
 @router.get(
     "/{id}",
     summary="Devuelve una clase de la base de datos",
@@ -26,9 +24,20 @@ def get_clase_by_id(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene una clase por su ID.
 
+    :param id: El ID de la clase a buscar.
+    :type id: int
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: La clase encontrada.
+    :rtype: ClaseDTO
+    """
+    logger.info(f"Request recibida de {current_user.username}: Obtener clase con ID {id}")
     return dao_clase.get_clase_by_id(id, db)
-
 
 @router.get(
     "/nombre/{nombre}",
@@ -43,9 +52,20 @@ def get_clase_by_nombre(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene una clase por su nombre.
+
+    :param nombre: El nombre de la clase a buscar.
+    :type nombre: str
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: La clase encontrada.
+    :rtype: ClaseDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener clase con nombre {nombre}")
     return dao_clase.get_clase_by_nombre(nombre, db)
-
 
 @router.get(
     "/",
@@ -57,10 +77,20 @@ def get_clase_by_nombre(
 )
 def get_clases(
         current_user: ProfesorDTO = Depends(check_admin_role),
-        db: Session = Depends(get_db)):
+        db: Session = Depends(get_db)
+):
+    """
+    Obtiene todas las clases activas.
+
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todas las clases activas.
+    :rtype: List[ClaseDTO]
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener todas las clases")
     return dao_clase.get_clases(db)
-
 
 @router.post(
     "/",
@@ -68,16 +98,27 @@ def get_clases(
     description="Esta llamada crea una clase en la base de datos",
     response_description="La clase creada en la base de datos",
     response_model=ClaseDTO,
-    status_code=status.HTTP_200_OK
+    status_code=status.HTTP_201_CREATED
 )
 def create_clase(
         request: ClaseCreate,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Crea una nueva clase.
+
+    :param request: Los datos de la clase a crear.
+    :type request: ClaseCreate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: La clase creada.
+    :rtype: ClaseDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Crear clase con nombre {request.nombre}")
     return dao_clase.create_clase(request, db)
-
 
 @router.put(
     "/{id}",
@@ -93,9 +134,22 @@ def update_clase(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Actualiza una clase existente.
+
+    :param id: El ID de la clase a actualizar.
+    :type id: int
+    :param request: Los nuevos datos de la clase.
+    :type request: ClaseUpdate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: La clase actualizada.
+    :rtype: ClaseDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Actualizar clase con ID {id}")
     return dao_clase.update_clase(id, request, db)
-
 
 @router.delete(
     "/{id}",
@@ -108,5 +162,15 @@ def delete_clase(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Elimina (desactiva) una clase por su ID.
+
+    :param id: El ID de la clase a eliminar.
+    :type id: int
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    """
     logger.info(f"Request recibida de {current_user.username}: Eliminar clase con ID {id}")
     return dao_clase.delete_clase(id, db)

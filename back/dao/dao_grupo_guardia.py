@@ -6,8 +6,20 @@ from db.models import Calendario, Profesor
 
 id_actividad_guardia = 65
 
-
 def get_grupo_guardia(id_tramo: int, dia: int, db: Session):
+    """
+    Obtiene el grupo de guardia asignado a un tramo horario y día específicos.
+
+    :param id_tramo: El ID del tramo horario.
+    :type id_tramo: int
+    :param dia: El día de la semana (0-6, donde 0 es lunes y 6 es domingo).
+    :type dia: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de profesores asignados a la guardia en el tramo horario y día especificados.
+    :rtype: List[Profesor]
+    :raises HTTPException: Si no hay guardias asignadas a este grupo de guardia.
+    """
     profesor = (
         db.query(Profesor)
         .join(Calendario, Calendario.id_profesor == Profesor.id_profesor)
@@ -25,8 +37,15 @@ def get_grupo_guardia(id_tramo: int, dia: int, db: Session):
         )
     return profesor
 
-
 def get_grupos_guardia(db: Session):
+    """
+    Obtiene todos los grupos de guardia.
+
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Un diccionario donde las claves son tuplas (día, id_tramo_horario) y los valores son listas de profesores asignados a guardias.
+    :rtype: dict
+    """
     resultados = (
         db.query(Calendario.dia, Calendario.id_tramo_horario, Profesor)
         .join(Profesor, Calendario.id_profesor == Profesor.id_profesor)
@@ -34,12 +53,9 @@ def get_grupos_guardia(db: Session):
         .filter(Calendario.id_actividad == id_actividad_guardia)
         .all()
     )
-
     grupos_guardia = {}
-
     for dia, id_tramo_horario, profesor in resultados:
         if (dia, id_tramo_horario) not in grupos_guardia:
             grupos_guardia[(dia, id_tramo_horario)] = []
         grupos_guardia[(dia, id_tramo_horario)].append(profesor)
-
     return grupos_guardia

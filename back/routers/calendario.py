@@ -1,4 +1,3 @@
-import logging
 from io import BytesIO
 from typing import List
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException

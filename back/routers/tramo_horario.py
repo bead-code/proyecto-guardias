@@ -1,10 +1,7 @@
-import logging
 from typing import List
-
 from fastapi import APIRouter, Depends
 from starlette import status
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED
-
 from dao import dao_tramo_horario
 from db.database import Session, get_db
 from db.schemas import TramoHorarioDTO, TramoHorarioCreate, TramoHorarioUpdate, ProfesorDTO
@@ -15,7 +12,6 @@ router = APIRouter(
     prefix="/tramo_horario",
     tags=["tramo_horario"],
 )
-
 
 @router.get(
     "/{id}",
@@ -29,9 +25,20 @@ async def get_tramo_horario_by_id(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un tramo horario por su ID.
+
+    :param id: El ID del tramo horario a buscar.
+    :type id: int
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El tramo horario encontrado.
+    :rtype: TramoHorarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener tramo horario con ID {id}")
     return dao_tramo_horario.get_tramo_horario_by_id(id, db)
-
 
 @router.get(
     "/nombre/{nombre}",
@@ -46,9 +53,20 @@ async def get_tramo_horario_by_nombre(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un tramo horario por su nombre.
+
+    :param nombre: El nombre del tramo horario a buscar.
+    :type nombre: str
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El tramo horario encontrado.
+    :rtype: TramoHorarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener tramo horario con nombre {nombre}")
     return dao_tramo_horario.get_tramo_horario_by_nombre(nombre, db)
-
 
 @router.get(
     "/",
@@ -60,9 +78,18 @@ async def get_tramo_horario_by_nombre(
 async def get_tramos_horarios(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)):
+    """
+    Obtiene todos los tramos horarios activos.
+
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todos los tramos horarios activos.
+    :rtype: List[TramoHorarioDTO]
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los tramos horarios")
     return dao_tramo_horario.get_tramos_horarios(db)
-
 
 @router.post(
     "/",
@@ -76,9 +103,20 @@ async def create_tramo_horario(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Crea un nuevo tramo horario.
+
+    :param request: Los datos del tramo horario a crear.
+    :type request: TramoHorarioCreate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El tramo horario creado.
+    :rtype: TramoHorarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Crear tramo horario con nombre {request.nombre}")
     return dao_tramo_horario.create_tramo_horario(request, db)
-
 
 @router.put(
     "/{id}",
@@ -94,9 +132,22 @@ async def update_tramo_horario(
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Actualiza un tramo horario existente.
+
+    :param id: El ID del tramo horario a actualizar.
+    :type id: int
+    :param request: Los nuevos datos del tramo horario.
+    :type request: TramoHorarioUpdate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El tramo horario actualizado.
+    :rtype: TramoHorarioDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Actualizar tramo horario con ID {id}")
     return dao_tramo_horario.update_tramo_horario(id, request, db)
-
 
 @router.delete(
     "/{id}",
@@ -109,5 +160,15 @@ async def delete_tramo_horario(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Elimina (desactiva) un tramo horario por su ID.
+
+    :param id: El ID del tramo horario a eliminar.
+    :type id: int
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    """
     logger.info(f"Request recibida de {current_user.username}: Eliminar tramo horario con ID {id}")
     return dao_tramo_horario.delete_tramo_horario(id, db)

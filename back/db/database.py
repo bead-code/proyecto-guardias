@@ -19,14 +19,24 @@ Session = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 def get_db():
+    """
+    Obtiene una sesión de la base de datos.
+
+    :returns: La sesión de la base de datos.
+    :rtype: Session
+    """
     db = Session()
     try:
         yield db
     finally:
         db.close()
 
-
 def truncate_all_tables():
+    """
+    Elimina todos los datos de todas las tablas de la base de datos.
+
+    :raises HTTPException: Si ocurre un error al eliminar los datos de las tablas.
+    """
     meta = MetaData()
     meta.reflect(bind=engine)
     with engine.connect() as conn:
@@ -43,5 +53,5 @@ def truncate_all_tables():
             logging.info("Todos los datos han sido eliminados de todas las tablas existentes.")
         except SQLAlchemyError as e:
             trans.rollback()
-            print(f"Error al eliminar los datos: {e}")
+            logging.error(f"Error al eliminar los datos: {e}")
             raise HTTPException(status_code=500, detail="Error al eliminar los datos de las tablas")

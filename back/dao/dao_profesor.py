@@ -4,32 +4,74 @@ from datetime import date
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
+import logging
+from fastapi import HTTPException
+from db.database import Session
 from db.models import Profesor, Rol, Calendario
 from db.schemas import ProfesorCreate, ProfesorUpdate
+from datetime import date
 
+def get_profesor_by_id(id: int, db: Session):
+    """
+    Obtiene un profesor por su ID.
 
-def get_profesor_by_id(id: id, db: Session):
+    :param id: El ID del profesor a buscar.
+    :type id: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El profesor encontrado.
+    :rtype: Profesor
+    :raises HTTPException: Si el profesor no existe en la base de datos.
+    """
     profesor = db.query(Profesor).filter(Profesor.id_profesor == id).filter(Profesor.activo == True).first()
     if not profesor:
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
     return profesor
 
-
 def get_profesor_by_username(username: str, db: Session):
+    """
+    Obtiene un profesor por su nombre de usuario.
+
+    :param username: El nombre de usuario del profesor a buscar.
+    :type username: str
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El profesor encontrado.
+    :rtype: Profesor
+    :raises HTTPException: Si el profesor no existe en la base de datos.
+    """
     profesor = db.query(Profesor).filter(Profesor.username == username).filter(Profesor.activo == True).first()
     if not profesor:
         raise HTTPException(status_code=404, detail="El profesor no existe en la base de datos")
     return profesor
 
-
 def get_profesores(db: Session):
+    """
+    Obtiene todos los profesores activos.
+
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todos los profesores activos.
+    :rtype: List[Profesor]
+    :raises HTTPException: Si no hay profesores registrados en la base de datos.
+    """
     profesores = db.query(Profesor).filter(Profesor.activo == True).all()
     if not profesores:
         raise HTTPException(status_code=404, detail="No hay profesores registrados en la base de datos")
     return profesores
 
+def create_profesor(request: ProfesorCreate, db: Session):
+    """
+    Crea un nuevo profesor.
 
-def create_profesor(request: ProfesorCreate, db: Session, ):
+    :param request: Los datos del profesor a crear.
+    :type request: ProfesorCreate
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El profesor creado.
+    :rtype: Profesor
+    :raises HTTPException: Si el rol es incorrecto, el profesor ya existe o si ocurre un error al insertarlo.
+    """
     rol = db.query(Rol).filter(Rol.id == request.rol_id).filter(Profesor.activo == True).first()
     if not rol:
         raise HTTPException(status_code=404, detail="Rol incorrecto")
@@ -55,6 +97,19 @@ def create_profesor(request: ProfesorCreate, db: Session, ):
     return new_profesor
 
 def update_profesor(id: int, request: ProfesorUpdate, db: Session):
+    """
+    Actualiza un profesor existente.
+
+    :param id: El ID del profesor a actualizar.
+    :type id: int
+    :param request: Los nuevos datos del profesor.
+    :type request: ProfesorUpdate
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El profesor actualizado.
+    :rtype: Profesor
+    :raises HTTPException: Si ocurre un error al modificar el profesor.
+    """
     profesor = get_profesor_by_id(id, db)
     for key, value in request.dict(exclude_unset=True).items():
         setattr(profesor, key, value)
@@ -68,6 +123,15 @@ def update_profesor(id: int, request: ProfesorUpdate, db: Session):
         raise HTTPException(status_code=400)
 
 def delete_profesor(id: int, db: Session):
+    """
+    Elimina (desactiva) un profesor por su ID.
+
+    :param id: El ID del profesor a eliminar.
+    :type id: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :raises HTTPException: Si ocurre un error al eliminar el profesor.
+    """
     profesor = get_profesor_by_id(id, db)
     profesor.activo = False
     try:
@@ -79,8 +143,20 @@ def delete_profesor(id: int, db: Session):
         logging.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
 
-
 def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: int, db: Session):
+    """
+    Obtiene los profesores disponibles en un tramo horario específico.
+
+    :param fecha: La fecha del tramo horario.
+    :type fecha: date
+    :param id_tramo_horario: El ID del tramo horario.
+    :type id_tramo_horario: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de profesores disponibles.
+    :rtype: List[Profesor]
+    :raises HTTPException: Si no hay profesores disponibles en el tramo horario.
+    """
     profesores = (
         db.query(Profesor)
         .join(Calendario, Calendario.id_profesor == Profesor.id_profesor)

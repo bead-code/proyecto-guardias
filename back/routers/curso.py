@@ -23,8 +23,20 @@ router = APIRouter(
 async def get_curso(
         id: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
-        db:Session = Depends(get_db)
+        db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un curso por su ID.
+
+    :param id: El ID del curso a buscar.
+    :type id: int
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El curso encontrado.
+    :rtype: CursoDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener curso con ID {id}")
     return dao_curso.get_curso_by_id(id, db)
 
@@ -39,7 +51,20 @@ async def get_curso(
 async def get_curso_by_name(
         nombre: str,
         current_user: ProfesorDTO = Depends(check_admin_role),
-        db:Session = Depends(get_db)):
+        db: Session = Depends(get_db)
+):
+    """
+    Obtiene un curso por su nombre.
+
+    :param nombre: El nombre del curso a buscar.
+    :type nombre: str
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El curso encontrado.
+    :rtype: CursoDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener curso con nombre {nombre}")
     return dao_curso.get_curso_by_nombre(nombre, db)
 
@@ -52,8 +77,18 @@ async def get_curso_by_name(
     status_code=status.HTTP_200_OK)
 async def get_cursos(
         current_user: ProfesorDTO = Depends(check_admin_role),
-        db:Session = Depends(get_db)
+        db: Session = Depends(get_db)
 ):
+    """
+    Obtiene todos los cursos activos.
+
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todos los cursos activos.
+    :rtype: List[CursoDTO]
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los cursos")
     return dao_curso.get_cursos(db)
 
@@ -67,9 +102,21 @@ async def get_cursos(
 )
 async def create_curso(
         request: CursoCreate,
-        current_user: ProfesorDTO = Depends(check_admin_role ),
-        db:Session = Depends(get_db)
+        current_user: ProfesorDTO = Depends(check_admin_role),
+        db: Session = Depends(get_db)
 ):
+    """
+    Crea un nuevo curso.
+
+    :param request: Los datos del curso a crear.
+    :type request: CursoCreate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El curso creado.
+    :rtype: CursoDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Crear curso con nombre {request.nombre}")
     return dao_curso.create_curso(request, db)
 
@@ -82,10 +129,25 @@ async def create_curso(
     status_code=status.HTTP_200_OK
 )
 async def update_curso(
-        id: int, request: CursoUpdate,
-        current_user: ProfesorDTO = Depends( check_admin_role),
+        id: int,
+        request: CursoUpdate,
+        current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
+    """
+    Actualiza un curso existente.
+
+    :param id: El ID del curso a actualizar.
+    :type id: int
+    :param request: Los nuevos datos del curso.
+    :type request: CursoUpdate
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El curso actualizado.
+    :rtype: CursoDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Actualizar curso con ID {id}")
     return dao_curso.update_curso(id, request, db)
 
@@ -98,8 +160,18 @@ async def update_curso(
 async def delete_curso(
         id: int,
         current_user: ProfesorDTO = Depends(check_admin_role),
-        db:Session = Depends(get_db)
+        db: Session = Depends(get_db)
 ):
+    """
+    Elimina (desactiva) un curso por su ID.
+
+    :param id: El ID del curso a eliminar.
+    :type id: int
+    :param current_user: El usuario actual con rol de administrador.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    """
     logger.info(f"Request recibida de {current_user.username}: Eliminar curso con ID {id}")
     return dao_curso.delete_curso(id, db)
 

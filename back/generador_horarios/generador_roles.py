@@ -8,8 +8,19 @@ roles = {
     4: "PROFESOR"
 }
 
-
 def generar_roles():
+    """
+    Genera roles predeterminados en la base de datos.
+
+    Esta función crea una lista de roles predeterminados y los inserta en la base de datos.
+    Si ocurre un error durante la inserción, la transacción es revertida.
+
+    Los roles generados son:
+    - ADMIN
+    - DIRECTOR
+    - JEFE_DE_ESTUDIOS
+    - PROFESOR
+    """
     db = Session()
     lista_roles = []
     for id, role in roles.items():
@@ -24,3 +35,5 @@ def generar_roles():
         db.commit()
     except Exception as e:
         db.rollback()
+        raise e  # Propaga la excepción para que pueda ser manejada en otro lugar si es necesario.
+

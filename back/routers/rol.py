@@ -1,10 +1,7 @@
-import logging
 from typing import List
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from starlette import status
-
 from dao import dao_rol
 from db.database import get_db
 from db.schemas import RolCreate, RolDTO, ProfesorDTO, RolUpdate
@@ -24,13 +21,24 @@ router = APIRouter(
     response_model=RolDTO,
     status_code=status.HTTP_200_OK
 )
-async def get_roll_by_id(
+async def get_rol_by_id(
         id: int, current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un rol por su ID.
+
+    :param id: El ID del rol a buscar.
+    :type id: int
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El rol encontrado.
+    :rtype: RolDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener rol con ID {id}")
     return dao_rol.get_rol_by_id(id, db)
-
 
 @router.get(
     '/nombre/{nombre}',
@@ -39,11 +47,23 @@ async def get_roll_by_id(
     response_description="El rol de la base de datos",
     response_model=RolDTO,
     status_code=status.HTTP_200_OK)
-async def get_roll_by_name(
+async def get_rol_by_nombre(
         nombre: str,
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene un rol por su nombre.
+
+    :param nombre: El nombre del rol a buscar.
+    :type nombre: str
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El rol encontrado.
+    :rtype: RolDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener rol con nombre {nombre}")
     return dao_rol.get_rol_by_nombre(nombre, db)
 
@@ -58,6 +78,16 @@ async def get_roles(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Obtiene todos los roles activos.
+
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todos los roles activos.
+    :rtype: List[RolDTO]
+    """
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los roles")
     return dao_rol.get_roles(db)
 
@@ -69,7 +99,23 @@ async def get_roles(
     response_model=RolDTO,
     status_code=status.HTTP_201_CREATED
 )
-async def create_rol(request: RolCreate, current_user: ProfesorDTO = Depends(get_current_profesor), db: Session = Depends(get_db)):
+async def create_rol(
+        request: RolCreate,
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
+    """
+    Crea un nuevo rol.
+
+    :param request: Los datos del rol a crear.
+    :type request: RolCreate
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El rol creado.
+    :rtype: RolDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Crear rol con nombre {request.nombre}")
     return dao_rol.create_rol(request, db)
 
@@ -87,9 +133,22 @@ async def update_rol(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Actualiza un rol existente.
+
+    :param id: El ID del rol a actualizar.
+    :type id: int
+    :param request: Los nuevos datos del rol.
+    :type request: RolUpdate
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: El rol actualizado.
+    :rtype: RolDTO
+    """
     logger.info(f"Request recibida de {current_user.username}: Actualizar rol con ID {id}")
     return dao_rol.update_rol(id, request, db)
-
 
 @router.delete(
     '/{id}',
@@ -102,5 +161,15 @@ async def delete_rol(
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
+    """
+    Elimina (desactiva) un rol por su ID.
+
+    :param id: El ID del rol a eliminar.
+    :type id: int
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    """
     logger.info(f"Request recibida de {current_user.username}: Eliminar rol con ID {id}")
     return dao_rol.delete_rol(id, db)
