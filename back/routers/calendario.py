@@ -155,7 +155,7 @@ async def create_calendario(
 )
 async def upload_tables(
         tablas: UploadFile = File(...),
-        calenario: UploadFile = File(...),
+        calendario: UploadFile = File(...),
         current_user: ProfesorDTO = Depends(get_current_profesor)
 ):
     """
@@ -169,7 +169,7 @@ async def upload_tables(
     if current_user.rol.id_rol != 1:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
     tablas_byte = await tablas.read()
-    horarios_byte = await calenario.read()
+    horarios_byte = await calendario.read()
     generate_tables_from_files(BytesIO(tablas_byte), BytesIO(horarios_byte))
     return {"message": "Horarios generados correctamente"}
 
