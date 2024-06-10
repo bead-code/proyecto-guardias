@@ -127,10 +127,6 @@ Obtener Profesor por ID
 
 .. autofunction:: dao.dao_profesor.get_profesor_by_id
 
-Obtener Profesor por Username
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. autofunction:: dao.dao_profesor.get_profesor_by_username
 
 Obtener Todos los Profesores
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -168,7 +164,7 @@ Obtener Guardia por ID
 
 .. autofunction:: dao.dao_guardia.get_guardia_by_id
 
-Obtener Guardia por Fecha
+Obtener todas las Guardia por fechas y tramo
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. autofunction:: dao.dao_guardia.get_guardia_by_fecha_tramo
@@ -196,7 +192,7 @@ Obtener Guardias de un profesor
 Crear Guardia
 ~~~~~~~~~~~~~~
 
-.. autofunction:: dao.dao_guardia.create_guadia
+.. autofunction:: dao.dao_guardia.create_guardia
 
 Asignar Profesor Sustituto a Guardia
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -462,11 +458,6 @@ Obtener Profesor por ID
 
 .. autofunction:: routers.profesor.get_profesor_by_id
 
-Obtener Profesor por Username
-~~~~~~~~~~~~~~~~~~~~~~~~
-
-.. autofunction:: routers.profesor.get_profesor_by_username
-
 Obtener Todos los Profesores
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -499,7 +490,7 @@ Routers de login
 Login
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: routers.login.login
+.. autofunction:: routers.login.get_token
 
 
 Routers para las Guardias

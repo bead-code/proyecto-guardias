@@ -136,10 +136,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_profesor.get_profesor_by_id"><code class="docutils literal notranslate"><span class="pre">get_profesor_by_id()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-profesor-por-username">Obtener Profesor por Username</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#dao.dao_profesor.get_profesor_by_username"><code class="docutils literal notranslate"><span class="pre">get_profesor_by_username()</span></code></a></li>
-</ul>
-</li>
 <li class="toctree-l3"><a class="reference internal" href="#obtener-todos-los-profesores">Obtener Todos los Profesores</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_profesor.get_profesores"><code class="docutils literal notranslate"><span class="pre">get_profesores()</span></code></a></li>
 </ul>
@@ -167,7 +163,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.get_guardia_by_id"><code class="docutils literal notranslate"><span class="pre">get_guardia_by_id()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-guardia-por-fecha">Obtener Guardia por Fecha</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-todas-las-guardia-por-fechas-y-tramo">Obtener todas las Guardia por fechas y tramo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.get_guardia_by_fecha_tramo"><code class="docutils literal notranslate"><span class="pre">get_guardia_by_fecha_tramo()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#obtener-todas-las-guardias">Obtener Todas las Guardias</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.get_guardias"><code class="docutils literal notranslate"><span class="pre">get_guardias()</span></code></a></li>
 </ul>
@@ -184,7 +183,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.get_guardias_by_profesor"><code class="docutils literal notranslate"><span class="pre">get_guardias_by_profesor()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#crear-guardia">Crear Guardia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crear-guardia">Crear Guardia</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.create_guardia"><code class="docutils literal notranslate"><span class="pre">create_guardia()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#asignar-profesor-sustituto-a-guardia">Asignar Profesor Sustituto a Guardia</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_guardia.assign_profesor_sustituto"><code class="docutils literal notranslate"><span class="pre">assign_profesor_sustituto()</span></code></a></li>
 </ul>
@@ -387,9 +389,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-profesores">Routers para los Profesores</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id13">Obtener Profesor por ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id14">Obtener Profesor por Username</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id15">Obtener Todos los Profesores</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Obtener Profesor por ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.profesor.get_profesor_by_id"><code class="docutils literal notranslate"><span class="pre">get_profesor_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Obtener Todos los Profesores</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.profesor.get_profesores"><code class="docutils literal notranslate"><span class="pre">get_profesores()</span></code></a></li>
 </ul>
 </li>
@@ -397,27 +401,33 @@
 <li class="toctree-l4"><a class="reference internal" href="#routers.profesor.get_profesores_disponibles_by_id_calendario"><code class="docutils literal notranslate"><span class="pre">get_profesores_disponibles_by_id_calendario()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id16">Crear Profesor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id15">Crear Profesor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.profesor.create_profesor"><code class="docutils literal notranslate"><span class="pre">create_profesor()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id17">Actualizar Profesor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id16">Actualizar Profesor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.profesor.update_profesor"><code class="docutils literal notranslate"><span class="pre">update_profesor()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id18">Eliminar Profesor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Eliminar Profesor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.profesor.delete_profesor"><code class="docutils literal notranslate"><span class="pre">delete_profesor()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-de-login">Routers de login</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#login">Login</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#login">Login</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.login.get_token"><code class="docutils literal notranslate"><span class="pre">get_token()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-guardias">Routers para las Guardias</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-guardias-por-fecha-y-tramo">Obtener guardias por fecha y tramo</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id19">Obtener todas las guardias</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-guardias-por-fecha-y-tramo">Obtener guardias por fecha y tramo</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.guardia.get_guardia_by_fecha_tramo"><code class="docutils literal notranslate"><span class="pre">get_guardia_by_fecha_tramo()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Obtener todas las guardias</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.guardia.get_guardias"><code class="docutils literal notranslate"><span class="pre">get_guardias()</span></code></a></li>
 </ul>
 </li>
@@ -429,15 +439,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#routers.guardia.get_guardias_pendientes"><code class="docutils literal notranslate"><span class="pre">get_guardias_pendientes()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id20">Obtener guardias de un profesor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id19">Obtener guardias de un profesor</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.guardia.get_guardias_by_profesor"><code class="docutils literal notranslate"><span class="pre">get_guardias_by_profesor()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id21">Crear guardia</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id20">Crear guardia</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.guardia.create_guardia"><code class="docutils literal notranslate"><span class="pre">create_guardia()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id22">Asignar profesor sustituto a guardia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Asignar profesor sustituto a guardia</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.guardia.assign_profesor_sustituto"><code class="docutils literal notranslate"><span class="pre">assign_profesor_sustituto()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-grupos-de-guardia">Routers para los Grupos de Guardia</a><ul>
@@ -445,76 +458,118 @@
 <li class="toctree-l4"><a class="reference internal" href="#routers.grupo_guardia.get_grupo_guardia"><code class="docutils literal notranslate"><span class="pre">get_grupo_guardia()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id23">Obtener todos los grupos de guardia</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id22">Obtener todos los grupos de guardia</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.grupo_guardia.get_grupos_guardia"><code class="docutils literal notranslate"><span class="pre">get_grupos_guardia()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-cursos">Routers para los Cursos</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id24">Obtener Curso por ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Obtener Curso por Nombre</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Obtener Todos los Cursos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id23">Obtener Curso por ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_curso_by_id"><code class="docutils literal notranslate"><span class="pre">get_curso_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Obtener Curso por Nombre</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_curso_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_curso_by_nombre()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Obtener Todos los Cursos</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_cursos"><code class="docutils literal notranslate"><span class="pre">get_cursos()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id27">Crear Curso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Crear Curso</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.curso.create_curso"><code class="docutils literal notranslate"><span class="pre">create_curso()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id28">Actualizar Curso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id27">Actualizar Curso</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.curso.update_curso"><code class="docutils literal notranslate"><span class="pre">update_curso()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id29">Eliminar Curso</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id28">Eliminar Curso</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.curso.delete_curso"><code class="docutils literal notranslate"><span class="pre">delete_curso()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-clases">Routers para las Clases</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id30">Obtener Clase por ID</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Obtener Clase por ID</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.get_clase_by_id"><code class="docutils literal notranslate"><span class="pre">get_clase_by_id()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id31">Obtener Clase por Nombre</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Obtener Clase por Nombre</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.get_clase_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_clase_by_nombre()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id32">Obtener Todas las Clases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id31">Obtener Todas las Clases</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.get_clases"><code class="docutils literal notranslate"><span class="pre">get_clases()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id33">Crear Clase</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id32">Crear Clase</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.create_clase"><code class="docutils literal notranslate"><span class="pre">create_clase()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">Actualizar Clase</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Actualizar Clase</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.update_clase"><code class="docutils literal notranslate"><span class="pre">update_clase()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id35">Eliminar Clase</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id34">Eliminar Clase</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.clase.delete_clase"><code class="docutils literal notranslate"><span class="pre">delete_clase()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-calendarios">Routers para los Calendarios</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-por-id">Obtener Calendario por ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor">Obtener Calendario de un Profesor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor-en-la-hora-actual">Obtener Calendario de un Profesor en la hora actual</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id36">Crear Calendario</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#generar-calendario-a-partir-de-dos-archivos-xml">Generar Calendario a partir de dos archivos XML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-por-id">Obtener Calendario por ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.get_calendario_by_id"><code class="docutils literal notranslate"><span class="pre">get_calendario_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor">Obtener Calendario de un Profesor</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.get_calendario_by_id_profesor"><code class="docutils literal notranslate"><span class="pre">get_calendario_by_id_profesor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor-en-la-hora-actual">Obtener Calendario de un Profesor en la hora actual</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.get_actual_calendario_by_id_profesor"><code class="docutils literal notranslate"><span class="pre">get_actual_calendario_by_id_profesor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id35">Crear Calendario</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.create_calendario"><code class="docutils literal notranslate"><span class="pre">create_calendario()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generar-calendario-a-partir-de-dos-archivos-xml">Generar Calendario a partir de dos archivos XML</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.upload_tables"><code class="docutils literal notranslate"><span class="pre">upload_tables()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-aulas">Routers para las Aulas</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id37">Obtener Aula por ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-aula-por-nombre">Obtener Aula por Nombre</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id38">Obtener Todas las Aulas</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id39">Crear Aula</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id40">Actualizar Aula</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id41">Eliminar Aula</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Obtener Aula por ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.get_aula_by_id"><code class="docutils literal notranslate"><span class="pre">get_aula_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-aula-por-nombre">Obtener Aula por Nombre</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.get_aula_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_aula_by_nombre()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Obtener Todas las Aulas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.get_aulas"><code class="docutils literal notranslate"><span class="pre">get_aulas()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id38">Crear Aula</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.create_aula"><code class="docutils literal notranslate"><span class="pre">create_aula()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id39">Actualizar Aula</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.update_aula"><code class="docutils literal notranslate"><span class="pre">update_aula()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Eliminar Aula</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.aula.delete_aula"><code class="docutils literal notranslate"><span class="pre">delete_aula()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-actividades">Routers para las Actividades</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id42">Obtener Actividad por ID</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Obtener Actividad por ID</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividad_by_id"><code class="docutils literal notranslate"><span class="pre">get_actividad_by_id()</span></code></a></li>
 </ul>
 </li>
@@ -522,19 +577,19 @@
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividad_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_actividad_by_nombre()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id43">Obtener Todas las Actividades</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Obtener Todas las Actividades</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividades"><code class="docutils literal notranslate"><span class="pre">get_actividades()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id44">Crear Actividad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id43">Crear Actividad</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.create_actividad"><code class="docutils literal notranslate"><span class="pre">create_actividad()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id45">Actualizar Actividad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Actualizar Actividad</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.update_actividad"><code class="docutils literal notranslate"><span class="pre">update_actividad()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id46">Eliminar Actividad</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Eliminar Actividad</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.delete_actividad"><code class="docutils literal notranslate"><span class="pre">delete_actividad()</span></code></a></li>
 </ul>
 </li>
@@ -599,7 +654,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id47">Login</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id46">Login</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#schema-de-los-datos-de-login">Schema de los datos de login</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#db.schemas.LoginData"><code class="docutils literal notranslate"><span class="pre">LoginData</span></code></a></li>
 </ul>
@@ -754,7 +809,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id48">Generador de calendario</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id47">Generador de calendario</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#generador-de-calendario-a-partir-de-un-dataframe">Generador de calendario a partir de un dataframe</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_calendario.generate_calendario_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_calendario_from_dataframe()</span></code></a></li>
 </ul>
@@ -783,7 +838,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#generador-de-roles">Generador de roles</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id49">Generador de roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id48">Generador de roles</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_roles.generate_roles"><code class="docutils literal notranslate"><span class="pre">generate_roles()</span></code></a></li>
 </ul>
 </li>
@@ -801,7 +856,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto">Generador de tablas de la base de datos a partir de dos archivos XML por defecto</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">Generador de las tablas de la base de datos a partir de dos archivo XML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generador_calendario.generador_tablas.generate_tables_from_path"><code class="docutils literal notranslate"><span class="pre">generate_tables_from_path()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">Generador de las tablas de la base de datos a partir de dos archivo XML</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_tablas.generate_tables_from_files"><code class="docutils literal notranslate"><span class="pre">generate_tables_from_files()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -1223,32 +1282,6 @@
 </dd></dl>
 
 </section>
-<section id="obtener-profesor-por-username">
-<h3>Obtener Profesor por Username<a class="headerlink" href="#obtener-profesor-por-username" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="dao.dao_profesor.get_profesor_by_username">
-<span class="sig-prename descclassname"><span class="pre">dao.dao_profesor.</span></span><span class="sig-name descname"><span class="pre">get_profesor_by_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">username:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_profesor.get_profesor_by_username" title="Link to this definition"></a></dt>
-<dd><p>Obtiene un profesor por su nombre de usuario.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>username</strong> (<em>str</em>) – El nombre de usuario del profesor a buscar.</p></li>
-<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>El profesor encontrado.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a></p>
-</dd>
-<dt class="field-even">Muestra<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>HTTPException</strong> – Si el profesor no existe en la base de datos.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
 <section id="obtener-todos-los-profesores">
 <h3>Obtener Todos los Profesores<a class="headerlink" href="#obtener-todos-los-profesores" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -1402,8 +1435,33 @@
 </dd></dl>
 
 </section>
-<section id="obtener-guardia-por-fecha">
-<h3>Obtener Guardia por Fecha<a class="headerlink" href="#obtener-guardia-por-fecha" title="Link to this heading"></a></h3>
+<section id="obtener-todas-las-guardia-por-fechas-y-tramo">
+<h3>Obtener todas las Guardia por fechas y tramo<a class="headerlink" href="#obtener-todas-las-guardia-por-fechas-y-tramo" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dao.dao_guardia.get_guardia_by_fecha_tramo">
+<span class="sig-prename descclassname"><span class="pre">dao.dao_guardia.</span></span><span class="sig-name descname"><span class="pre">get_guardia_by_fecha_tramo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_profesor:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_tramo_horario:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_guardia.get_guardia_by_fecha_tramo" title="Link to this definition"></a></dt>
+<dd><p>Obtiene la guardia de un profesor filtrada por fecha y tramo horario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_profesor</strong> (<em>int</em>) – El ID del profesor.</p></li>
+<li><p><strong>fecha</strong> (<em>date</em>) – La fecha de la guardia.</p></li>
+<li><p><strong>id_tramo_horario</strong> (<em>int</em>) – El ID del tramo horario.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>La guardia encontrada.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.Calendario" title="db.models.Calendario">Calendario</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si no hay guardias asignadas.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-todas-las-guardias">
 <h3>Obtener Todas las Guardias<a class="headerlink" href="#obtener-todas-las-guardias" title="Link to this heading"></a></h3>
@@ -1494,6 +1552,33 @@
 </section>
 <section id="crear-guardia">
 <h3>Crear Guardia<a class="headerlink" href="#crear-guardia" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dao.dao_guardia.create_guardia">
+<span class="sig-prename descclassname"><span class="pre">dao.dao_guardia.</span></span><span class="sig-name descname"><span class="pre">create_guardia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_profesor:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha_inicio:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha_fin:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hora_inicio:</span> <span class="pre">~datetime.time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hora_fin:</span> <span class="pre">~datetime.time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_guardia.create_guardia" title="Link to this definition"></a></dt>
+<dd><p>Crea una nueva guardia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_profesor</strong> (<em>int</em>) – El ID del profesor.</p></li>
+<li><p><strong>fecha_inicio</strong> (<em>date</em>) – La fecha de inicio de la guardia.</p></li>
+<li><p><strong>fecha_fin</strong> (<em>date</em>) – La fecha de fin de la guardia.</p></li>
+<li><p><strong>hora_inicio</strong> (<em>time</em>) – La hora de inicio de la guardia.</p></li>
+<li><p><strong>hora_fin</strong> (<em>time</em>) – La hora de fin de la guardia.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Una lista de registros actualizados.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#db.models.Calendario" title="db.models.Calendario">Calendario</a>]</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si no se encontraron registros para actualizar o si ocurre un error al actualizar.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="asignar-profesor-sustituto-a-guardia">
 <h3>Asignar Profesor Sustituto a Guardia<a class="headerlink" href="#asignar-profesor-sustituto-a-guardia" title="Link to this heading"></a></h3>
@@ -2579,12 +2664,33 @@
 <h2>Routers para los Profesores<a class="headerlink" href="#routers-para-los-profesores" title="Link to this heading"></a></h2>
 <section id="id13">
 <h3>Obtener Profesor por ID<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.profesor.get_profesor_by_id">
+<span class="sig-prename descclassname"><span class="pre">routers.profesor.</span></span><span class="sig-name descname"><span class="pre">get_profesor_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.profesor.get_profesor_by_id" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un profesor por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – El ID del profesor a buscar.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El profesor encontrado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO">ProfesorDTO</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el usuario actual no tiene permisos para acceder a este recurso.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id14">
-<h3>Obtener Profesor por Username<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
-</section>
-<section id="id15">
-<h3>Obtener Todos los Profesores<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<h3>Obtener Todos los Profesores<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.profesor.get_profesores">
 <span class="sig-prename descclassname"><span class="pre">routers.profesor.</span></span><span class="sig-name descname"><span class="pre">get_profesores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.profesor.get_profesores" title="Link to this definition"></a></dt>
@@ -2631,8 +2737,8 @@
 </dd></dl>
 
 </section>
-<section id="id16">
-<h3>Crear Profesor<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>Crear Profesor<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.profesor.create_profesor">
 <span class="sig-prename descclassname"><span class="pre">routers.profesor.</span></span><span class="sig-name descname"><span class="pre">create_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorCreate" title="db.schemas.ProfesorCreate"><span class="pre">ProfesorCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.profesor.create_profesor" title="Link to this definition"></a></dt>
@@ -2655,8 +2761,8 @@
 </dd></dl>
 
 </section>
-<section id="id17">
-<h3>Actualizar Profesor<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>Actualizar Profesor<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.profesor.update_profesor">
 <span class="sig-prename descclassname"><span class="pre">routers.profesor.</span></span><span class="sig-name descname"><span class="pre">update_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorUpdate" title="db.schemas.ProfesorUpdate"><span class="pre">ProfesorUpdate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.profesor.update_profesor" title="Link to this definition"></a></dt>
@@ -2683,8 +2789,8 @@
 </dd></dl>
 
 </section>
-<section id="id18">
-<h3>Eliminar Profesor<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<section id="id17">
+<h3>Eliminar Profesor<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.profesor.delete_profesor">
 <span class="sig-prename descclassname"><span class="pre">routers.profesor.</span></span><span class="sig-name descname"><span class="pre">delete_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.profesor.delete_profesor" title="Link to this definition"></a></dt>
@@ -2709,15 +2815,61 @@
 <h2>Routers de login<a class="headerlink" href="#routers-de-login" title="Link to this heading"></a></h2>
 <section id="login">
 <h3>Login<a class="headerlink" href="#login" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.login.get_token">
+<span class="sig-prename descclassname"><span class="pre">routers.login.</span></span><span class="sig-name descname"><span class="pre">get_token</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~fastapi.security.oauth2.OAuth2PasswordRequestForm</span> <span class="pre">=</span> <span class="pre">Depends(NoneType)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.login.get_token" title="Link to this definition"></a></dt>
+<dd><p>Autentica a un profesor y devuelve un token de acceso.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>OAuth2PasswordRequestForm</em>) – Formulario de solicitud de OAuth2 con nombre de usuario y contraseña.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un token de acceso.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.Token" title="db.schemas.Token">Token</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si las credenciales son inválidas.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="routers-para-las-guardias">
 <h2>Routers para las Guardias<a class="headerlink" href="#routers-para-las-guardias" title="Link to this heading"></a></h2>
 <section id="obtener-guardias-por-fecha-y-tramo">
 <h3>Obtener guardias por fecha y tramo<a class="headerlink" href="#obtener-guardias-por-fecha-y-tramo" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.guardia.get_guardia_by_fecha_tramo">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.guardia.</span></span><span class="sig-name descname"><span class="pre">get_guardia_by_fecha_tramo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_profesor:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_tramo_horario:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.guardia.get_guardia_by_fecha_tramo" title="Link to this definition"></a></dt>
+<dd><p>Obtiene la guardia de un profesor filtrada por fecha, tramo horario e ID del profesor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_profesor</strong> (<em>int</em>) – El ID del profesor.</p></li>
+<li><p><strong>fecha</strong> (<em>date</em>) – La fecha de la guardia.</p></li>
+<li><p><strong>id_tramo_horario</strong> (<em>int</em>) – El ID del tramo horario.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>La guardia encontrada.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CalendarioDTO" title="db.schemas.CalendarioDTO">CalendarioDTO</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="id19">
-<h3>Obtener todas las guardias<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<section id="id18">
+<h3>Obtener todas las guardias<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.guardia.get_guardias">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.guardia.</span></span><span class="sig-name descname"><span class="pre">get_guardias</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.guardia.get_guardias" title="Link to this definition"></a></dt>
@@ -2782,8 +2934,8 @@
 </dd></dl>
 
 </section>
-<section id="id20">
-<h3>Obtener guardias de un profesor<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3>Obtener guardias de un profesor<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.guardia.get_guardias_by_profesor">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.guardia.</span></span><span class="sig-name descname"><span class="pre">get_guardias_by_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_profesor:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">date:</span> <span class="pre">~datetime.date</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.guardia.get_guardias_by_profesor" title="Link to this definition"></a></dt>
@@ -2807,8 +2959,8 @@
 </dd></dl>
 
 </section>
-<section id="id21">
-<h3>Crear guardia<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<section id="id20">
+<h3>Crear guardia<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.guardia.create_guardia">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.guardia.</span></span><span class="sig-name descname"><span class="pre">create_guardia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_profesor:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha_inicio:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fecha_fin:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hora_inicio:</span> <span class="pre">~datetime.time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hora_fin:</span> <span class="pre">~datetime.time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.guardia.create_guardia" title="Link to this definition"></a></dt>
@@ -2838,8 +2990,33 @@
 </dd></dl>
 
 </section>
-<section id="id22">
-<h3>Asignar profesor sustituto a guardia<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<section id="id21">
+<h3>Asignar profesor sustituto a guardia<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.guardia.assign_profesor_sustituto">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.guardia.</span></span><span class="sig-name descname"><span class="pre">assign_profesor_sustituto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_profesor_sustituto:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.guardia.assign_profesor_sustituto" title="Link to this definition"></a></dt>
+<dd><p>Asigna un profesor sustituto a una guardia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – El ID del calendario.</p></li>
+<li><p><strong>id_profesor_sustituto</strong> (<em>int</em>) – El ID del profesor sustituto.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El calendario actualizado con el profesor sustituto asignado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CalendarioDTO" title="db.schemas.CalendarioDTO">CalendarioDTO</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el usuario actual no tiene permisos para acceder a este recurso.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="routers-para-los-grupos-de-guardia">
@@ -2869,20 +3046,82 @@
 </dd></dl>
 
 </section>
-<section id="id23">
-<h3>Obtener todos los grupos de guardia<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<section id="id22">
+<h3>Obtener todos los grupos de guardia<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.grupo_guardia.get_grupos_guardia">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.grupo_guardia.</span></span><span class="sig-name descname"><span class="pre">get_grupos_guardia</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.grupo_guardia.get_grupos_guardia" title="Link to this definition"></a></dt>
+<dd><p>Obtiene todos los grupos de guardia.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un diccionario con los grupos de guardia, donde la clave es una tupla de (día, ID del tramo horario) y el valor es una lista de profesores.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dict[Tuple[int, int], List[<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO">ProfesorDTO</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="routers-para-los-cursos">
 <h2>Routers para los Cursos<a class="headerlink" href="#routers-para-los-cursos" title="Link to this heading"></a></h2>
+<section id="id23">
+<h3>Obtener Curso por ID<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.curso.get_curso_by_id">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">get_curso_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.get_curso_by_id" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un curso por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – El ID del curso a buscar.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El curso encontrado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CursoDTO" title="db.schemas.CursoDTO">CursoDTO</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="id24">
-<h3>Obtener Curso por ID<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<h3>Obtener Curso por Nombre<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.curso.get_curso_by_nombre">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">get_curso_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.get_curso_by_nombre" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un curso por su nombre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nombre</strong> (<em>str</em>) – El nombre del curso a buscar.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El curso encontrado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CursoDTO" title="db.schemas.CursoDTO">CursoDTO</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id25">
-<h3>Obtener Curso por Nombre<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
-</section>
-<section id="id26">
-<h3>Obtener Todos los Cursos<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<h3>Obtener Todos los Cursos<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.curso.get_cursos">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">get_cursos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.get_cursos" title="Link to this definition"></a></dt>
@@ -2904,8 +3143,8 @@
 </dd></dl>
 
 </section>
-<section id="id27">
-<h3>Crear Curso<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<section id="id26">
+<h3>Crear Curso<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.curso.create_curso">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">create_curso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.CursoCreate" title="db.schemas.CursoCreate"><span class="pre">CursoCreate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.create_curso" title="Link to this definition"></a></dt>
@@ -2928,8 +3167,8 @@
 </dd></dl>
 
 </section>
-<section id="id28">
-<h3>Actualizar Curso<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<section id="id27">
+<h3>Actualizar Curso<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.curso.update_curso">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">update_curso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.CursoUpdate" title="db.schemas.CursoUpdate"><span class="pre">CursoUpdate</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.update_curso" title="Link to this definition"></a></dt>
@@ -2953,8 +3192,8 @@
 </dd></dl>
 
 </section>
-<section id="id29">
-<h3>Eliminar Curso<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
+<section id="id28">
+<h3>Eliminar Curso<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.curso.delete_curso">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">delete_curso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.delete_curso" title="Link to this definition"></a></dt>
@@ -2974,8 +3213,8 @@
 </section>
 <section id="routers-para-las-clases">
 <h2>Routers para las Clases<a class="headerlink" href="#routers-para-las-clases" title="Link to this heading"></a></h2>
-<section id="id30">
-<h3>Obtener Clase por ID<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
+<section id="id29">
+<h3>Obtener Clase por ID<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.get_clase_by_id">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">get_clase_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.get_clase_by_id" title="Link to this definition"></a></dt>
@@ -2998,8 +3237,8 @@
 </dd></dl>
 
 </section>
-<section id="id31">
-<h3>Obtener Clase por Nombre<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
+<section id="id30">
+<h3>Obtener Clase por Nombre<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.get_clase_by_nombre">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">get_clase_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.get_clase_by_nombre" title="Link to this definition"></a></dt>
@@ -3022,8 +3261,8 @@
 </dd></dl>
 
 </section>
-<section id="id32">
-<h3>Obtener Todas las Clases<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
+<section id="id31">
+<h3>Obtener Todas las Clases<a class="headerlink" href="#id31" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.get_clases">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">get_clases</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.get_clases" title="Link to this definition"></a></dt>
@@ -3045,8 +3284,8 @@
 </dd></dl>
 
 </section>
-<section id="id33">
-<h3>Crear Clase<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
+<section id="id32">
+<h3>Crear Clase<a class="headerlink" href="#id32" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.create_clase">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">create_clase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.ClaseCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.create_clase" title="Link to this definition"></a></dt>
@@ -3069,8 +3308,8 @@
 </dd></dl>
 
 </section>
-<section id="id34">
-<h3>Actualizar Clase<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<section id="id33">
+<h3>Actualizar Clase<a class="headerlink" href="#id33" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.update_clase">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">update_clase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.ClaseUpdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.update_clase" title="Link to this definition"></a></dt>
@@ -3094,8 +3333,8 @@
 </dd></dl>
 
 </section>
-<section id="id35">
-<h3>Eliminar Clase<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<section id="id34">
+<h3>Eliminar Clase<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.clase.delete_clase">
 <span class="sig-prename descclassname"><span class="pre">routers.clase.</span></span><span class="sig-name descname"><span class="pre">delete_clase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.clase.delete_clase" title="Link to this definition"></a></dt>
@@ -3117,45 +3356,240 @@
 <h2>Routers para los Calendarios<a class="headerlink" href="#routers-para-los-calendarios" title="Link to this heading"></a></h2>
 <section id="obtener-calendario-por-id">
 <h3>Obtener Calendario por ID<a class="headerlink" href="#obtener-calendario-por-id" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.calendario.get_calendario_by_id">
+<span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">get_calendario_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.get_calendario_by_id" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un calendario por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – ID del calendario.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>CalendarioDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-calendario-de-un-profesor">
 <h3>Obtener Calendario de un Profesor<a class="headerlink" href="#obtener-calendario-de-un-profesor" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.calendario.get_calendario_by_id_profesor">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">get_calendario_by_id_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profesor_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.get_calendario_by_id_profesor" title="Link to this definition"></a></dt>
+<dd><p>Obtiene el calendario de un profesor por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profesor_id</strong> – ID del profesor.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[CalendarioDTO]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-calendario-de-un-profesor-en-la-hora-actual">
 <h3>Obtener Calendario de un Profesor en la hora actual<a class="headerlink" href="#obtener-calendario-de-un-profesor-en-la-hora-actual" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.calendario.get_actual_calendario_by_id_profesor">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">get_actual_calendario_by_id_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profesor_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.get_actual_calendario_by_id_profesor" title="Link to this definition"></a></dt>
+<dd><p>Obtiene el calendario actual de un profesor por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>profesor_id</strong> – ID del profesor.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[CalendarioDTO]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="id36">
-<h3>Crear Calendario<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<section id="id35">
+<h3>Crear Calendario<a class="headerlink" href="#id35" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.calendario.create_calendario">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">create_calendario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendario:</span> <span class="pre">~db.schemas.CalendarioCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.create_calendario" title="Link to this definition"></a></dt>
+<dd><p>Crea un nuevo calendario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calendario</strong> – Datos para crear un nuevo calendario.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>CalendarioDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="generar-calendario-a-partir-de-dos-archivos-xml">
 <h3>Generar Calendario a partir de dos archivos XML<a class="headerlink" href="#generar-calendario-a-partir-de-dos-archivos-xml" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.calendario.upload_tables">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">upload_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calenario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.upload_tables" title="Link to this definition"></a></dt>
+<dd><p>Genera el calendario para el año actual a partir de los archivos XML enviados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tablas</strong> – Archivo XML con las tablas.</p></li>
+<li><p><strong>calenario</strong> – Archivo XML con el calendario.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Mensaje de éxito.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="routers-para-las-aulas">
 <h2>Routers para las Aulas<a class="headerlink" href="#routers-para-las-aulas" title="Link to this heading"></a></h2>
-<section id="id37">
-<h3>Obtener Aula por ID<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<section id="id36">
+<h3>Obtener Aula por ID<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.get_aula_by_id">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">get_aula_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.get_aula_by_id" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un aula por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – ID del aula.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>AulaDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-aula-por-nombre">
 <h3>Obtener Aula por Nombre<a class="headerlink" href="#obtener-aula-por-nombre" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.get_aula_by_nombre">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">get_aula_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.get_aula_by_nombre" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un aula por su nombre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nombre</strong> – Nombre del aula.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>AulaDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="id37">
+<h3>Obtener Todas las Aulas<a class="headerlink" href="#id37" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.get_aulas">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">get_aulas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.get_aulas" title="Link to this definition"></a></dt>
+<dd><p>Obtiene todas las aulas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[AulaDTO]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id38">
-<h3>Obtener Todas las Aulas<a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<h3>Crear Aula<a class="headerlink" href="#id38" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.create_aula">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">create_aula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.AulaCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.create_aula" title="Link to this definition"></a></dt>
+<dd><p>Crea un nuevo aula.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Datos para crear un nuevo aula.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>AulaDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id39">
-<h3>Crear Aula<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<h3>Actualizar Aula<a class="headerlink" href="#id39" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.update_aula">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">update_aula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.AulaUpdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.update_aula" title="Link to this definition"></a></dt>
+<dd><p>Actualiza un aula por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – ID del aula a actualizar.</p></li>
+<li><p><strong>request</strong> – Datos actualizados del aula.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>AulaDTO</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id40">
-<h3>Actualizar Aula<a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
-</section>
-<section id="id41">
-<h3>Eliminar Aula<a class="headerlink" href="#id41" title="Link to this heading"></a></h3>
+<h3>Eliminar Aula<a class="headerlink" href="#id40" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.aula.delete_aula">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.aula.</span></span><span class="sig-name descname"><span class="pre">delete_aula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.aula.delete_aula" title="Link to this definition"></a></dt>
+<dd><p>Elimina un aula por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – ID del aula a eliminar.</p></li>
+<li><p><strong>current_user</strong> – Usuario autenticado con permisos de administrador.</p></li>
+<li><p><strong>db</strong> – Sesión de la base de datos.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="routers-para-las-actividades">
 <h2>Routers para las Actividades<a class="headerlink" href="#routers-para-las-actividades" title="Link to this heading"></a></h2>
-<section id="id42">
-<h3>Obtener Actividad por ID<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
+<section id="id41">
+<h3>Obtener Actividad por ID<a class="headerlink" href="#id41" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.actividad.get_actividad_by_id">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">get_actividad_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.get_actividad_by_id" title="Link to this definition"></a></dt>
@@ -3202,8 +3636,8 @@
 </dd></dl>
 
 </section>
-<section id="id43">
-<h3>Obtener Todas las Actividades<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
+<section id="id42">
+<h3>Obtener Todas las Actividades<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.actividad.get_actividades">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">get_actividades</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.get_actividades" title="Link to this definition"></a></dt>
@@ -3225,8 +3659,8 @@
 </dd></dl>
 
 </section>
-<section id="id44">
-<h3>Crear Actividad<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
+<section id="id43">
+<h3>Crear Actividad<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.actividad.create_actividad">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">create_actividad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.ActividadCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.create_actividad" title="Link to this definition"></a></dt>
@@ -3249,8 +3683,8 @@
 </dd></dl>
 
 </section>
-<section id="id45">
-<h3>Actualizar Actividad<a class="headerlink" href="#id45" title="Link to this heading"></a></h3>
+<section id="id44">
+<h3>Actualizar Actividad<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.actividad.update_actividad">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">update_actividad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.ActividadUpdate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.update_actividad" title="Link to this definition"></a></dt>
@@ -3274,8 +3708,8 @@
 </dd></dl>
 
 </section>
-<section id="id46">
-<h3>Eliminar Actividad<a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<section id="id45">
+<h3>Eliminar Actividad<a class="headerlink" href="#id45" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="routers.actividad.delete_actividad">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">delete_actividad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.delete_actividad" title="Link to this definition"></a></dt>
@@ -3516,8 +3950,8 @@
 
 </section>
 </section>
-<section id="id47">
-<h2>Login<a class="headerlink" href="#id47" title="Link to this heading"></a></h2>
+<section id="id46">
+<h2>Login<a class="headerlink" href="#id46" title="Link to this heading"></a></h2>
 <section id="schema-de-los-datos-de-login">
 <h3>Schema de los datos de login<a class="headerlink" href="#schema-de-los-datos-de-login" title="Link to this heading"></a></h3>
 <dl class="py class">
@@ -4074,8 +4508,8 @@
 
 </section>
 </section>
-<section id="id48">
-<h2>Generador de calendario<a class="headerlink" href="#id48" title="Link to this heading"></a></h2>
+<section id="id47">
+<h2>Generador de calendario<a class="headerlink" href="#id47" title="Link to this heading"></a></h2>
 <section id="generador-de-calendario-a-partir-de-un-dataframe">
 <h3>Generador de calendario a partir de un dataframe<a class="headerlink" href="#generador-de-calendario-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
 <dl class="py function">
@@ -4193,8 +4627,8 @@
 </section>
 <section id="generador-de-roles">
 <h2>Generador de roles<a class="headerlink" href="#generador-de-roles" title="Link to this heading"></a></h2>
-<section id="id49">
-<h3>Generador de roles<a class="headerlink" href="#id49" title="Link to this heading"></a></h3>
+<section id="id48">
+<h3>Generador de roles<a class="headerlink" href="#id48" title="Link to this heading"></a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="generador_calendario.generador_roles.generate_roles">
 <span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_roles.</span></span><span class="sig-name descname"><span class="pre">generate_roles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_roles.generate_roles" title="Link to this definition"></a></dt>
@@ -4249,8 +4683,33 @@ Si ocurre un error durante la inserción, la transacción es revertida.</p>
 </section>
 <section id="generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto">
 <h2>Generador de tablas de la base de datos a partir de dos archivos XML por defecto<a class="headerlink" href="#generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_tablas.generate_tables_from_path">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_tablas.</span></span><span class="sig-name descname"><span class="pre">generate_tables_from_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_tablas.generate_tables_from_path" title="Link to this definition"></a></dt>
+<dd><p>Genera todas las tablas necesarias para la base de datos a partir de datos XML en la ruta del proyecto.</p>
+<p>Este método llama a funciones específicas para generar roles, profesores, aulas, cursos, actividades,
+tramos horarios y clases a partir de datos XML predeterminados.</p>
+</dd></dl>
+
 <section id="generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">
 <h3>Generador de las tablas de la base de datos a partir de dos archivo XML<a class="headerlink" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_tablas.generate_tables_from_files">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_tablas.</span></span><span class="sig-name descname"><span class="pre">generate_tables_from_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_tablas.generate_tables_from_files" title="Link to this definition"></a></dt>
+<dd><p>Genera todas las tablas necesarias para la base de datos a partir de archivos XML proporcionados.</p>
+<p>Este método carga los datos de los archivos XML proporcionados y llama a funciones específicas
+para generar roles, profesores, aulas, cursos, actividades, tramos horarios y clases,
+y luego genera el calendario a partir de los datos proporcionados.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tablas</strong> (<em>BytesIO</em>) – Un archivo de bytes que contiene los datos de las tablas en formato XML.</p></li>
+<li><p><strong>calendario</strong> (<em>BytesIO</em>) – Un archivo de bytes que contiene los datos del calendario en formato XML.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 </section>
