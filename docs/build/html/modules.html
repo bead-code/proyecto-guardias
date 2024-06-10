@@ -109,12 +109,18 @@
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_tramo_horario.get_tramo_horario_by_id"><code class="docutils literal notranslate"><span class="pre">get_tramo_horario_by_id()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-tramo-horario-por-nombre">Obtener Tramo_Horario por Nombre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-tramo-horario-por-nombre">Obtener Tramo_Horario por Nombre</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dao.dao_tramo_horario.get_tramo_horario_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_tramo_horario_by_nombre()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#obtener-todos-los-tramos-horarios">Obtener Todos los Tramos_Horarios</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_tramo_horario.get_tramos_horarios"><code class="docutils literal notranslate"><span class="pre">get_tramos_horarios()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#crear-tramo-horario">Crear Tramo_Horario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#crear-tramo-horario">Crear Tramo_Horario</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dao.dao_tramo_horario.create_tramo_horario"><code class="docutils literal notranslate"><span class="pre">create_tramo_horario()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#actualizar-tramo-horario">Actualizar Tramo_Horario</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_tramo_horario.update_tramo_horario"><code class="docutils literal notranslate"><span class="pre">update_tramo_horario()</span></code></a></li>
 </ul>
@@ -150,7 +156,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#dao.dao_profesor.delete_profesor"><code class="docutils literal notranslate"><span class="pre">delete_profesor()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-profesores-disponibles">Obtener Profesores Disponibles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-profesores-disponibles">Obtener Profesores Disponibles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dao.dao_profesor.get_profesores_disponibles_by_id_calendario"><code class="docutils literal notranslate"><span class="pre">get_profesores_disponibles_by_id_calendario()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#operaciones-crud-para-guardia">Operaciones CRUD para Guardia</a><ul>
@@ -440,14 +449,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-cursos">Routers para los Cursos</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id24">Obtener Curso por ID</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_curso_by_id"><code class="docutils literal notranslate"><span class="pre">get_curso_by_id()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#id25">Obtener Curso por Nombre</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_curso_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_curso_by_nombre()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Obtener Curso por ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Obtener Curso por Nombre</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id26">Obtener Todos los Cursos</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.curso.get_cursos"><code class="docutils literal notranslate"><span class="pre">get_cursos()</span></code></a></li>
 </ul>
@@ -494,23 +497,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-los-calendarios">Routers para los Calendarios</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-por-id">Obtener Calendario por ID</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.get_calendario_by_id"><code class="docutils literal notranslate"><span class="pre">get_calendario_by_id()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor">Obtener Calendario de un Profesor</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.get_calendario_by_id_profesor"><code class="docutils literal notranslate"><span class="pre">get_calendario_by_id_profesor()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-por-id">Obtener Calendario por ID</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor">Obtener Calendario de un Profesor</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#obtener-calendario-de-un-profesor-en-la-hora-actual">Obtener Calendario de un Profesor en la hora actual</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id36">Crear Calendario</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.create_calendario"><code class="docutils literal notranslate"><span class="pre">create_calendario()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#generar-calendario-a-partir-de-dos-archivos-xml">Generar Calendario a partir de dos archivos XML</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#routers.calendario.upload_tables"><code class="docutils literal notranslate"><span class="pre">upload_tables()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Crear Calendario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generar-calendario-a-partir-de-dos-archivos-xml">Generar Calendario a partir de dos archivos XML</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-aulas">Routers para las Aulas</a><ul>
@@ -523,8 +514,14 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#routers-para-las-actividades">Routers para las Actividades</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id42">Obtener Actividad por ID</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#obtener-actividad-por-nombre">Obtener Actividad por Nombre</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id42">Obtener Actividad por ID</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividad_by_id"><code class="docutils literal notranslate"><span class="pre">get_actividad_by_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#obtener-actividad-por-nombre">Obtener Actividad por Nombre</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividad_by_nombre"><code class="docutils literal notranslate"><span class="pre">get_actividad_by_nombre()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#id43">Obtener Todas las Actividades</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#routers.actividad.get_actividades"><code class="docutils literal notranslate"><span class="pre">get_actividades()</span></code></a></li>
 </ul>
@@ -564,7 +561,10 @@
 <li class="toctree-l3"><a class="reference internal" href="#db.models.Rol"><code class="docutils literal notranslate"><span class="pre">Rol</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#modelo-de-la-tabla-profesor">Modelo de la tabla Profesor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#modelo-de-la-tabla-profesor">Modelo de la tabla Profesor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#db.models.Profesor"><code class="docutils literal notranslate"><span class="pre">Profesor</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#modelo-de-la-tabla-curso">Modelo de la tabla Curso</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#db.models.Curso"><code class="docutils literal notranslate"><span class="pre">Curso</span></code></a></li>
 </ul>
@@ -724,6 +724,84 @@
 <li class="toctree-l4"><a class="reference internal" href="#db.schemas.CalendarioDTO"><code class="docutils literal notranslate"><span class="pre">CalendarioDTO</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#generador-de-calendario">Generador de calendario</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas">Conversor que permite convertir un archivo XML en distintos dataframes de pandas.</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos">Convertir un archivo XML en los dataframes necesarios para crear las tablas de la base de datos</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.conversor_xml_to_df.load_tables"><code class="docutils literal notranslate"><span class="pre">load_tables()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#convertir-un-archivo-xml-en-el-dataframe-necesario-para-generar-el-calendario-de-todo-el-ano">Convertir un archivo XML en el dataframe necesario para generar el calendario de todo el año</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.conversor_xml_to_df.load_calendario"><code class="docutils literal notranslate"><span class="pre">load_calendario()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-actividades">Generador de actividades</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-actividades-a-partir-de-un-dataframe">Generador de actividades a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_actividades.generate_actividades_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_actividades_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-aulas">Generador de aulas</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-aulas-a-partir-de-un-dataframe">Generador de aulas a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_aulas.generate_aulas_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_aulas_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#id48">Generador de calendario</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-calendario-a-partir-de-un-dataframe">Generador de calendario a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_calendario.generate_calendario_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_calendario_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-clases">Generador de clases</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-clases-a-partir-de-un-dataframe">Generador de clases a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_clases.generate_clases_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_clases_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-cursos">Generador de cursos</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-cursos-a-partir-de-un-dataframe">Generador de cursos a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_cursos.generate_cursos_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_cursos_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-profesores">Generador de profesores</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-profesores-a-partir-de-un-dataframe">Generador de profesores a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_profesores.generate_profesores_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_profesores_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-roles">Generador de roles</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Generador de roles</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_roles.generate_roles"><code class="docutils literal notranslate"><span class="pre">generate_roles()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-tramos-horarios">Generador de tramos horarios</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conversor-de-minutos-a-horas">Conversor de minutos a horas</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_tramos_horarios.minutos_a_hora"><code class="docutils literal notranslate"><span class="pre">minutos_a_hora()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-tramos-horarios-a-partir-de-un-dataframe">Generador de tramos horarios a partir de un dataframe</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#generador_calendario.generador_tramos_horarios.generate_tramos_horarios_from_dataframe"><code class="docutils literal notranslate"><span class="pre">generate_tramos_horarios_from_dataframe()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto">Generador de tablas de la base de datos a partir de dos archivos XML por defecto</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">Generador de las tablas de la base de datos a partir de dos archivo XML</a></li>
 </ul>
 </li>
 </ul>
@@ -995,6 +1073,29 @@
 </section>
 <section id="obtener-tramo-horario-por-nombre">
 <h3>Obtener Tramo_Horario por Nombre<a class="headerlink" href="#obtener-tramo-horario-por-nombre" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dao.dao_tramo_horario.get_tramo_horario_by_nombre">
+<span class="sig-prename descclassname"><span class="pre">dao.dao_tramo_horario.</span></span><span class="sig-name descname"><span class="pre">get_tramo_horario_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_tramo_horario.get_tramo_horario_by_nombre" title="Link to this definition"></a></dt>
+<dd><p>Obtiene un tramo horario por su nombre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nombre</strong> (<em>str</em>) – El nombre del tramo horario a buscar.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El tramo horario encontrado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.TramoHorario" title="db.models.TramoHorario">TramoHorario</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el tramo horario no existe.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-todos-los-tramos-horarios">
 <h3>Obtener Todos los Tramos_Horarios<a class="headerlink" href="#obtener-todos-los-tramos-horarios" title="Link to this heading"></a></h3>
@@ -1021,6 +1122,29 @@
 </section>
 <section id="crear-tramo-horario">
 <h3>Crear Tramo_Horario<a class="headerlink" href="#crear-tramo-horario" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dao.dao_tramo_horario.create_tramo_horario">
+<span class="sig-prename descclassname"><span class="pre">dao.dao_tramo_horario.</span></span><span class="sig-name descname"><span class="pre">create_tramo_horario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request:</span> <span class="pre">~db.schemas.TramoHorarioCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_tramo_horario.create_tramo_horario" title="Link to this definition"></a></dt>
+<dd><p>Crea un nuevo tramo horario.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference internal" href="#db.schemas.TramoHorarioCreate" title="db.schemas.TramoHorarioCreate"><em>TramoHorarioCreate</em></a>) – Los datos del tramo horario a crear.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>El tramo horario creado.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.TramoHorario" title="db.models.TramoHorario">TramoHorario</a></p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el tramo horario ya existe o si ocurre un error al insertarlo.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="actualizar-tramo-horario">
 <h3>Actualizar Tramo_Horario<a class="headerlink" href="#actualizar-tramo-horario" title="Link to this heading"></a></h3>
@@ -1090,7 +1214,7 @@
 <dd class="field-even"><p>El profesor encontrado.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Profesor</p>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a></p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si el profesor no existe en la base de datos.</p>
@@ -1116,7 +1240,7 @@
 <dd class="field-even"><p>El profesor encontrado.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Profesor</p>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a></p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si el profesor no existe en la base de datos.</p>
@@ -1139,7 +1263,7 @@
 <dd class="field-even"><p>Una lista de todos los profesores activos.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Profesor]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a>]</p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si no hay profesores registrados en la base de datos.</p>
@@ -1165,7 +1289,7 @@
 <dd class="field-even"><p>El profesor creado.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Profesor</p>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a></p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si el rol es incorrecto, el profesor ya existe o si ocurre un error al insertarlo.</p>
@@ -1192,7 +1316,7 @@
 <dd class="field-even"><p>El profesor actualizado.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Profesor</p>
+<dd class="field-odd"><p><a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a></p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si ocurre un error al modificar el profesor.</p>
@@ -1223,6 +1347,30 @@
 </section>
 <section id="obtener-profesores-disponibles">
 <h3>Obtener Profesores Disponibles<a class="headerlink" href="#obtener-profesores-disponibles" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="dao.dao_profesor.get_profesores_disponibles_by_id_calendario">
+<span class="sig-prename descclassname"><span class="pre">dao.dao_profesor.</span></span><span class="sig-name descname"><span class="pre">get_profesores_disponibles_by_id_calendario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fecha:</span> <span class="pre">~datetime.date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_tramo_horario:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#dao.dao_profesor.get_profesores_disponibles_by_id_calendario" title="Link to this definition"></a></dt>
+<dd><p>Obtiene los profesores disponibles en un tramo horario específico.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fecha</strong> (<em>date</em>) – La fecha del tramo horario.</p></li>
+<li><p><strong>id_tramo_horario</strong> (<em>int</em>) – El ID del tramo horario.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Una lista de profesores disponibles.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a>]</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si no hay profesores disponibles en el tramo horario.</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="operaciones-crud-para-guardia">
@@ -1396,7 +1544,7 @@
 <dd class="field-even"><p>Una lista de profesores asignados a la guardia en el tramo horario y día especificados.</p>
 </dd>
 <dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[Profesor]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#db.models.Profesor" title="db.models.Profesor">Profesor</a>]</p>
 </dd>
 <dt class="field-even">Muestra<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>HTTPException</strong> – Si no hay guardias asignadas a este grupo de guardia.</p>
@@ -2729,51 +2877,9 @@
 <h2>Routers para los Cursos<a class="headerlink" href="#routers-para-los-cursos" title="Link to this heading"></a></h2>
 <section id="id24">
 <h3>Obtener Curso por ID<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.curso.get_curso_by_id">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">get_curso_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.get_curso_by_id" title="Link to this definition"></a></dt>
-<dd><p>Obtiene un curso por su ID.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<em>int</em>) – El ID del curso a buscar.</p></li>
-<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
-<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>El curso encontrado.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CursoDTO" title="db.schemas.CursoDTO">CursoDTO</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 <section id="id25">
 <h3>Obtener Curso por Nombre<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.curso.get_curso_by_nombre">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.curso.</span></span><span class="sig-name descname"><span class="pre">get_curso_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.curso.get_curso_by_nombre" title="Link to this definition"></a></dt>
-<dd><p>Obtiene un curso por su nombre.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>nombre</strong> (<em>str</em>) – El nombre del curso a buscar.</p></li>
-<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
-<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Devuelve<span class="colon">:</span></dt>
-<dd class="field-even"><p>El curso encontrado.</p>
-</dd>
-<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.CursoDTO" title="db.schemas.CursoDTO">CursoDTO</a></p>
-</dd>
-</dl>
-</dd></dl>
-
 </section>
 <section id="id26">
 <h3>Obtener Todos los Cursos<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
@@ -3011,38 +3117,18 @@
 <h2>Routers para los Calendarios<a class="headerlink" href="#routers-para-los-calendarios" title="Link to this heading"></a></h2>
 <section id="obtener-calendario-por-id">
 <h3>Obtener Calendario por ID<a class="headerlink" href="#obtener-calendario-por-id" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.calendario.get_calendario_by_id">
-<span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">get_calendario_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.get_calendario_by_id" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 <section id="obtener-calendario-de-un-profesor">
 <h3>Obtener Calendario de un Profesor<a class="headerlink" href="#obtener-calendario-de-un-profesor" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.calendario.get_calendario_by_id_profesor">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">get_calendario_by_id_profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">profesor_id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(get_current_profesor)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.get_calendario_by_id_profesor" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 <section id="obtener-calendario-de-un-profesor-en-la-hora-actual">
 <h3>Obtener Calendario de un Profesor en la hora actual<a class="headerlink" href="#obtener-calendario-de-un-profesor-en-la-hora-actual" title="Link to this heading"></a></h3>
 </section>
 <section id="id36">
 <h3>Crear Calendario<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.calendario.create_calendario">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">create_calendario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendario:</span> <span class="pre">~db.schemas.CalendarioCreate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.create_calendario" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 <section id="generar-calendario-a-partir-de-dos-archivos-xml">
 <h3>Generar Calendario a partir de dos archivos XML<a class="headerlink" href="#generar-calendario-a-partir-de-dos-archivos-xml" title="Link to this heading"></a></h3>
-<dl class="py function">
-<dt class="sig sig-object py" id="routers.calendario.upload_tables">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.calendario.</span></span><span class="sig-name descname"><span class="pre">upload_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tablas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calenario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadFile</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">File(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><span class="pre">ProfesorDTO</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(get_current_profesor)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.calendario.upload_tables" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </section>
 </section>
 <section id="routers-para-las-aulas">
@@ -3070,9 +3156,51 @@
 <h2>Routers para las Actividades<a class="headerlink" href="#routers-para-las-actividades" title="Link to this heading"></a></h2>
 <section id="id42">
 <h3>Obtener Actividad por ID<a class="headerlink" href="#id42" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.actividad.get_actividad_by_id">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">get_actividad_by_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.get_actividad_by_id" title="Link to this definition"></a></dt>
+<dd><p>Obtiene una actividad por su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<em>int</em>) – El ID de la actividad a buscar.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>La actividad encontrada.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.ActividadDTO" title="db.schemas.ActividadDTO">ActividadDTO</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="obtener-actividad-por-nombre">
 <h3>Obtener Actividad por Nombre<a class="headerlink" href="#obtener-actividad-por-nombre" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="routers.actividad.get_actividad_by_nombre">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">routers.actividad.</span></span><span class="sig-name descname"><span class="pre">get_actividad_by_nombre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nombre:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_user:</span> <span class="pre">~db.schemas.ProfesorDTO</span> <span class="pre">=</span> <span class="pre">Depends(check_admin_role)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db:</span> <span class="pre">sessionmaker(class_='Session'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autocommit=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bind=Engine(mysql+pymysql://root:***&#64;mariadb:3306/mydb?charset=utf8mb4)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">autoflush=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expire_on_commit=True)</span> <span class="pre">=</span> <span class="pre">Depends(get_db)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#routers.actividad.get_actividad_by_nombre" title="Link to this definition"></a></dt>
+<dd><p>Obtiene una actividad por su nombre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nombre</strong> (<em>str</em>) – El nombre de la actividad a buscar.</p></li>
+<li><p><strong>current_user</strong> (<a class="reference internal" href="#db.schemas.ProfesorDTO" title="db.schemas.ProfesorDTO"><em>ProfesorDTO</em></a>) – El usuario actual con rol de administrador.</p></li>
+<li><p><strong>db</strong> (<em>Session</em>) – La sesión de la base de datos.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>La actividad encontrada.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#db.schemas.ActividadDTO" title="db.schemas.ActividadDTO">ActividadDTO</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="id43">
 <h3>Obtener Todas las Actividades<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
@@ -3225,6 +3353,26 @@
 </section>
 <section id="modelo-de-la-tabla-profesor">
 <h2>Modelo de la tabla Profesor<a class="headerlink" href="#modelo-de-la-tabla-profesor" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="db.models.Profesor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">db.models.</span></span><span class="sig-name descname"><span class="pre">Profesor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#db.models.Profesor" title="Link to this definition"></a></dt>
+<dd><p>Modelo que representa un profesor en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_profesor</strong> (<em>int</em>) – ID del profesor.</p></li>
+<li><p><strong>username</strong> (<em>str</em>) – Nombre de usuario del profesor.</p></li>
+<li><p><strong>password</strong> (<em>str</em>) – Contraseña del profesor.</p></li>
+<li><p><strong>nombre</strong> (<em>str</em>) – Nombre del profesor.</p></li>
+<li><p><strong>password_temporal</strong> (<em>bool</em>) – Indica si la contraseña es temporal.</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – Color asociado al profesor.</p></li>
+<li><p><strong>id_rol</strong> (<em>int</em>) – ID del rol asociado al profesor.</p></li>
+<li><p><strong>activo</strong> (<em>bool</em>) – Indica si el profesor está activo.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="modelo-de-la-tabla-curso">
 <h2>Modelo de la tabla Curso<a class="headerlink" href="#modelo-de-la-tabla-curso" title="Link to this heading"></a></h2>
@@ -3815,6 +3963,294 @@
 </dl>
 </dd></dl>
 
+</section>
+</section>
+</section>
+<section id="generador-de-calendario">
+<h1>Generador de calendario<a class="headerlink" href="#generador-de-calendario" title="Link to this heading"></a></h1>
+<section id="conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas">
+<h2>Conversor que permite convertir un archivo XML en distintos dataframes de pandas.<a class="headerlink" href="#conversor-que-permite-convertir-un-archivo-xml-en-distintos-dataframes-de-pandas" title="Link to this heading"></a></h2>
+<section id="convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos">
+<h3>Convertir un archivo XML en los dataframes necesarios para crear las tablas de la base de datos<a class="headerlink" href="#convertir-un-archivo-xml-en-los-dataframes-necesarios-para-crear-las-tablas-de-la-base-de-datos" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.conversor_xml_to_df.load_tables">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.conversor_xml_to_df.</span></span><span class="sig-name descname"><span class="pre">load_tables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.conversor_xml_to_df.load_tables" title="Link to this definition"></a></dt>
+<dd><p>Carga datos de tablas desde un archivo XML y los convierte en DataFrames de pandas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>BytesIO</em><em>, </em><em>optional</em>) – Un archivo de bytes que contiene los datos XML de las tablas. Si no se proporciona, se usará el archivo predeterminado.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un diccionario donde las claves son los nombres de los grupos de datos y los valores son DataFrames de pandas.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict[str, pd.DataFrame]</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el archivo XML no es válido.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="convertir-un-archivo-xml-en-el-dataframe-necesario-para-generar-el-calendario-de-todo-el-ano">
+<h3>Convertir un archivo XML en el dataframe necesario para generar el calendario de todo el año<a class="headerlink" href="#convertir-un-archivo-xml-en-el-dataframe-necesario-para-generar-el-calendario-de-todo-el-ano" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.conversor_xml_to_df.load_calendario">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.conversor_xml_to_df.</span></span><span class="sig-name descname"><span class="pre">load_calendario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BytesIO</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.conversor_xml_to_df.load_calendario" title="Link to this definition"></a></dt>
+<dd><p>Carga datos de calendario desde un archivo XML y los convierte en un DataFrame de pandas.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file</strong> (<em>BytesIO</em><em>, </em><em>optional</em>) – Un archivo de bytes que contiene los datos XML del calendario. Si no se proporciona, se usará el archivo predeterminado.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un DataFrame de pandas que contiene el calendario extendido con fechas.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+<dt class="field-even">Muestra<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>HTTPException</strong> – Si el archivo XML no es válido.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-actividades">
+<h2>Generador de actividades<a class="headerlink" href="#generador-de-actividades" title="Link to this heading"></a></h2>
+<section id="generador-de-actividades-a-partir-de-un-dataframe">
+<h3>Generador de actividades a partir de un dataframe<a class="headerlink" href="#generador-de-actividades-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_actividades.generate_actividades_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_actividades.</span></span><span class="sig-name descname"><span class="pre">generate_actividades_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_actividades.generate_actividades_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga actividades desde un DataFrame de pandas y las inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de las actividades.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Obtiene los DataFrames <cite>MATERIAS</cite> y <cite>ACTIVIDADES</cite> de los datos proporcionados.
+2. Renombra las columnas relevantes en ambos DataFrames para que sean consistentes.
+3. Combina ambos DataFrames en uno solo.
+4. Itera sobre cada fila del DataFrame combinado para crear objetos <cite>Actividad</cite>.
+5. Inserta todos los objetos <cite>Actividad</cite> en la base de datos.
+6. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">load_actividades_from_xml</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-aulas">
+<h2>Generador de aulas<a class="headerlink" href="#generador-de-aulas" title="Link to this heading"></a></h2>
+<section id="generador-de-aulas-a-partir-de-un-dataframe">
+<h3>Generador de aulas a partir de un dataframe<a class="headerlink" href="#generador-de-aulas-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_aulas.generate_aulas_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_aulas.</span></span><span class="sig-name descname"><span class="pre">generate_aulas_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_aulas.generate_aulas_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga aulas desde un DataFrame de pandas y las inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de las aulas.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Obtiene el DataFrame <cite>DEPENDENCIAS</cite> de los datos proporcionados.
+2. Crea un aula predeterminada «No aplica».
+3. Itera sobre cada fila del DataFrame para crear objetos <cite>Aula</cite>.
+4. Inserta todos los objetos <cite>Aula</cite> en la base de datos.
+5. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">load_aulas_from_xml</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="id48">
+<h2>Generador de calendario<a class="headerlink" href="#id48" title="Link to this heading"></a></h2>
+<section id="generador-de-calendario-a-partir-de-un-dataframe">
+<h3>Generador de calendario a partir de un dataframe<a class="headerlink" href="#generador-de-calendario-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_calendario.generate_calendario_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_calendario.</span></span><span class="sig-name descname"><span class="pre">generate_calendario_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_calendario</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_calendario.generate_calendario_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Genera entradas de calendario y las inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>df_calendario</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos del calendario.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Crea una sesión de la base de datos.
+2. Itera sobre cada fila del DataFrame <cite>df_calendario</cite>.
+3. Crea un objeto <cite>Calendario</cite> para cada fila, asignando valores predeterminados si los datos están ausentes.
+4. Inserta todos los objetos <cite>Calendario</cite> en la base de datos.
+5. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">df_calendario</span> <span class="o">=</span> <span class="n">dataframes</span><span class="p">[</span><span class="s1">&#39;CALENDARIO&#39;</span><span class="p">]</span>
+<span class="n">generate_calendario</span><span class="p">(</span><span class="n">df_calendario</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-clases">
+<h2>Generador de clases<a class="headerlink" href="#generador-de-clases" title="Link to this heading"></a></h2>
+<section id="generador-de-clases-a-partir-de-un-dataframe">
+<h3>Generador de clases a partir de un dataframe<a class="headerlink" href="#generador-de-clases-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_clases.generate_clases_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_clases.</span></span><span class="sig-name descname"><span class="pre">generate_clases_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_clases.generate_clases_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga clases desde un DataFrame de pandas y las inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de las clases.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Obtiene el DataFrame <cite>UNIDADES</cite> de los datos proporcionados.
+2. Elimina las filas duplicadas basándose en la columna <cite>X_UNIDAD</cite>.
+3. Crea una clase predeterminada «No aplica».
+4. Itera sobre cada fila del DataFrame para crear objetos <cite>Clase</cite>.
+5. Inserta todos los objetos <cite>Clase</cite> en la base de datos.
+6. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">load_clases_from_xml</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-cursos">
+<h2>Generador de cursos<a class="headerlink" href="#generador-de-cursos" title="Link to this heading"></a></h2>
+<section id="generador-de-cursos-a-partir-de-un-dataframe">
+<h3>Generador de cursos a partir de un dataframe<a class="headerlink" href="#generador-de-cursos-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_cursos.generate_cursos_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_cursos.</span></span><span class="sig-name descname"><span class="pre">generate_cursos_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_cursos.generate_cursos_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga cursos desde un DataFrame de pandas y los inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de los cursos.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Obtiene el DataFrame <cite>CURSOS_DEL_CENTRO</cite> de los datos proporcionados.
+2. Crea un curso predeterminado «No aplica».
+3. Itera sobre cada fila del DataFrame para crear objetos <cite>Curso</cite>.
+4. Inserta todos los objetos <cite>Curso</cite> en la base de datos.
+5. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">load_cursos_from_xml</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-profesores">
+<h2>Generador de profesores<a class="headerlink" href="#generador-de-profesores" title="Link to this heading"></a></h2>
+<section id="generador-de-profesores-a-partir-de-un-dataframe">
+<h3>Generador de profesores a partir de un dataframe<a class="headerlink" href="#generador-de-profesores-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_profesores.generate_profesores_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_profesores.</span></span><span class="sig-name descname"><span class="pre">generate_profesores_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_profesores.generate_profesores_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga profesores desde un DataFrame de pandas y los inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de los profesores.</p>
+</dd>
+</dl>
+<p>La función realiza los siguientes pasos:
+1. Obtiene el DataFrame <cite>EMPLEADOS</cite> de los datos proporcionados.
+2. Asigna roles específicos a algunos profesores basándose en sus nombres completos.
+3. Formatea el nombre completo de cada profesor combinando su nombre y apellidos.
+4. Asigna un rol predeterminado de 4 (PROFESOR) a aquellos profesores que no tienen un rol específico.
+5. Crea objetos <cite>Profesor</cite> para un profesor «No asignado» y un usuario admin.
+6. Itera sobre cada fila del DataFrame para crear objetos <cite>Profesor</cite>.
+7. Inserta todos los objetos <cite>Profesor</cite> en la base de datos.
+8. Maneja cualquier excepción que ocurra durante la inserción de datos.</p>
+<p>Ejemplo de uso:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">dataframes</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;path_to_excel_file.xlsx&#39;</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">load_profesores_from_xml</span><span class="p">(</span><span class="n">dataframes</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-roles">
+<h2>Generador de roles<a class="headerlink" href="#generador-de-roles" title="Link to this heading"></a></h2>
+<section id="id49">
+<h3>Generador de roles<a class="headerlink" href="#id49" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_roles.generate_roles">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_roles.</span></span><span class="sig-name descname"><span class="pre">generate_roles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_roles.generate_roles" title="Link to this definition"></a></dt>
+<dd><p>Genera roles predeterminados en la base de datos.</p>
+<p>Esta función crea una lista de roles predeterminados y los inserta en la base de datos.
+Si ocurre un error durante la inserción, la transacción es revertida.</p>
+<p>Los roles generados son:
+- ADMIN
+- DIRECTOR
+- JEFE_DE_ESTUDIOS
+- PROFESOR</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-tramos-horarios">
+<h2>Generador de tramos horarios<a class="headerlink" href="#generador-de-tramos-horarios" title="Link to this heading"></a></h2>
+<section id="conversor-de-minutos-a-horas">
+<h3>Conversor de minutos a horas<a class="headerlink" href="#conversor-de-minutos-a-horas" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_tramos_horarios.minutos_a_hora">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_tramos_horarios.</span></span><span class="sig-name descname"><span class="pre">minutos_a_hora</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">minutos</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">time</span></span></span><a class="headerlink" href="#generador_calendario.generador_tramos_horarios.minutos_a_hora" title="Link to this definition"></a></dt>
+<dd><p>Convierte una cantidad de minutos a un objeto de hora.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>minutos</strong> (<em>int</em>) – La cantidad de minutos a convertir.</p>
+</dd>
+<dt class="field-even">Devuelve<span class="colon">:</span></dt>
+<dd class="field-even"><p>Un objeto de tiempo representando la hora y los minutos.</p>
+</dd>
+<dt class="field-odd">Tipo del valor devuelto<span class="colon">:</span></dt>
+<dd class="field-odd"><p>time</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="generador-de-tramos-horarios-a-partir-de-un-dataframe">
+<h3>Generador de tramos horarios a partir de un dataframe<a class="headerlink" href="#generador-de-tramos-horarios-a-partir-de-un-dataframe" title="Link to this heading"></a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="generador_calendario.generador_tramos_horarios.generate_tramos_horarios_from_dataframe">
+<span class="sig-prename descclassname"><span class="pre">generador_calendario.generador_tramos_horarios.</span></span><span class="sig-name descname"><span class="pre">generate_tramos_horarios_from_dataframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">DataFrame</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#generador_calendario.generador_tramos_horarios.generate_tramos_horarios_from_dataframe" title="Link to this definition"></a></dt>
+<dd><p>Carga tramos horarios desde un DataFrame de pandas y los inserta en la base de datos.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dataframes</strong> (<em>pd.DataFrame</em>) – El DataFrame de pandas que contiene los datos de los tramos horarios.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto">
+<h2>Generador de tablas de la base de datos a partir de dos archivos XML por defecto<a class="headerlink" href="#generador-de-tablas-de-la-base-de-datos-a-partir-de-dos-archivos-xml-por-defecto" title="Link to this heading"></a></h2>
+<section id="generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml">
+<h3>Generador de las tablas de la base de datos a partir de dos archivo XML<a class="headerlink" href="#generador-de-las-tablas-de-la-base-de-datos-a-partir-de-dos-archivo-xml" title="Link to this heading"></a></h3>
 </section>
 </section>
 </section>

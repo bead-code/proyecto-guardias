@@ -94,7 +94,7 @@ Obtener Tramo_Horario por ID
 Obtener Tramo_Horario por Nombre
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: dao.dao_tramo_horario.get_tramo_horario_nombre
+.. autofunction:: dao.dao_tramo_horario.get_tramo_horario_by_nombre
 
 Obtener Todos los Tramos_Horarios
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +104,7 @@ Obtener Todos los Tramos_Horarios
 Crear Tramo_Horario
 ~~~~~~~~~~~~~~
 
-.. autofunction:: dao.dao_tramo_horario.create_tramo_hoario
+.. autofunction:: dao.dao_tramo_horario.create_tramo_horario
 
 Actualizar Tramo_Horario
 ~~~~~~~~~~~~~~
@@ -155,7 +155,7 @@ Eliminar Profesor
 Obtener Profesores Disponibles
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: dao.dao_profesor.get_profesores_disponibles_by_id_calenario
+.. autofunction:: dao.dao_profesor.get_profesores_disponibles_by_id_calendario
 
 
 Operaciones CRUD para Guardia
@@ -742,7 +742,7 @@ Modelo de la tabla Rol
 Modelo de la tabla Profesor
 ----------------------
 
-.. autoclass:: db.models.Profesro
+.. autoclass:: db.models.Profesor
 
 Modelo de la tabla Curso
 ----------------------

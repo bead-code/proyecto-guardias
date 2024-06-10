@@ -51,6 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="modules.html#base-de-datos">Base de datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#modelos-de-la-base-de-datos">Modelos de la base de datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas">Schemas para la validación de los datos de entrada y salida de las rutas.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#generador-de-calendario">Generador de calendario</a></li>
 </ul>
 
         </div>
@@ -85,6 +86,7 @@
  | <a href="#D"><strong>D</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#T"><strong>T</strong></a>
@@ -150,19 +152,15 @@
       <li><a href="modules.html#dao.dao_aula.create_aula">create_aula() (en el módulo dao.dao_aula)</a>
 </li>
       <li><a href="modules.html#dao.dao_calendario.create_calendario">create_calendario() (en el módulo dao.dao_calendario)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.calendario.create_calendario">(en el módulo routers.calendario)</a>
 </li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_clase.create_clase">create_clase() (en el módulo dao.dao_clase)</a>
 
       <ul>
         <li><a href="modules.html#routers.clase.create_clase">(en el módulo routers.clase)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_curso.create_curso">create_curso() (en el módulo dao.dao_curso)</a>
 
       <ul>
@@ -183,8 +181,12 @@
         <li><a href="modules.html#routers.rol.create_rol">(en el módulo routers.rol)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#routers.tramo_horario.create_tramo_horario">create_tramo_horario() (en el módulo routers.tramo_horario)</a>
+      <li><a href="modules.html#dao.dao_tramo_horario.create_tramo_horario">create_tramo_horario() (en el módulo dao.dao_tramo_horario)</a>
+
+      <ul>
+        <li><a href="modules.html#routers.tramo_horario.create_tramo_horario">(en el módulo routers.tramo_horario)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#db.models.Curso">Curso (clase en db.models)</a>
 </li>
       <li><a href="modules.html#db.schemas.CursoCreate">CursoCreate (clase en db.schemas)</a>
@@ -245,10 +247,34 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#generador_calendario.generador_actividades.generate_actividades_from_dataframe">generate_actividades_from_dataframe() (en el módulo generador_calendario.generador_actividades)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_aulas.generate_aulas_from_dataframe">generate_aulas_from_dataframe() (en el módulo generador_calendario.generador_aulas)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_calendario.generate_calendario_from_dataframe">generate_calendario_from_dataframe() (en el módulo generador_calendario.generador_calendario)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_clases.generate_clases_from_dataframe">generate_clases_from_dataframe() (en el módulo generador_calendario.generador_clases)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_cursos.generate_cursos_from_dataframe">generate_cursos_from_dataframe() (en el módulo generador_calendario.generador_cursos)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_profesores.generate_profesores_from_dataframe">generate_profesores_from_dataframe() (en el módulo generador_calendario.generador_profesores)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_roles.generate_roles">generate_roles() (en el módulo generador_calendario.generador_roles)</a>
+</li>
+      <li><a href="modules.html#generador_calendario.generador_tramos_horarios.generate_tramos_horarios_from_dataframe">generate_tramos_horarios_from_dataframe() (en el módulo generador_calendario.generador_tramos_horarios)</a>
+</li>
       <li><a href="modules.html#dao.dao_actividad.get_actividad_by_id">get_actividad_by_id() (en el módulo dao.dao_actividad)</a>
+
+      <ul>
+        <li><a href="modules.html#routers.actividad.get_actividad_by_id">(en el módulo routers.actividad)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_actividad.get_actividad_by_nombre">get_actividad_by_nombre() (en el módulo dao.dao_actividad)</a>
+
+      <ul>
+        <li><a href="modules.html#routers.actividad.get_actividad_by_nombre">(en el módulo routers.actividad)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_actividad.get_actividades">get_actividades() (en el módulo dao.dao_actividad)</a>
 
       <ul>
@@ -264,17 +290,9 @@
       <li><a href="modules.html#dao.dao_aula.get_aulas">get_aulas() (en el módulo dao.dao_aula)</a>
 </li>
       <li><a href="modules.html#dao.dao_calendario.get_calendario_by_id">get_calendario_by_id() (en el módulo dao.dao_calendario)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.calendario.get_calendario_by_id">(en el módulo routers.calendario)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_calendario.get_calendario_by_id_profesor">get_calendario_by_id_profesor() (en el módulo dao.dao_calendario)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.calendario.get_calendario_by_id_profesor">(en el módulo routers.calendario)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_clase.get_clase_by_id">get_clase_by_id() (en el módulo dao.dao_clase)</a>
 
       <ul>
@@ -296,23 +314,17 @@
       <li><a href="modules.html#security.oauth2.get_current_profesor">get_current_profesor() (en el módulo security.oauth2)</a>
 </li>
       <li><a href="modules.html#dao.dao_curso.get_curso_by_id">get_curso_by_id() (en el módulo dao.dao_curso)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.curso.get_curso_by_id">(en el módulo routers.curso)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_curso.get_curso_by_nombre">get_curso_by_nombre() (en el módulo dao.dao_curso)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.curso.get_curso_by_nombre">(en el módulo routers.curso)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_curso.get_cursos">get_cursos() (en el módulo dao.dao_curso)</a>
 
       <ul>
         <li><a href="modules.html#routers.curso.get_cursos">(en el módulo routers.curso)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#db.database.get_db">get_db() (en el módulo db.database)</a>
 </li>
       <li><a href="modules.html#dao.dao_grupo_guardia.get_grupo_guardia">get_grupo_guardia() (en el módulo dao.dao_grupo_guardia)</a>
@@ -321,8 +333,6 @@
         <li><a href="modules.html#routers.grupo_guardia.get_grupo_guardia">(en el módulo routers.grupo_guardia)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_grupo_guardia.get_grupos_guardia">get_grupos_guardia() (en el módulo dao.dao_grupo_guardia)</a>
 </li>
       <li><a href="modules.html#dao.dao_guardia.get_guardia_by_id">get_guardia_by_id() (en el módulo dao.dao_guardia)</a>
@@ -361,8 +371,12 @@
         <li><a href="modules.html#routers.profesor.get_profesores">(en el módulo routers.profesor)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#routers.profesor.get_profesores_disponibles_by_id_calendario">get_profesores_disponibles_by_id_calendario() (en el módulo routers.profesor)</a>
+      <li><a href="modules.html#dao.dao_profesor.get_profesores_disponibles_by_id_calendario">get_profesores_disponibles_by_id_calendario() (en el módulo dao.dao_profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#routers.profesor.get_profesores_disponibles_by_id_calendario">(en el módulo routers.profesor)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_rol.get_rol_by_id">get_rol_by_id() (en el módulo dao.dao_rol)</a>
 
       <ul>
@@ -387,8 +401,12 @@
         <li><a href="modules.html#routers.tramo_horario.get_tramo_horario_by_id">(en el módulo routers.tramo_horario)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#routers.tramo_horario.get_tramo_horario_by_nombre">get_tramo_horario_by_nombre() (en el módulo routers.tramo_horario)</a>
+      <li><a href="modules.html#dao.dao_tramo_horario.get_tramo_horario_by_nombre">get_tramo_horario_by_nombre() (en el módulo dao.dao_tramo_horario)</a>
+
+      <ul>
+        <li><a href="modules.html#routers.tramo_horario.get_tramo_horario_by_nombre">(en el módulo routers.tramo_horario)</a>
 </li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_tramo_horario.get_tramos_horarios">get_tramos_horarios() (en el módulo dao.dao_tramo_horario)</a>
 
       <ul>
@@ -401,7 +419,21 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#generador_calendario.conversor_xml_to_df.load_calendario">load_calendario() (en el módulo generador_calendario.conversor_xml_to_df)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#generador_calendario.conversor_xml_to_df.load_tables">load_tables() (en el módulo generador_calendario.conversor_xml_to_df)</a>
+</li>
       <li><a href="modules.html#db.schemas.LoginData">LoginData (clase en db.schemas)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#generador_calendario.generador_tramos_horarios.minutos_a_hora">minutos_a_hora() (en el módulo generador_calendario.generador_tramos_horarios)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -409,12 +441,14 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#db.schemas.ProfesorAuth">ProfesorAuth (clase en db.schemas)</a>
+      <li><a href="modules.html#db.models.Profesor">Profesor (clase en db.models)</a>
 </li>
-      <li><a href="modules.html#db.schemas.ProfesorCreate">ProfesorCreate (clase en db.schemas)</a>
+      <li><a href="modules.html#db.schemas.ProfesorAuth">ProfesorAuth (clase en db.schemas)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.schemas.ProfesorCreate">ProfesorCreate (clase en db.schemas)</a>
+</li>
       <li><a href="modules.html#db.schemas.ProfesorDTO">ProfesorDTO (clase en db.schemas)</a>
 </li>
       <li><a href="modules.html#db.schemas.ProfesorUpdate">ProfesorUpdate (clase en db.schemas)</a>
@@ -501,8 +535,6 @@
         <li><a href="modules.html#routers.tramo_horario.update_tramo_horario">(en el módulo routers.tramo_horario)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#routers.calendario.upload_tables">upload_tables() (en el módulo routers.calendario)</a>
-</li>
   </ul></td>
 </tr></table>
 
