@@ -61,6 +61,35 @@ def get_profesores(db: Session):
     logger.info(f"Profesores retornados existosamente")
     return profesores
 
+def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: int, db: Session):
+    """
+    Obtiene los profesores disponibles en un tramo horario específico.
+
+    :param fecha: La fecha del tramo horario.
+    :type fecha: date
+    :param id_tramo_horario: El ID del tramo horario.
+    :type id_tramo_horario: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de profesores disponibles.
+    :rtype: List[Profesor]
+    :raises HTTPException: Si no hay profesores disponibles en el tramo horario.
+    """
+    profesores = (
+        db.query(Profesor)
+        .join(Calendario, Calendario.id_profesor == Profesor.id_profesor)
+        .filter(Calendario.fecha == fecha)
+        .filter(Calendario.id_tramo_horario == id_tramo_horario)
+        .filter(Calendario.id_actividad == 65)
+        .filter(Profesor.activo == True)
+        .all()
+    )
+    if not profesores:
+        logger.error("No hay profesores disponibles en este tramo horario")
+        raise HTTPException(status_code=404, detail="No hay profesores disponibles en este tramo horario")
+    logger.info("Profesores disponibles retornados existosamente")
+    return profesores
+
 def create_profesor(request: ProfesorCreate, db: Session):
     """
     Crea un nuevo profesor.
@@ -138,40 +167,16 @@ def delete_profesor(id: int, db: Session):
     """
     profesor = get_profesor_by_id(id, db)
     profesor.activo = False
+    calendarios = db.query(Calendario).filter(Calendario.id_profesor == id).filter(Calendario.fecha > date.today()).all()
+    if not calendarios:
+        logger.error("No hay calendarios asociados al profesor")
+    for calendario in calendarios:
+        calendario.activo = False
     try:
         db.commit()
-        db.refresh(profesor)
         logger.info("Profesor borrado en la base de datos")
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
 
-def get_profesores_disponibles_by_id_calendario(fecha: date, id_tramo_horario: int, db: Session):
-    """
-    Obtiene los profesores disponibles en un tramo horario específico.
-
-    :param fecha: La fecha del tramo horario.
-    :type fecha: date
-    :param id_tramo_horario: El ID del tramo horario.
-    :type id_tramo_horario: int
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: Una lista de profesores disponibles.
-    :rtype: List[Profesor]
-    :raises HTTPException: Si no hay profesores disponibles en el tramo horario.
-    """
-    profesores = (
-        db.query(Profesor)
-        .join(Calendario, Calendario.id_profesor == Profesor.id_profesor)
-        .filter(Calendario.fecha == fecha)
-        .filter(Calendario.id_tramo_horario == id_tramo_horario)
-        .filter(Calendario.id_actividad == 65)
-        .filter(Profesor.activo == True)
-        .all()
-    )
-    if not profesores:
-        logger.error("No hay profesores disponibles en este tramo horario")
-        raise HTTPException(status_code=404, detail="No hay profesores disponibles en este tramo horario")
-    logger.info("Profesores disponibles retornados existosamente")
-    return profesores
