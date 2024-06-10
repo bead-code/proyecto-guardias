@@ -76,7 +76,7 @@ def get_profesores_disponibles_by_id_calendario(
     response_model=ProfesorDTO,
     status_code=status.HTTP_200_OK
 )
-def get_profesor(
+def get_profesor_by_id(
         id: int,
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
@@ -95,7 +95,7 @@ def get_profesor(
     :raises HTTPException: Si el usuario actual no tiene permisos para acceder a este recurso.
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener profesor con ID {id}")
-    if current_user.id_profesor != id:
+    if current_user.id_profesor != id and current_user.rol.id_rol < 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     return dao_profesor.get_profesor_by_id(id, db)
 
