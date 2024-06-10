@@ -22,6 +22,49 @@ def get_calendario_by_id(id: int, db: Session):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail='El registro no existe en el calendario actual')
     return calendario
 
+def get_calendario_by_id_profesor(id_profesor: int, db: Session):
+    """
+    Obtiene todos los registros del calendario para un profesor específico por su ID.
+
+    :param id_profesor: El ID del profesor.
+    :type id_profesor: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de registros del calendario para el profesor especificado.
+    :rtype: List[Calendario]
+    :raises HTTPException: Si no se encuentran registros para el profesor.
+    """
+    calendario = db.query(Calendario).filter(Profesor.id_profesor == id_profesor).filter(Calendario.activo == True).all()
+    if not calendario:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
+    return calendario
+
+def get_actual_calendario_by_id_profesor(id_profesor: int, db: Session):
+    """
+    Obtiene los registros actuales del calendario para un profesor específico por su ID.
+
+    :param id_profesor: El ID del profesor.
+    :type id_profesor: int
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de registros actuales del calendario para el profesor especificado.
+    :rtype: List[Calendario]
+    :raises HTTPException: Si no se encuentran registros actuales para el profesor.
+    """
+    current_day = datetime.now().weekday() + 1
+    current_time = datetime.now().time()
+    calendario = (db.query(Calendario)
+             .filter(Calendario.id_profesor == id_profesor)
+             .filter(Calendario.activo == True)
+             .filter(Calendario.dia == current_day)
+             .join(TramoHorario, Calendario.id_tramo_horario == TramoHorario.id_tramo_horario
+                   .filter(TramoHorario.hora_inicio >= current_time)
+                   .filter(TramoHorario.hora_fin <= current_time))).all()
+
+    if not calendario:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No hay clases para el profesor en la hora actual")
+    return calendario
+
 def create_calendario(calendario: CalendarioCreate, db: Session):
     """
     Crea un nuevo registro en el calendario.
@@ -74,46 +117,5 @@ def create_calendario(calendario: CalendarioCreate, db: Session):
         raise HTTPException(status_code=500, detail=f"Error al insertar al calendario en la base de datos: {str(e)}")
     return db_calendario
 
-def get_calendario_by_id_profesor(id_profesor: int, db: Session):
-    """
-    Obtiene todos los registros del calendario para un profesor específico por su ID.
 
-    :param id_profesor: El ID del profesor.
-    :type id_profesor: int
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: Una lista de registros del calendario para el profesor especificado.
-    :rtype: List[Calendario]
-    :raises HTTPException: Si no se encuentran registros para el profesor.
-    """
-    calendario = db.query(Calendario).filter(Profesor.id_profesor == id_profesor).filter(Calendario.activo == True).all()
-    if not calendario:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Profesor no registrado en la base de datos")
-    return calendario
-
-def get_actual_calendario_by_id_profesor(id_profesor: int, db: Session):
-    """
-    Obtiene los registros actuales del calendario para un profesor específico por su ID.
-
-    :param id_profesor: El ID del profesor.
-    :type id_profesor: int
-    :param db: La sesión de la base de datos.
-    :type db: Session
-    :returns: Una lista de registros actuales del calendario para el profesor especificado.
-    :rtype: List[Calendario]
-    :raises HTTPException: Si no se encuentran registros actuales para el profesor.
-    """
-    current_day = datetime.now().weekday() + 1
-    current_time = datetime.now().time()
-    calendario = (db.query(Calendario)
-             .filter(Calendario.id_profesor == id_profesor)
-             .filter(Calendario.activo == True)
-             .filter(Calendario.dia == current_day)
-             .join(TramoHorario, Calendario.id_tramo_horario == TramoHorario.id_tramo_horario
-                   .filter(TramoHorario.hora_inicio >= current_time)
-                   .filter(TramoHorario.hora_fin <= current_time))).all()
-
-    if not calendario:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No hay clases para el profesor en la hora actual")
-    return calendario
 
