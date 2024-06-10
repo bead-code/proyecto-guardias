@@ -16,9 +16,9 @@ router = APIRouter(
 
 @router.get(
     "",
-    summary="Devuelve todas las guardias de la base de datos",
-    description="Esta llamada devuelve todas las guardias de la base de datos",
-    response_description="Lista de todas las guardias de la base de datos",
+    summary="Devuelve todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
+    description="Esta llamada devuelve todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
+    response_description="Lista de todas las guardias de la base de datos filtradas por fecha, tramo horario e ID del profesor",
     response_model=CalendarioDTO,
     status_code=status.HTTP_200_OK)
 async def get_guardias_by_fecha_tramo_id_profesor(
