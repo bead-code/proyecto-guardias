@@ -48,7 +48,7 @@ async def get_curso(
     response_model=CursoDTO,
     status_code=status.HTTP_200_OK
 )
-async def get_curso_by_name(
+async def get_curso_by_nombre(
         nombre: str,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
