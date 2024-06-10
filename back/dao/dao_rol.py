@@ -1,8 +1,9 @@
-import logging
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Rol
 from db.schemas import RolCreate, RolUpdate
+from utils.logger import logger
+
 
 def get_rol_by_id(id: int, db: Session):
     """
@@ -18,7 +19,9 @@ def get_rol_by_id(id: int, db: Session):
     """
     rol = db.query(Rol).filter(Rol.id_rol == id).filter(Rol.activo == True).first()
     if not rol:
+        logger.error(f"El rol con ID {id} no existe en la base de datos")
         raise HTTPException(status_code=404, detail='El rol no existe en la base de datos')
+    logger.info(f"Rol retornado exitosamente")
     return rol
 
 def get_rol_by_nombre(nombre: str, db: Session):
@@ -35,7 +38,9 @@ def get_rol_by_nombre(nombre: str, db: Session):
     """
     rol = db.query(Rol).filter(Rol.nombre == nombre).filter(Rol.activo == True).first()
     if not rol:
+        logger.error(f"El rol con nombre {nombre} no existe en la base de datos")
         raise HTTPException(status_code=404, detail='El rol no existe en la base de datos')
+    logger.info(f"Rol retornado exitosamente")
     return rol
 
 def get_roles(db: Session):
@@ -50,7 +55,9 @@ def get_roles(db: Session):
     """
     roles = db.query(Rol).filter(Rol.activo == True).all()
     if not roles:
+        logger.error("No hay roles registrados en la base de datos")
         raise HTTPException(status_code=404, detail='No hay roles registrados en la base de datos')
+    logger.info("Roles retornados exitosamente")
     return roles
 
 def create_rol(request: RolCreate, db: Session):
@@ -67,6 +74,7 @@ def create_rol(request: RolCreate, db: Session):
     """
     rol = db.query(Rol).filter(Rol.nombre == request.nombre).first()
     if rol:
+        logger.error(f"El rol con nombre {request.nombre} ya existe en la base de datos")
         raise HTTPException(status_code=409, detail='El rol ya existe en la base de datos')
     new_rol = Rol(
         nombre=request.nombre
@@ -75,10 +83,11 @@ def create_rol(request: RolCreate, db: Session):
     try:
         db.commit()
         db.refresh(new_rol)
+        logger.info(f"Rol creado exitosamente")
         return new_rol
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar el rol en la BBDD: {str(e)}")
 
 def update_rol(id: int, request: RolUpdate, db: Session):
@@ -100,10 +109,11 @@ def update_rol(id: int, request: RolUpdate, db: Session):
     try:
         db.commit()
         db.refresh(rol)
+        logger.info(f"Rol actualizado exitosamente")
         return rol
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al modificar el rol en la base de datos")
 
 def delete_rol(id: int, db: Session):
@@ -121,7 +131,8 @@ def delete_rol(id: int, db: Session):
     try:
         db.commit()
         db.refresh(rol)
+        logger.info(f"Rol eliminado exitosamente")
     except Exception as e:
         db.rollback()
-        logging.error(f"Error occurred: {str(e)}")
+        logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el rol de la base de datos: {str(e)}")
