@@ -6,9 +6,9 @@ import {useNavigate} from "react-router-dom";
 import AppGlobal from "../../App.jsx";
 
 const navItems = [
-    {id: 7, url: '/guardias', content: 'Guardias', maxRoleNumber: 3},
-    {id: 9, url: '/uploadData', content: 'UploadData', maxRoleNumber: 1},
-    {id: 10, url: '/profesor', content: 'Profesores', maxRoleNumber: 3}
+    {id: 7, url: '/guardias', content: 'Guardias', allowedRoles: ["ADMIN", "JEFE_DE_ESTUDIOS", "DIRECTOR", "PROFESOR"]},
+    {id: 9, url: '/uploadData', content: 'UploadData', allowedRoles: ["ADMIN"]},
+    {id: 10, url: '/profesor', content: 'Profesores', allowedRoles: ["ADMIN", "JEFE_DE_ESTUDIOS", "DIRECTOR"]}
 ];
 
 function NavList({decodedToken, isUserAuthenticated, setToken, onElementClicked}) {
@@ -41,32 +41,20 @@ function NavList({decodedToken, isUserAuthenticated, setToken, onElementClicked}
     return (
         <ul className="my-2 flex flex-col flex-wrap place-content-center lg:place-content-end gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
             {navItems.map((navItem) => (
-                <Typography
-                    as="li"
-                    variant="small"
-                    color="blue-gray"
-                    className="p-1 font-medium"
-                    key={navItem.id}
-                    onClick={onElementClicked}
-                >
-                    <NavLink to={navItem.url} className="flex items-center hover:text-blue-500 transition-colors">
-                        {navItem.content}
-                    </NavLink>
-                </Typography>
+                navItem.allowedRoles.includes(decodedToken.rol) && (
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-medium"
+                        key={navItem.id}
+                        onClick={onElementClicked}
+                    >
+                        <NavLink to={navItem.url} className="flex items-center hover:text-blue-500 transition-colors">
+                            {navItem.content}
+                        </NavLink>
+                    </Typography>)
             ))}
-            <Typography
-                as="li"
-                variant="small"
-                color="blue-gray"
-                className="p-1 font-medium"
-                onClick={onElementClicked}
-            >
-                <NavLink
-                    to={(decodedToken?.rol === "ADMIN" || decodedToken?.rol === "JEFE_DE_ESTUDIOS") ? `/guardia` : `/guardia?id_profesor=${decodedToken.sub}`}
-                    className="flex items-center hover:text-blue-500 transition-colors">
-                    Admin
-                </NavLink>
-            </Typography>
             {decodedToken && (
                 <Typography
                     as="li"
