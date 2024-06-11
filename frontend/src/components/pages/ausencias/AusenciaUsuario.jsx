@@ -171,10 +171,10 @@ export function AusenciaUsuario() {
                         </LocalizationProvider>
                     </div>
                     <div className="flex flex-wrap flex-row lg:justify-end w-full gap-2">
-                        <Button color="red" ripple="light" onClick={() => navigate("/profesor/" + idProfesor)}>
+                        <Button color="red" onClick={() => navigate("/profesor/" + idProfesor)}>
                             Cancelar
                         </Button>
-                        <Button color="green" ripple="light" onClick={handleCrearAusencia}>
+                        <Button color="green" onClick={handleCrearAusencia}>
                             Confirmar ausencia
                         </Button>
                     </div>
