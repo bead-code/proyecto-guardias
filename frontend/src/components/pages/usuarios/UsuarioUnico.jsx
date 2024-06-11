@@ -41,9 +41,14 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
     // Page that shows the information of a single user (profesor)
     if (!usuario) {
         return (
-            <div>
-                <CircularProgress/>
-            </div>
+            <Card className='max-w-screen-2xl m-auto'>
+                <CardHeader variant="gradient" color="gray" className='flex justify-center py-5 gap-2'>
+                    <Typography variant='h2' color="white" size="xl" ref={usernameField}>Usuario</Typography>
+                </CardHeader>
+                <CardBody className='text-center'>
+                    <CircularProgress/>
+                </CardBody>
+            </Card>
         );
     }
 
