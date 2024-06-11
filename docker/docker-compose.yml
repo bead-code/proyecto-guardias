@@ -20,7 +20,14 @@ services:
       - mariadb
     networks:
       - guardias
-
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: docker/Dockerfile
+    ports:
+      - "4173:4173"
+    networks:
+      - guardias
 
 volumes:
   mariadb_data:
