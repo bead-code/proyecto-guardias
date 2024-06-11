@@ -70,6 +70,30 @@ async def get_guardias(
     return dao_guardia.get_guardias(db)
 
 @router.get(
+    "/asignables",
+    summary="Devuelve todas las guardias posibles para el usuario logueado de la base de datos",
+    description="Esta llamada devuelve todas las guardias posibles para el usuario logueado de la base de datos",
+    response_description="Lista de todas las guardias posibles para el usuario logueado de la base de datos",
+    response_model=List[CalendarioDTO],
+    status_code=status.HTTP_200_OK)
+async def get_asignable_guardias(
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
+    """
+    Obtiene todas las guardias posibles para el usuario logueado.
+
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de todas las guardias posibles para el usuario logueado.
+    :rtype: List[CalendarioDTO]
+    """
+    logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias posibles")
+    return dao_guardia.get_assignable_guardias(current_user, db)
+
+@router.get(
     "/asignadas",
     summary="Devuelve todas las guardias asignadas de la base de datos",
     description="Esta llamada devuelve todas las guardias asignadas de la base de datos",
@@ -145,6 +169,7 @@ async def get_guardias_by_profesor(
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener guardias con ID profesor {id_profesor}")
     return dao_guardia.get_guardias_by_profesor(id_profesor, db, date)
+
 
 @router.post(
     "",

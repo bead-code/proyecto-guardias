@@ -5,6 +5,7 @@ from sqlalchemy import Date
 from starlette import status
 from db.database import Session
 from db.models import Calendario, Profesor, TramoHorario
+from db.schemas import ProfesorDTO
 from utils.logger import logger
 
 
@@ -168,6 +169,35 @@ def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
     logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
+def get_assignable_guardias(current_user: ProfesorDTO, db: Session):
+    """
+    Obtiene todas las guardias asignables a un profesor.
+
+    :param current_user: El usuario actual.
+    :type current_user: ProfesorDTO
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Una lista de guardias asignables.
+    :rtype: List[Calendario]
+    :raises HTTPException: Si no hay guardias asignables.
+    """
+    guardias = (
+        db.query(Calendario)
+        .filter(Calendario.id_profesor == current_user.id_profesor)
+        .filter(Calendario.id_actividad == 65)
+        .filter(Calendario.ausencia == True)
+        .filter(Calendario.activo == True)
+        .all()
+    )
+    if not guardias:
+        logger.error("No hay guardias asignables en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay guardias asignables en la base de datos"
+        )
+    logger.info(f"Guardias asignables retornadas exitosamente")
+    return guardias
+
 def create_guardia(id_profesor: int, fecha_inicio: date, fecha_fin: date, hora_inicio: time,
                    hora_fin: time, db: Session):
     """
@@ -260,6 +290,11 @@ def assign_profesor_sustituto(id_calendario: int, id_profesor_sustituto: int, db
     except Exception as e:
         logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
+
+
+
+
+
 
 
 
