@@ -92,6 +92,15 @@ class ProfesorUpdate(BaseModel):
     color: Optional[Color] = None
     id_rol: Optional[int] = None
 
+class ProfesorUpdatePassword(BaseModel):
+    """
+    Modelo para actualizar la contraseña de un profesor.
+
+    :param password: La nueva contraseña.
+    :type password: str
+    """
+    password: str
+
 class ProfesorDTO(BaseModel):
     """
     Modelo de transferencia de datos para un profesor.

@@ -169,7 +169,7 @@ def get_guardias_by_profesor(id: int, db: Session, date: Optional[Date] = None):
     logger.info(f"Guardias retornadas exitosamente")
     return calendario
 
-def get_assignable_guardias(current_user: ProfesorDTO, db: Session):
+def get_assignable_guardias(id_profesor, db: Session):
     """
     Obtiene todas las guardias asignables a un profesor.
 
@@ -183,7 +183,7 @@ def get_assignable_guardias(current_user: ProfesorDTO, db: Session):
     """
     guardias = (
         db.query(Calendario)
-        .filter(Calendario.id_profesor == current_user.id_profesor)
+        .filter(Calendario.id_profesor == id_profesor)
         .filter(Calendario.id_actividad == 65)
         .filter(Calendario.ausencia == True)
         .filter(Calendario.activo == True)

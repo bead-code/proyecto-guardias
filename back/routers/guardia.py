@@ -53,6 +53,7 @@ async def get_guardia_by_fecha_tramo(
     response_model=List[CalendarioDTO],
     status_code=status.HTTP_200_OK)
 async def get_guardias(
+        id_profesor: Optional[int] = None,
         current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
@@ -66,9 +67,9 @@ async def get_guardias(
     :returns: Una lista de todas las guardias activas.
     :rtype: List[CalendarioDTO]
     """
-    if current_user.rol.id_rol > 3:
+    if current_user.rol.id_rol > 3 and id_profesor is not None:
         logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
-        return dao_guardia.get_assignable_guardias(current_user, db)
+        return dao_guardia.get_assignable_guardias(id_profesor, db)
     logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
     return dao_guardia.get_guardias(db)
 
