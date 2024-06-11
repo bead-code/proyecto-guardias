@@ -8,3 +8,5 @@ cryptography
 python-multipart
 pyjwt
 pandas
+pytest
+coverage
