@@ -66,8 +66,12 @@ async def get_guardias(
     :returns: Una lista de todas las guardias activas.
     :rtype: List[CalendarioDTO]
     """
+    if current_user.rol.id_rol > 3:
+        logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
+        return dao_guardia.get_assignable_guardias(current_user, db)
     logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
     return dao_guardia.get_guardias(db)
+
 
 @router.get(
     "/asignables",
