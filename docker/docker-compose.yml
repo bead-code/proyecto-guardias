@@ -9,7 +9,7 @@ services:
     volumes:
       - mariadb_data:/var/lib/mysql
     networks:
-      - mynetwork
+      - guardias
   fastapi:
     build:
       context: ../back
@@ -19,8 +19,10 @@ services:
     depends_on:
       - mariadb
     networks:
-      - mynetwork
+      - guardias
+
+
 volumes:
   mariadb_data:
 networks:
-  mynetwork:
+  guardias:

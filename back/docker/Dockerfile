@@ -7,6 +7,7 @@ WORKDIR /back
 # Copiar los archivos de back menos la carpeta .venv
 COPY . /back
 
+# Instalar las dependencias del proyecto
 RUN pip install --no-cache-dir --upgrade -r docker/requirements.txt
 
 # Comando para ejecutar la aplicación usando uvicorn
