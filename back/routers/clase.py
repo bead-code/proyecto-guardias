@@ -1,3 +1,32 @@
+"""
+API Router para gestionar las operaciones CRUD de las clases.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Clase` en la base de datos.
+
+Rutas
+-----
+
+* **GET /clase/{id}**: Obtiene una clase por su ID.
+* **GET /clase/nombre/{nombre}**: Obtiene una clase por su nombre.
+* **GET /clase/**: Obtiene todas las clases.
+* **POST /clase/**: Crea una nueva clase.
+* **PUT /clase/{id}**: Actualiza una clase existente.
+* **DELETE /clase/{id}**: Elimina una clase por su ID.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from typing import List
 from fastapi import APIRouter, Depends
 from starlette import status

@@ -1,3 +1,31 @@
+"""
+DAO para gestionar las operaciones CRUD de los tramos horarios.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `TramoHorario` en la base de datos.
+
+Funciones
+---------
+
+* **get_tramo_horario_by_id**: Obtiene un tramo horario por su ID.
+* **get_tramo_horario_by_nombre**: Obtiene un tramo horario por su nombre.
+* **get_tramos_horarios**: Obtiene todos los tramos horarios activos.
+* **create_tramo_horario**: Crea un nuevo tramo horario.
+* **update_tramo_horario**: Actualiza un tramo horario existente.
+* **delete_tramo_horario**: Elimina (desactiva) un tramo horario por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **TramoHorario**: El modelo de datos del tramo horario.
+* **TramoHorarioCreate**: Esquema para la creación de un tramo horario.
+* **TramoHorarioUpdate**: Esquema para la actualización de un tramo horario.
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import TramoHorario
@@ -138,5 +166,4 @@ def delete_tramo_horario(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error borrando el tramo de la base de datos: {str(e)}")
-
 

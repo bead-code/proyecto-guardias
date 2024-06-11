@@ -1,3 +1,31 @@
+"""
+API Router para gestionar las operaciones CRUD de los roles.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Rol` en la base de datos.
+
+Rutas
+-----
+
+* **GET /rol/{id}**: Obtiene un rol por su ID.
+* **GET /rol/nombre/{nombre}**: Obtiene un rol por su nombre.
+* **GET /rol/**: Obtiene todos los roles.
+* **POST /rol/**: Crea un nuevo rol.
+* **PUT /rol/{id}**: Actualiza un rol existente.
+* **DELETE /rol/{id}**: Elimina un rol por su ID.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -12,6 +40,7 @@ router = APIRouter(
     prefix="/rol",
     tags=["rol"]
 )
+
 
 @router.get(
     '/{id}',
@@ -40,6 +69,7 @@ async def get_rol_by_id(
     logger.info(f"Request recibida de {current_user.username}: Obtener rol con ID {id}")
     return dao_rol.get_rol_by_id(id, db)
 
+
 @router.get(
     '/nombre/{nombre}',
     summary="Devuelve un rol de la base de datos",
@@ -67,6 +97,7 @@ async def get_rol_by_nombre(
     logger.info(f"Request recibida de {current_user.username}: Obtener rol con nombre {nombre}")
     return dao_rol.get_rol_by_nombre(nombre, db)
 
+
 @router.get(
     '/',
     summary="Devuelve todos los roles de la base de datos",
@@ -90,6 +121,7 @@ async def get_roles(
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los roles")
     return dao_rol.get_roles(db)
+
 
 @router.post(
     '/',
@@ -118,6 +150,7 @@ async def create_rol(
     """
     logger.info(f"Request recibida de {current_user.username}: Crear rol con nombre {request.nombre}")
     return dao_rol.create_rol(request, db)
+
 
 @router.put(
     '/{id}',
@@ -149,6 +182,7 @@ async def update_rol(
     """
     logger.info(f"Request recibida de {current_user.username}: Actualizar rol con ID {id}")
     return dao_rol.update_rol(id, request, db)
+
 
 @router.delete(
     '/{id}',

@@ -1,3 +1,32 @@
+"""
+API Router para gestionar las operaciones CRUD de los cursos.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Curso` en la base de datos.
+
+Rutas
+-----
+
+* **GET /curso/{id}**: Obtiene un curso por su ID.
+* **GET /curso/nombre/{nombre}**: Obtiene un curso por su nombre.
+* **GET /curso/**: Obtiene todos los cursos.
+* **POST /curso/**: Crea un nuevo curso.
+* **PUT /curso/{id}**: Actualiza un curso existente.
+* **DELETE /curso/{id}**: Elimina un curso por su ID.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from typing import List
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
@@ -5,7 +34,7 @@ from starlette import status
 from dao import dao_curso
 from db.database import get_db
 from db.schemas import CursoDTO, CursoCreate, CursoUpdate, ProfesorDTO
-from security.oauth2 import get_current_profesor, check_admin_role
+from security.oauth2 import check_admin_role
 from utils.logger import logger
 
 router = APIRouter(
@@ -174,5 +203,6 @@ async def delete_curso(
     """
     logger.info(f"Request recibida de {current_user.username}: Eliminar curso con ID {id}")
     return dao_curso.delete_curso(id, db)
+
 
 

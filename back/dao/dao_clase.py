@@ -1,3 +1,32 @@
+"""
+DAO para gestionar las operaciones CRUD de las clases.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Clase` en la base de datos.
+
+Funciones
+---------
+
+* **get_clase_by_id**: Obtiene una clase por su ID.
+* **get_clase_by_nombre**: Obtiene una clase por su nombre.
+* **get_clases**: Obtiene todas las clases activas.
+* **create_clase**: Crea una nueva clase.
+* **update_clase**: Actualiza una clase existente.
+* **delete_clase**: Elimina (desactiva) una clase por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Clase**: El modelo de datos de la clase.
+* **ClaseCreate**: El esquema de datos para crear una clase.
+* **ClaseUpdate**: El esquema de datos para actualizar una clase.
+
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Clase
@@ -136,5 +165,6 @@ def delete_clase(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error borrando la clase de la base de datos: {str(e)}")
+
 
 

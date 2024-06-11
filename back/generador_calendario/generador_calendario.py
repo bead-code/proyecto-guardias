@@ -1,3 +1,13 @@
+"""
+Módulo para generar entradas de calendario desde DataFrames y guardarlas en la base de datos.
+
+Funciones
+---------
+
+* **generate_calendario_from_dataframe**: Genera entradas de calendario y las inserta en la base de datos.
+
+"""
+
 import pandas as pd
 from db.database import Session
 from db.models import Calendario
@@ -12,6 +22,7 @@ def generate_calendario_from_dataframe(df_calendario: pd.DataFrame):
     :type df_calendario: pd.DataFrame
 
     La función realiza los siguientes pasos:
+
     1. Crea una sesión de la base de datos.
     2. Itera sobre cada fila del DataFrame `df_calendario`.
     3. Crea un objeto `Calendario` para cada fila, asignando valores predeterminados si los datos están ausentes.
@@ -24,7 +35,7 @@ def generate_calendario_from_dataframe(df_calendario: pd.DataFrame):
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
         df_calendario = dataframes['CALENDARIO']
-        generate_calendario(df_calendario)
+        generate_calendario_from_dataframe(df_calendario)
     """
     db = Session()
     calendarios = []
@@ -51,4 +62,5 @@ def generate_calendario_from_dataframe(df_calendario: pd.DataFrame):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+
 

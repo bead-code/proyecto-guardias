@@ -1,3 +1,14 @@
+"""
+Módulo para cargar datos de tablas y calendarios desde archivos XML.
+
+Funciones
+---------
+
+* **load_tables**: Carga datos de tablas desde un archivo XML y los convierte en DataFrames de pandas.
+* **load_calendario**: Carga datos de calendario desde un archivo XML y los convierte en un DataFrame de pandas.
+
+"""
+
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from io import BytesIO
@@ -122,3 +133,4 @@ def load_calendario(file: BytesIO = None):
         return extended_schedule_df
     except Exception as e:
         raise HTTPException(status_code=400, detail="El calendario de horarios no es válido")
+

@@ -1,3 +1,32 @@
+"""
+API Router para gestionar las operaciones CRUD de los tramos horarios.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `TramoHorario` en la base de datos.
+
+Rutas
+-----
+
+* **GET /tramo_horario/{id}**: Obtiene un tramo horario por su ID.
+* **GET /tramo_horario/nombre/{nombre}**: Obtiene un tramo horario por su nombre.
+* **GET /tramo_horario/**: Obtiene todos los tramos horarios.
+* **POST /tramo_horario/**: Crea un nuevo tramo horario.
+* **PUT /tramo_horario/{id}**: Actualiza un tramo horario existente.
+* **DELETE /tramo_horario/{id}**: Elimina un tramo horario por su ID.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from typing import List
 from fastapi import APIRouter, Depends
 from starlette import status
@@ -172,3 +201,4 @@ async def delete_tramo_horario(
     """
     logger.info(f"Request recibida de {current_user.username}: Eliminar tramo horario con ID {id}")
     return dao_tramo_horario.delete_tramo_horario(id, db)
+

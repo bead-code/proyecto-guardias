@@ -1,3 +1,32 @@
+"""
+DAO para gestionar las operaciones CRUD de los cursos.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Curso` en la base de datos.
+
+Funciones
+---------
+
+* **get_curso_by_id**: Obtiene un curso por su ID.
+* **get_curso_by_nombre**: Obtiene un curso por su nombre.
+* **get_cursos**: Obtiene todos los cursos activos.
+* **create_curso**: Crea un nuevo curso.
+* **update_curso**: Actualiza un curso existente.
+* **delete_curso**: Elimina (desactiva) un curso por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Curso**: El modelo de datos del curso.
+* **CursoCreate**: El esquema de datos para crear un curso.
+* **CursoUpdate**: El esquema de datos para actualizar un curso.
+
+"""
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from db.models import Curso
@@ -136,6 +165,7 @@ def delete_curso(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar al ciclo de la base de datos: {str(e)}")
+
 
 
 

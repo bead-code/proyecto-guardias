@@ -1,3 +1,13 @@
+"""
+Módulo para cargar aulas desde DataFrames y guardarlas en la base de datos.
+
+Funciones
+---------
+
+* **generate_aulas_from_dataframe**: Carga aulas desde un DataFrame de pandas y las inserta en la base de datos.
+
+"""
+
 from typing import Dict
 import pandas as pd
 from db.database import Session
@@ -9,10 +19,11 @@ def generate_aulas_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """
     Carga aulas desde un DataFrame de pandas y las inserta en la base de datos.
 
-    :param dataframes: El DataFrame de pandas que contiene los datos de las aulas.
-    :type dataframes: pd.DataFrame
+    :param dataframes: Un diccionario que contiene los DataFrames de pandas con los datos de las aulas.
+    :type dataframes: dict[str, pd.DataFrame]
 
     La función realiza los siguientes pasos:
+
     1. Obtiene el DataFrame `DEPENDENCIAS` de los datos proporcionados.
     2. Crea un aula predeterminada "No aplica".
     3. Itera sobre cada fila del DataFrame para crear objetos `Aula`.
@@ -24,7 +35,7 @@ def generate_aulas_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     .. code-block:: python
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
-        load_aulas_from_xml(dataframes)
+        generate_aulas_from_dataframe(dataframes)
     """
     df_aulas = dataframes.get('DEPENDENCIAS', pd.DataFrame())
     db = Session()
@@ -51,3 +62,4 @@ def generate_aulas_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+

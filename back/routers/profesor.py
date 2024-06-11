@@ -1,3 +1,32 @@
+"""
+API Router para gestionar las operaciones CRUD de los profesores.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Profesor` en la base de datos.
+
+Rutas
+-----
+
+* **GET /profesor/all**: Obtiene todos los profesores de la base de datos.
+* **GET /profesor/disponible**: Obtiene todos los profesores disponibles en una fecha y tramo horario específicos.
+* **GET /profesor/{id}**: Obtiene un profesor por su ID.
+* **POST /profesor/**: Crea un nuevo profesor.
+* **PUT /profesor/{id}**: Actualiza un profesor existente.
+* **DELETE /profesor/{id}**: Elimina un profesor por su ID.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from datetime import date
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -12,6 +41,7 @@ router = APIRouter(
     prefix="/profesor",
     tags=["profesor"]
 )
+
 
 @router.get(
     '/all',
@@ -37,6 +67,7 @@ def get_profesores(
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los profesores")
     return dao_profesor.get_profesores(db)
+
 
 @router.get(
     '/disponible',
@@ -65,8 +96,10 @@ def get_profesores_disponibles_by_id_calendario(
     :returns: Una lista de todos los profesores disponibles en la fecha y tramo horario especificados.
     :rtype: List[ProfesorDTO]
     """
-    logger.info(f"Request recibida de {current_user.username}: Obtener profesores disponibles en fecha {fecha} y tramo horario {id_tramo_horario}")
+    logger.info(f"Request recibida de {current_user.username}: Obtener profesores disponibles en fecha {fecha} y "
+                f"tramo horario {id_tramo_horario}")
     return dao_profesor.get_profesores_disponibles_by_id_calendario(fecha, id_tramo_horario, db)
+
 
 @router.get(
     '/{id}',
@@ -99,6 +132,7 @@ def get_profesor_by_id(
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     return dao_profesor.get_profesor_by_id(id, db)
 
+
 @router.post(
     '/',
     summary="Crea un profesor en la base de datos",
@@ -126,6 +160,7 @@ def create_profesor(
     """
     logger.info(f"Request recibida de {current_user.username}: Crear profesor con datos {request}")
     return dao_profesor.create_profesor(request, db)
+
 
 @router.put(
     '/{id}',
@@ -160,6 +195,7 @@ def update_profesor(
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     logger.info(f"Request recibida de {current_user.username}: Actualizar profesor con ID {id} con datos {request}")
     return dao_profesor.update_profesor(id, request, db)
+
 
 @router.delete(
     "/{id}",

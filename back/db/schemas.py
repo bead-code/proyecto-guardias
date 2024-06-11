@@ -1,3 +1,41 @@
+"""
+Schemas para la API.
+
+Este módulo define los schemas utilizados en la API para la validación y transferencia de datos.
+
+Schemas
+-------
+
+* **Token**: Modelo para representar un token de acceso.
+* **LoginData**: Modelo para representar los datos de inicio de sesión.
+* **RolCreate**: Modelo para crear un nuevo rol.
+* **RolUpdate**: Modelo para actualizar un rol existente.
+* **RolDTO**: Modelo de transferencia de datos para un rol.
+* **ProfesorCreate**: Modelo para crear un nuevo profesor.
+* **ProfesorUpdate**: Modelo para actualizar un profesor existente.
+* **ProfesorUpdatePassword**: Modelo para actualizar la contraseña de un profesor.
+* **ProfesorDTO**: Modelo de transferencia de datos para un profesor.
+* **ProfesorAuth**: Modelo para representar los datos de autenticación de un profesor.
+* **CursoCreate**: Modelo para crear un nuevo curso.
+* **CursoUpdate**: Modelo para actualizar un curso existente.
+* **CursoDTO**: Modelo de transferencia de datos para un curso.
+* **ActividadCreate**: Modelo para crear una nueva actividad.
+* **ActividadUpdate**: Modelo para actualizar una actividad existente.
+* **ActividadDTO**: Modelo de transferencia de datos para una actividad.
+* **ActividadCalendario**: Modelo para representar una actividad en el calendario.
+* **AulaCreate**: Modelo para crear un nuevo aula.
+* **AulaUpdate**: Modelo para actualizar un aula existente.
+* **AulaDTO**: Modelo de transferencia de datos para un aula.
+* **ClaseCreate**: Modelo para crear una nueva clase.
+* **ClaseUpdate**: Modelo para actualizar una clase existente.
+* **ClaseDTO**: Modelo de transferencia de datos para una clase.
+* **TramoHorarioCreate**: Modelo para crear un nuevo tramo horario.
+* **TramoHorarioUpdate**: Modelo para actualizar un tramo horario existente.
+* **TramoHorarioDTO**: Modelo de transferencia de datos para un tramo horario.
+* **CalendarioCreate**: Modelo para crear un nuevo registro en el calendario.
+* **CalendarioDTO**: Modelo de transferencia de datos para un registro en el calendario.
+"""
+
 from datetime import date, time
 from typing import Optional, Annotated
 
@@ -418,3 +456,4 @@ class CalendarioDTO(BaseModel):
 
     class Config:
         from_attributes = True
+

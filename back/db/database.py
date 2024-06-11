@@ -1,9 +1,37 @@
+"""
+Configuración de la base de datos y operaciones de mantenimiento.
+
+Este módulo define la configuración de la base de datos y las funciones para manejar la sesión de la base de datos y las operaciones de truncado de tablas.
+
+Funciones
+---------
+
+* **get_db**: Obtiene una sesión de la base de datos.
+* **truncate_all_tables**: Elimina todos los datos de todas las tablas de la base de datos.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **engine**: El motor de la base de datos.
+* **MetaData**: Metadata para reflejar las tablas de la base de datos.
+* **text**: Para ejecutar consultas SQL sin procesar.
+* **SQLAlchemyError**: Excepción de SQLAlchemy.
+* **logging**: Para el registro de eventos y errores.
+"""
+
 from fastapi import HTTPException
 from sqlalchemy import create_engine, MetaData, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import sessionmaker, declarative_base
 import logging
 
+# Configuración de la conexión a la base de datos
 hostname = "localhost"
 username = "root"
 password = "1234"
@@ -53,3 +81,4 @@ def truncate_all_tables():
             trans.rollback()
             logging.error(f"Error al eliminar los datos: {e}")
             raise HTTPException(status_code=500, detail="Error al eliminar los datos de las tablas")
+

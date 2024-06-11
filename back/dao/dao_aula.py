@@ -1,3 +1,32 @@
+"""
+DAO para gestionar las operaciones CRUD de las aulas.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Aula` en la base de datos.
+
+Funciones
+---------
+
+* **get_aula_by_id**: Obtiene un aula por su ID.
+* **get_aula_by_nombre**: Obtiene un aula por su nombre.
+* **get_aulas**: Obtiene todas las aulas activas.
+* **create_aula**: Crea un nuevo aula.
+* **update_aula**: Actualiza un aula existente.
+* **delete_aula**: Elimina (desactiva) un aula por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Aula**: El modelo de datos del aula.
+* **AulaCreate**: El esquema de datos para crear un aula.
+* **AulaUpdate**: El esquema de datos para actualizar un aula.
+
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Aula
@@ -136,5 +165,6 @@ def delete_aula(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el aula de la BBDD: {str(e)}")
+
 
 

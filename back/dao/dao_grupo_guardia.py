@@ -1,3 +1,28 @@
+"""
+DAO para gestionar las operaciones de los grupos de guardia.
+
+Este módulo define las funciones para manejar las operaciones de la entidad `GrupoGuardia` en la base de datos.
+
+Funciones
+---------
+
+* **get_grupo_guardia**: Obtiene el grupo de guardia asignado a un tramo horario y día específicos.
+* **get_grupos_guardia**: Obtiene todos los grupos de guardia.
+* **get_grupos_guardia_by_id_profesor**: Obtiene todos los grupos de guardia de un profesor.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Calendario**: El modelo de datos del calendario.
+* **Profesor**: El modelo de datos del profesor.
+
+"""
 from fastapi import HTTPException
 from starlette import status
 from db.database import Session
@@ -69,10 +94,12 @@ def get_grupos_guardia(db: Session):
     logger.info("Grupos de guardia retornados exitosamente")
     return grupos_guardia
 
-def get_grupos_guardia_by_id_profesor(id_profesor:int, db: Session):
+def get_grupos_guardia_by_id_profesor(id_profesor: int, db: Session):
     """
     Obtiene todos los grupos de guardia de un profesor.
 
+    :param id_profesor: El ID del profesor.
+    :type id_profesor: int
     :param db: La sesión de la base de datos.
     :type db: Session
     :returns: Un diccionario donde las claves son tuplas (día, id_tramo_horario) y los valores son listas del profesor asignado a guardias.

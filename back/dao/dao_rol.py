@@ -1,3 +1,31 @@
+"""
+DAO para gestionar las operaciones CRUD de los roles.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Rol` en la base de datos.
+
+Funciones
+---------
+
+* **get_rol_by_id**: Obtiene un rol por su ID.
+* **get_rol_by_nombre**: Obtiene un rol por su nombre.
+* **get_roles**: Obtiene todos los roles activos.
+* **create_rol**: Crea un nuevo rol.
+* **update_rol**: Actualiza un rol existente.
+* **delete_rol**: Elimina (desactiva) un rol por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Rol**: El modelo de datos del rol.
+* **RolCreate**: Esquema para la creación de un rol.
+* **RolUpdate**: Esquema para la actualización de un rol.
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Rol
@@ -136,3 +164,4 @@ def delete_rol(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el rol de la base de datos: {str(e)}")
+

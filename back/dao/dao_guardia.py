@@ -1,3 +1,35 @@
+"""
+DAO para gestionar las operaciones de guardias.
+
+Este módulo define las funciones para manejar las operaciones de la entidad `Guardia` en la base de datos.
+
+Funciones
+---------
+
+* **get_guardia_by_id**: Obtiene una guardia por su ID.
+* **get_guardia_by_fecha_tramo**: Obtiene la guardia de un profesor filtrada por fecha y tramo horario.
+* **get_guardias**: Obtiene todas las guardias activas.
+* **get_guardias_asignadas**: Obtiene todas las guardias asignadas.
+* **get_guardias_pendientes**: Obtiene todas las guardias pendientes.
+* **get_guardias_by_profesor**: Obtiene guardias asignadas a un profesor.
+* **get_assignable_guardias**: Obtiene todas las guardias asignables a un profesor.
+* **create_guardia**: Crea una nueva guardia.
+* **assign_profesor_sustituto**: Asigna un profesor sustituto a una guardia.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Calendario**: El modelo de datos del calendario.
+* **Profesor**: El modelo de datos del profesor.
+* **TramoHorario**: El modelo de datos del tramo horario.
+
+"""
 from datetime import date, time
 from typing import Optional
 from fastapi import HTTPException
@@ -5,7 +37,6 @@ from sqlalchemy import Date
 from starlette import status
 from db.database import Session
 from db.models import Calendario, Profesor, TramoHorario
-from db.schemas import ProfesorDTO
 from utils.logger import logger
 
 
@@ -298,6 +329,7 @@ def assign_profesor_sustituto(id_calendario: int, id_profesor_sustituto: int, db
     except Exception as e:
         logger.error(f"Error al actualizar el calendario en la base de datos: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al actualizar el calendario en la base de datos: {str(e)}")
+
 
 
 

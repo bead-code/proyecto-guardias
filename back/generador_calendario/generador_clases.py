@@ -1,3 +1,13 @@
+"""
+Módulo para generar clases desde DataFrames y guardarlas en la base de datos.
+
+Funciones
+---------
+
+* **generate_clases_from_dataframe**: Carga clases desde un DataFrame de pandas y las inserta en la base de datos.
+
+"""
+
 from typing import Dict
 import pandas as pd
 from db.database import Session
@@ -13,6 +23,7 @@ def generate_clases_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     :type dataframes: pd.DataFrame
 
     La función realiza los siguientes pasos:
+
     1. Obtiene el DataFrame `UNIDADES` de los datos proporcionados.
     2. Elimina las filas duplicadas basándose en la columna `X_UNIDAD`.
     3. Crea una clase predeterminada "No aplica".
@@ -25,7 +36,7 @@ def generate_clases_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     .. code-block:: python
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
-        load_clases_from_xml(dataframes)
+        generate_clases_from_dataframe(dataframes)
     """
     df_clases = dataframes.get('UNIDADES', pd.DataFrame())
     df_clases.drop_duplicates(subset='X_UNIDAD', keep='first', inplace=True)
@@ -53,3 +64,4 @@ def generate_clases_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+

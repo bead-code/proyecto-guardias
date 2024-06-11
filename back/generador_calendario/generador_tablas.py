@@ -1,3 +1,14 @@
+"""
+Módulo para generar todas las tablas necesarias para la base de datos a partir de datos XML.
+
+Funciones
+---------
+
+* **generate_tables_from_path**: Genera todas las tablas necesarias a partir de datos XML en la ruta del proyecto.
+* **generate_tables_from_files**: Genera todas las tablas necesarias a partir de archivos XML proporcionados.
+
+"""
+
 from io import BytesIO
 from db.database import truncate_all_tables
 from generador_calendario.conversor_xml_to_df import load_tables, load_calendario
@@ -17,6 +28,12 @@ def generate_tables_from_path():
 
     Este método llama a funciones específicas para generar roles, profesores, aulas, cursos, actividades,
     tramos horarios y clases a partir de datos XML predeterminados.
+
+    Ejemplo de uso:
+
+    .. code-block:: python
+
+        generate_tables_from_path()
     """
     tablas_df = load_tables()
     calendario_df = load_calendario()
@@ -43,6 +60,13 @@ def generate_tables_from_files(tablas: BytesIO, calendario: BytesIO):
     :type tablas: BytesIO
     :param calendario: Un archivo de bytes que contiene los datos del calendario en formato XML.
     :type calendario: BytesIO
+
+    Ejemplo de uso:
+
+    .. code-block:: python
+
+        with open('path_to_tablas.xml', 'rb') as tablas_file, open('path_to_calendario.xml', 'rb') as calendario_file:
+            generate_tables_from_files(BytesIO(tablas_file.read()), BytesIO(calendario_file.read()))
     """
     tablas_df = load_tables(tablas)
     calendario_df = load_calendario(calendario)
@@ -55,3 +79,4 @@ def generate_tables_from_files(tablas: BytesIO, calendario: BytesIO):
     generate_tramos_horarios_from_dataframe(tablas_df)
     generate_clases_from_dataframe(tablas_df)
     generate_calendario_from_dataframe(calendario_df)
+

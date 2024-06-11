@@ -1,3 +1,29 @@
+"""
+API Router para gestionar las operaciones CRUD de los grupos de guardia.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `GrupoGuardia` en la base de datos.
+
+Rutas
+-----
+
+* **GET /grupo_guardia**: Obtiene un grupo de guardia por el ID del tramo y el día de la semana.
+* **GET /grupo_guardia/all**: Obtiene todos los grupos de guardia.
+* **GET /grupo_guardia/all**: Obtiene todos los grupos de guardia de un profesor por su ID (opcional).
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from typing import List, Tuple, Dict, Optional
 from fastapi import APIRouter, Depends
 from starlette import status
@@ -56,7 +82,7 @@ async def get_grupos_guardia(
     """
     Obtiene todos los grupos de guardia.
 
-    :param id_profesor: El ID del profesor.
+    :param id_profesor: El ID del profesor (opcional).
     :type id_profesor: Optional[int]
     :param current_user: El usuario actual con rol de administrador.
     :type current_user: ProfesorDTO
@@ -70,4 +96,5 @@ async def get_grupos_guardia(
         return dao_grupo_guardia.get_grupos_guardia(db)
     logger.info(f"Request recibida de {current_user.username}: Obtener todos los grupos de guardia del profesor con id: {id_profesor}")
     return dao_grupo_guardia.get_grupos_guardia_by_id_profesor(id_profesor, db)
+
 

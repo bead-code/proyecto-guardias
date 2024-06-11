@@ -1,3 +1,34 @@
+"""
+DAO para gestionar las operaciones CRUD de los profesores.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Profesor` en la base de datos.
+
+Funciones
+---------
+
+* **get_profesor_by_id**: Obtiene un profesor por su ID.
+* **get_profesor_by_username**: Obtiene un profesor por su nombre de usuario.
+* **get_profesores**: Obtiene todos los profesores activos.
+* **get_profesores_disponibles_by_id_calendario**: Obtiene los profesores disponibles en un tramo horario específico.
+* **create_profesor**: Crea un nuevo profesor.
+* **update_profesor**: Actualiza un profesor existente.
+* **delete_profesor**: Elimina (desactiva) un profesor por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Profesor**: El modelo de datos del profesor.
+* **Rol**: El modelo de datos del rol.
+* **Calendario**: El modelo de datos del calendario.
+* **ProfesorCreate**: Esquema para la creación de un profesor.
+* **ProfesorUpdate**: Esquema para la actualización de un profesor.
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Profesor, Rol, Calendario
@@ -179,4 +210,5 @@ def delete_profesor(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al borrar el profesor de la base de datos: {str(e)}")
+
 

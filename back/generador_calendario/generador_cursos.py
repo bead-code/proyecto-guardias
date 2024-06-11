@@ -1,3 +1,13 @@
+"""
+Módulo para generar cursos desde DataFrames y guardarlos en la base de datos.
+
+Funciones
+---------
+
+* **generate_cursos_from_dataframe**: Carga cursos desde un DataFrame de pandas y los inserta en la base de datos.
+
+"""
+
 from typing import Dict
 import pandas as pd
 from db.database import Session
@@ -13,6 +23,7 @@ def generate_cursos_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     :type dataframes: pd.DataFrame
 
     La función realiza los siguientes pasos:
+
     1. Obtiene el DataFrame `CURSOS_DEL_CENTRO` de los datos proporcionados.
     2. Crea un curso predeterminado "No aplica".
     3. Itera sobre cada fila del DataFrame para crear objetos `Curso`.
@@ -24,7 +35,7 @@ def generate_cursos_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     .. code-block:: python
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
-        load_cursos_from_xml(dataframes)
+        generate_cursos_from_dataframe(dataframes)
     """
     df_cursos = dataframes.get('CURSOS_DEL_CENTRO', pd.DataFrame())
     db = Session()
@@ -49,3 +60,4 @@ def generate_cursos_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+

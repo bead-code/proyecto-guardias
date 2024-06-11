@@ -1,3 +1,35 @@
+"""
+DAO para gestionar las operaciones CRUD del calendario.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Calendario` en la base de datos.
+
+Funciones
+---------
+
+* **get_calendario_by_id**: Obtiene un registro del calendario por su ID.
+* **get_calendario_by_id_profesor**: Obtiene todos los registros del calendario para un profesor específico por su ID.
+* **get_actual_calendario_by_id_profesor**: Obtiene los registros actuales del calendario para un profesor específico por su ID.
+* **create_calendario**: Crea un nuevo registro en el calendario.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Profesor**: El modelo de datos del profesor.
+* **Actividad**: El modelo de datos de la actividad.
+* **Aula**: El modelo de datos del aula.
+* **Curso**: El modelo de datos del curso.
+* **Clase**: El modelo de datos de la clase.
+* **Calendario**: El modelo de datos del calendario.
+* **TramoHorario**: El modelo de datos del tramo horario.
+* **CalendarioCreate**: El esquema de datos para crear un registro del calendario.
+
+"""
 from datetime import datetime
 from fastapi import HTTPException
 from starlette import status
@@ -132,6 +164,7 @@ def create_calendario(calendario: CalendarioCreate, db: Session):
     except Exception as e:
         logger.error(f"Error al insertar el registro del calendario en la base de datos: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error al insertar al calendario en la base de datos: {str(e)}")
+
 
 
 

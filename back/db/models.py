@@ -1,5 +1,22 @@
-import uuid
+"""
+Modelos de la base de datos.
 
+Este módulo define los modelos de la base de datos y sus relaciones.
+
+Modelos
+-------
+
+* **Rol**: Modelo que representa un rol en la base de datos.
+* **Profesor**: Modelo que representa un profesor en la base de datos.
+* **Curso**: Modelo que representa un curso en la base de datos.
+* **Clase**: Modelo que representa una clase en la base de datos.
+* **Actividad**: Modelo que representa una actividad en la base de datos.
+* **Aula**: Modelo que representa un aula en la base de datos.
+* **TramoHorario**: Modelo que representa un tramo horario en la base de datos.
+* **Calendario**: Modelo que representa un calendario en la base de datos.
+"""
+
+import uuid
 from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey, Time
 from sqlalchemy.orm import relationship
 from db.database import Base
@@ -22,6 +39,7 @@ class Rol(Base):
     nombre = Column(String(64))
     activo = Column(Boolean, default=True)
     profesores = relationship("Profesor", back_populates="rol")
+
 
 class Profesor(Base):
     """
@@ -51,7 +69,6 @@ class Profesor(Base):
         """
         return f"user_{uuid.uuid4().hex[:8]}"
 
-
     __tablename__ = 'profesores'
     id_profesor = Column(Integer, primary_key=True)
     username = Column(String(64), unique=True, default=generate_unique_username)
@@ -64,6 +81,7 @@ class Profesor(Base):
     rol = relationship("Rol", back_populates="profesores")
     calendario = relationship("Calendario", back_populates="profesor", foreign_keys="[Calendario.id_profesor]")
     calendario_sustituto = relationship("Calendario", back_populates="profesor_sustituto", foreign_keys="[Calendario.id_profesor_sustituto]")
+
 
 class Curso(Base):
     """
@@ -82,6 +100,7 @@ class Curso(Base):
     activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="curso")
 
+
 class Clase(Base):
     """
     Modelo que representa una clase en la base de datos.
@@ -98,6 +117,7 @@ class Clase(Base):
     nombre = Column(String(64), index=True, unique=True)
     activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="clase")
+
 
 class Actividad(Base):
     """
@@ -116,6 +136,7 @@ class Actividad(Base):
     activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="actividad")
 
+
 class Aula(Base):
     """
     Modelo que representa un aula en la base de datos.
@@ -132,6 +153,7 @@ class Aula(Base):
     nombre = Column(String(64), index=True, unique=True)
     activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="aula")
+
 
 class TramoHorario(Base):
     """
@@ -155,6 +177,7 @@ class TramoHorario(Base):
     hora_fin = Column(Time)
     activo = Column(Boolean, default=True)
     calendario = relationship("Calendario", back_populates="tramo_horario")
+
 
 class Calendario(Base):
     """
@@ -205,3 +228,4 @@ class Calendario(Base):
     clase = relationship("Clase", back_populates="calendario")
     aula = relationship("Aula", back_populates="calendario")
     tramo_horario = relationship("TramoHorario", back_populates="calendario")
+

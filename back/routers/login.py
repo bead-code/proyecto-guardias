@@ -1,3 +1,24 @@
+"""
+API Router para gestionar la autenticación y obtención de tokens de acceso.
+
+Este módulo define las rutas y funciones para manejar la autenticación de profesores y la obtención de tokens de acceso.
+
+Rutas
+-----
+
+* **POST /login**: Autentica a un profesor y devuelve un token de acceso.
+
+Dependencias
+------------
+
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **db**: La sesión de la base de datos (Session).
+
+"""
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
@@ -48,5 +69,6 @@ def get_token(
         "access_token": access_token,
         "token_type": "Bearer"
     }
+
 
 

@@ -1,3 +1,13 @@
+"""
+Módulo para generar profesores desde DataFrames y guardarlos en la base de datos.
+
+Funciones
+---------
+
+* **generate_profesores_from_dataframe**: Carga profesores desde un DataFrame de pandas y los inserta en la base de datos.
+
+"""
+
 from typing import Dict
 import pandas as pd
 from db.database import Session
@@ -14,6 +24,7 @@ def generate_profesores_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     :type dataframes: pd.DataFrame
 
     La función realiza los siguientes pasos:
+
     1. Obtiene el DataFrame `EMPLEADOS` de los datos proporcionados.
     2. Asigna roles específicos a algunos profesores basándose en sus nombres completos.
     3. Formatea el nombre completo de cada profesor combinando su nombre y apellidos.
@@ -28,7 +39,7 @@ def generate_profesores_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     .. code-block:: python
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
-        load_profesores_from_xml(dataframes)
+        generate_profesores_from_dataframe(dataframes)
     """
     profesores = []
     df_profesores = dataframes.get('EMPLEADOS', pd.DataFrame())
@@ -82,3 +93,4 @@ def generate_profesores_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+

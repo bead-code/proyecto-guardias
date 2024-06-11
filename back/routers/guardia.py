@@ -1,3 +1,33 @@
+"""
+API Router para gestionar las operaciones CRUD de las guardias.
+
+Este módulo define las rutas y funciones para manejar las operaciones CRUD de la entidad `Guardia` en la base de datos.
+
+Rutas
+-----
+
+* **GET /guardias**: Obtiene la guardia de un profesor filtrada por fecha y tramo horario.
+* **GET /guardias/all**: Obtiene todas las guardias de la base de datos.
+* **GET /guardias/asignadas**: Obtiene todas las guardias asignadas de la base de datos.
+* **GET /guardias/pendientes**: Obtiene todas las guardias pendientes de la base de datos.
+* **GET /guardias/{id_profesor}**: Obtiene todas las guardias de un profesor por su ID.
+* **POST /guardias**: Crea una nueva guardia.
+* **PUT /guardias/{id}**: Asigna un profesor sustituto a una guardia.
+
+Dependencias
+------------
+
+* **get_current_profesor**: Dependencia para obtener el profesor actual autenticado.
+* **check_admin_role**: Dependencia para verificar que el usuario tenga un rol de administrador.
+* **get_db**: Dependencia para obtener la sesión de la base de datos.
+
+Dependencias Inyectadas
+-----------------------
+
+* **current_user**: El usuario actual autenticado (ProfesorDTO).
+* **db**: La sesión de la base de datos (Session).
+
+"""
 import logging
 from datetime import date, time
 from typing import List, Optional
@@ -59,7 +89,7 @@ async def get_guardias(
     """
     Obtiene todas las guardias activas.
 
-    :param current_user
+    :param current_user: El usuario actual con rol de administrador.
     :type current_user: ProfesorDTO
     :param db: La sesión de la base de datos.
     :type db: Session
@@ -226,5 +256,7 @@ async def assign_profesor_sustituto(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="No tienes permisos para acceder a este recurso"
         )
-    logging.info(f"Request recibida...")
+    logging.info(f"Request recibida de {current_user.username}: Asignar profesor sustituto con ID {id_profesor_sustituto} a la guardia {id}")
     return dao_guardia.assign_profesor_sustituto(id, id_profesor_sustituto, db)
+
+

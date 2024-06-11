@@ -1,9 +1,37 @@
+"""
+DAO para gestionar las operaciones CRUD de las actividades.
+
+Este módulo define las funciones para manejar las operaciones CRUD de la entidad `Actividad` en la base de datos.
+
+Funciones
+---------
+
+* **get_actividad_by_id**: Obtiene una actividad por su ID.
+* **get_actividad_by_nombre**: Obtiene una actividad por su nombre.
+* **get_actividades**: Obtiene todas las actividades activas.
+* **create_actividad**: Crea una nueva actividad.
+* **update_actividad**: Actualiza una actividad existente.
+* **delete_actividad**: Elimina (desactiva) una actividad por su ID.
+
+Excepciones
+-----------
+
+* **HTTPException**: Excepción levantada si ocurre algún error durante las operaciones de base de datos.
+
+Dependencias
+------------
+
+* **Session**: La sesión de la base de datos.
+* **Actividad**: El modelo de datos de la actividad.
+* **ActividadCreate**: El esquema de datos para crear una actividad.
+* **ActividadUpdate**: El esquema de datos para actualizar una actividad.
+
+"""
 from fastapi import HTTPException
 from db.database import Session
 from db.models import Actividad
 from db.schemas import ActividadCreate, ActividadUpdate
 from utils.logger import logger
-
 
 def get_actividad_by_id(id: int, db: Session):
     """
@@ -136,6 +164,7 @@ def delete_actividad(id: int, db: Session):
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error borrando la actividad de la base de datos: {str(e)}")
+
 
 
 

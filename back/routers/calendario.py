@@ -61,9 +61,13 @@ def get_calendario_by_id(
     Obtiene un calendario por su ID.
 
     :param id: ID del calendario.
+    :type id: int
     :param current_user: Usuario autenticado con permisos de administrador.
+    :type current_user: ProfesorDTO
     :param db: Sesión de la base de datos.
+    :type db: Session
     :return: CalendarioDTO
+    :rtype: CalendarioDTO
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener calendario con ID {id}")
     return dao_calendario.get_calendario_by_id(id, db)
@@ -85,9 +89,13 @@ async def get_calendario_by_id_profesor(
     Obtiene el calendario de un profesor por su ID.
 
     :param profesor_id: ID del profesor.
+    :type profesor_id: int
     :param current_user: Usuario autenticado.
+    :type current_user: ProfesorDTO
     :param db: Sesión de la base de datos.
+    :type db: Session
     :return: List[CalendarioDTO]
+    :rtype: List[CalendarioDTO]
     """
     if current_user.id != profesor_id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
@@ -112,9 +120,13 @@ async def get_actual_calendario_by_id_profesor(
     Obtiene el calendario actual de un profesor por su ID.
 
     :param profesor_id: ID del profesor.
+    :type profesor_id: int
     :param current_user: Usuario autenticado.
+    :type current_user: ProfesorDTO
     :param db: Sesión de la base de datos.
+    :type db: Session
     :return: List[CalendarioDTO]
+    :rtype: List[CalendarioDTO]
     """
     if current_user.id != profesor_id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
@@ -139,9 +151,13 @@ async def create_calendario(
     Crea un nuevo calendario.
 
     :param calendario: Datos para crear un nuevo calendario.
+    :type calendario: CalendarioCreate
     :param current_user: Usuario autenticado con permisos de administrador.
+    :type current_user: ProfesorDTO
     :param db: Sesión de la base de datos.
+    :type db: Session
     :return: CalendarioDTO
+    :rtype: CalendarioDTO
     """
     logger.info(f"Request recibida de {current_user.username}: Crear calendario con datos {calendario}")
     return dao_calendario.create_calendario(calendario, db)
@@ -162,9 +178,13 @@ async def upload_tables(
     Genera el calendario para el año actual a partir de los archivos XML enviados.
 
     :param tablas: Archivo XML con las tablas.
-    :param calenario: Archivo XML con el calendario.
+    :type tablas: UploadFile
+    :param calendario: Archivo XML con el calendario.
+    :type calendario: UploadFile
     :param current_user: Usuario autenticado.
+    :type current_user: ProfesorDTO
     :return: Mensaje de éxito.
+    :rtype: dict
     """
     if current_user.rol.id_rol != 1:
         raise HTTPException(status_code=403, detail="No tienes permisos para realizar esta acción")
@@ -172,6 +192,3 @@ async def upload_tables(
     horarios_byte = await calendario.read()
     generate_tables_from_files(BytesIO(tablas_byte), BytesIO(horarios_byte))
     return {"message": "Horarios generados correctamente"}
-
-
-

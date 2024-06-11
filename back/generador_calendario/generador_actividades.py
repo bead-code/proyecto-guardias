@@ -1,3 +1,13 @@
+"""
+Módulo para cargar actividades desde DataFrames y guardarlas en la base de datos.
+
+Funciones
+---------
+
+* **generate_actividades_from_dataframe**: Carga actividades desde un DataFrame de pandas y las inserta en la base de datos.
+
+"""
+
 from typing import Dict
 import pandas as pd
 from db.database import Session
@@ -9,10 +19,11 @@ def generate_actividades_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """
     Carga actividades desde un DataFrame de pandas y las inserta en la base de datos.
 
-    :param dataframes: El DataFrame de pandas que contiene los datos de las actividades.
-    :type dataframes: pd.DataFrame
+    :param dataframes: Un diccionario que contiene los DataFrames de pandas con los datos de las actividades.
+    :type dataframes: dict[str, pd.DataFrame]
 
     La función realiza los siguientes pasos:
+
     1. Obtiene los DataFrames `MATERIAS` y `ACTIVIDADES` de los datos proporcionados.
     2. Renombra las columnas relevantes en ambos DataFrames para que sean consistentes.
     3. Combina ambos DataFrames en uno solo.
@@ -25,7 +36,7 @@ def generate_actividades_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     .. code-block:: python
 
         dataframes = pd.read_excel('path_to_excel_file.xlsx', sheet_name=None)
-        load_actividades_from_xml(dataframes)
+        generate_actividades_from_dataframe(dataframes)
     """
     df_asignaturas = dataframes.get('MATERIAS', pd.DataFrame())
     df_actividades_complementarias = dataframes.get("ACTIVIDADES", pd.DataFrame())
@@ -54,3 +65,4 @@ def generate_actividades_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     except Exception as e:
         db.rollback()
         logger.error(f"Error occurred: {str(e)}")
+
