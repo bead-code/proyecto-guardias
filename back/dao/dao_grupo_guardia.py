@@ -68,3 +68,34 @@ def get_grupos_guardia(db: Session):
         grupos_guardia[(dia, id_tramo_horario)].append(profesor)
     logger.info("Grupos de guardia retornados exitosamente")
     return grupos_guardia
+
+def get_grupos_guardia_by_id_profesor(id_profesor:int, db: Session):
+    """
+    Obtiene todos los grupos de guardia de un profesor.
+
+    :param db: La sesión de la base de datos.
+    :type db: Session
+    :returns: Un diccionario donde las claves son tuplas (día, id_tramo_horario) y los valores son listas del profesor asignado a guardias.
+    :rtype: dict
+    """
+    resultados = (
+        db.query(Calendario.dia, Calendario.id_tramo_horario, Profesor)
+        .join(Profesor, Calendario.id_profesor == Profesor.id_profesor)
+        .filter(id_profesor == Profesor.id_profesor)
+        .filter(Calendario.activo == True)
+        .filter(Calendario.id_actividad == id_actividad_guardia)
+        .all()
+    )
+    if not resultados:
+        logger.error("No hay grupos de guardia registrados en la base de datos")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="No hay grupos de guardia registrados en la base de datos"
+        )
+    grupos_guardia = {}
+    for dia, id_tramo_horario, profesor in resultados:
+        if (dia, id_tramo_horario) not in grupos_guardia:
+            grupos_guardia[(dia, id_tramo_horario)] = []
+        grupos_guardia[(dia, id_tramo_horario)].append(profesor)
+    logger.info("Grupos de guardia retornados exitosamente")
+    return grupos_guardia

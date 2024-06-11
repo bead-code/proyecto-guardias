@@ -1,4 +1,4 @@
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 from fastapi import APIRouter, Depends
 from starlette import status
 from dao import dao_grupo_guardia
@@ -49,12 +49,15 @@ async def get_grupo_guardia(
     response_model=Dict[Tuple[int, int], List[ProfesorDTO]],
     status_code=status.HTTP_200_OK)
 async def get_grupos_guardia(
+        id_profesor: Optional[int] = None,
         current_user: ProfesorDTO = Depends(check_admin_role),
         db: Session = Depends(get_db)
 ):
     """
     Obtiene todos los grupos de guardia.
 
+    :param id_profesor: El ID del profesor.
+    :type id_profesor: Optional[int]
     :param current_user: El usuario actual con rol de administrador.
     :type current_user: ProfesorDTO
     :param db: La sesión de la base de datos.
@@ -62,5 +65,9 @@ async def get_grupos_guardia(
     :returns: Un diccionario con los grupos de guardia, donde la clave es una tupla de (día, ID del tramo horario) y el valor es una lista de profesores.
     :rtype: Dict[Tuple[int, int], List[ProfesorDTO]]
     """
-    logger.info(f"Request recibida de {current_user.username}: Obtener todos los grupos de guardia")
-    return dao_grupo_guardia.get_grupos_guardia(db)
+    if id_profesor is None:
+        logger.info(f"Request recibida de {current_user.username}: Obtener todos los grupos de guardia")
+        return dao_grupo_guardia.get_grupos_guardia(db)
+    logger.info(f"Request recibida de {current_user.username}: Obtener todos los grupos de guardia del profesor con id: {id_profesor}")
+    return dao_grupo_guardia.get_grupos_guardia_by_id_profesor(id_profesor, db)
+

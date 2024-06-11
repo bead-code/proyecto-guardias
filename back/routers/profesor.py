@@ -95,7 +95,7 @@ def get_profesor_by_id(
     :raises HTTPException: Si el usuario actual no tiene permisos para acceder a este recurso.
     """
     logger.info(f"Request recibida de {current_user.username}: Obtener profesor con ID {id}")
-    if current_user.id_profesor != id and current_user.rol.id_rol < 3:
+    if current_user.id_profesor != id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     return dao_profesor.get_profesor_by_id(id, db)
 
@@ -156,7 +156,7 @@ def update_profesor(
     :rtype: ProfesorDTO
     :raises HTTPException: Si el usuario actual no tiene permisos para acceder a este recurso.
     """
-    if current_user.id_profesor != id and current_user.rol.id_rol < 3:
+    if current_user.id_profesor != id and current_user.rol.id_rol > 3:
         raise HTTPException(status_code=403, detail="No tienes permisos para acceder a este recurso")
     logger.info(f"Request recibida de {current_user.username}: Actualizar profesor con ID {id} con datos {request}")
     return dao_profesor.update_profesor(id, request, db)
