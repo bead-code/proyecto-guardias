@@ -54,6 +54,7 @@ def get_guardia_by_fecha_tramo(id_profesor: int, fecha: date, id_tramo_horario: 
         .filter(Calendario.id_tramo_horario == id_tramo_horario)
         .filter(Calendario.activo == True)
         .filter(Calendario.ausencia == True)
+        .group_by(Calendario.id_profesor, Calendario.fecha, Calendario.id_tramo_horario)
         .first()
     )
     if not calendario:
@@ -78,6 +79,7 @@ def get_guardias(db: Session):
         db.query(Calendario)
         .filter(Calendario.ausencia == True)
         .filter(Calendario.activo == True)
+        .group_by(Calendario.id_profesor, Calendario.fecha, Calendario.id_tramo_horario)
         .all()
     )
     if not calendario:
@@ -103,6 +105,7 @@ def get_guardias_asignadas(db: Session):
         .filter(Calendario.id_profesor_sustituto != 9999)
         .filter(Calendario.ausencia == True)
         .filter(Calendario.activo == True)
+        .group_by(Calendario.id_profesor, Calendario.fecha, Calendario.id_tramo_horario)
         .all()
     )
     if not calendario:
@@ -128,6 +131,7 @@ def get_guardias_pendientes(db: Session):
         .filter(Calendario.id_profesor_sustituto == 9999)
         .filter(Calendario.ausencia == True)
         .filter(Calendario.activo == True)
+        .group_by(Calendario.id_profesor, Calendario.fecha, Calendario.id_tramo_horario)
         .all()
     )
     if not calendario:
