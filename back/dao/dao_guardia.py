@@ -185,14 +185,18 @@ def get_assignable_guardias(id_profesor, db: Session):
     :rtype: List[Calendario]
     :raises HTTPException: Si no hay guardias asignables.
     """
-    guardias = (
-        db.query(Calendario)
-        .filter(Calendario.id_profesor == id_profesor)
-        .filter(Calendario.id_actividad == 65)
-        .filter(Calendario.ausencia == True)
-        .filter(Calendario.activo == True)
-        .all()
-    )
+    guardias = get_guardias(db)
+    for guardia in guardias:
+        if not (
+            db.query(Calendario)
+            .filter(Calendario.id_profesor == id_profesor)
+            .filter(Calendario.fecha == guardia.fecha)
+            .filter(Calendario.id_tramo_horario == guardia.id_tramo_horario)
+            .filter(Calendario.id_actividad == 65)
+            .filter(Profesor.activo == True)
+            .first()
+        ):
+            guardias.remove(guardia)
     if not guardias:
         logger.error("No hay guardias asignables en la base de datos")
         raise HTTPException(
