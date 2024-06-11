@@ -61,8 +61,10 @@ export function CalendarioGuardias() {
 
     return (
         <div className='max-w-4xl max-h-[calc(100vh-300px)] mx-auto'>
-            {loading ? (
-                <p>Cargando...</p>
+            {loading || !decodedToken ? (
+                <div className='flex-grow justify-between'>
+                    <CircularProgress/>
+                </div>
             ) : (
                 <FullCalendar
                     height={'calc(100vh - 300px)'}
