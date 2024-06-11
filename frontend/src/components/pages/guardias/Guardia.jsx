@@ -11,12 +11,14 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export function Guardia() {
     const {fecha, tramoHorario, idProfesor} = useParams();
-    const {decodeToken, token} = useContext(AppGlobal);
+    const {decodedToken, token} = useContext(AppGlobal);
     const campoSustituto = useRef();
     const [guardia, setGuardia] = useState(undefined);
+    const [usuario, setUsuario] = useState(undefined);
     const [profesorAsignadoModificado, setProfesorAsignadoModificado] = useState(null);
     const [profesoresDisponibles, setProfesoresDisponibles] = useState([]);
     const navigate = useNavigate();
+
     useEffect(() => {
         fetch(`http://localhost:8000/guardias?id_profesor=${idProfesor}&fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
             method: "GET",
@@ -34,23 +36,55 @@ export function Guardia() {
                     mostrarToast("Error al cargar la guardia", "error");
                 }
             });
+    }, [token, fecha, tramoHorario, idProfesor]);
 
-        fetch(`http://localhost:8000/profesor/disponible?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
+    useEffect(() => {
+        if (decodedToken && decodedToken?.rol === 'PROFESOR') {
+            if (!guardia) {
+                return;
             }
-        })
-            .then(async (res) => {
-                const data = await res.json();
-                if (res.ok) {
-                    setProfesoresDisponibles(data);
-                } else {
-                    mostrarToast("Error al cargar los profesores disponibles", "error");
+            if (guardia.profesor_sustituto?.id_profesor !== 9999) {
+                setProfesoresDisponibles([guardia.profesor_sustituto,]);
+                setProfesorAsignadoModificado(guardia.profesor_sustituto.id_profesor);
+                return;
+            }
+            fetch(`http://localhost:8000/profesor/${decodedToken.sub}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
                 }
-            });
-    }, [token]);
+            })
+                .then(async (res) => {
+                    const data = await res.json();
+                    if (res.ok) {
+                        console.log('data')
+                        console.log(guardia)
+                        setProfesoresDisponibles([data,]);
+                        setProfesorAsignadoModificado(decodedToken.sub);
+                    } else {
+                        mostrarToast("Error al cargar el usuario", "error");
+                    }
+                });
+
+        } else {
+            fetch(`http://localhost:8000/profesor/disponible?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            })
+                .then(async (res) => {
+                    const data = await res.json();
+                    if (res.ok) {
+                        setProfesoresDisponibles(data);
+                    } else {
+                        setProfesoresDisponibles([]);
+                    }
+                });
+        }
+    }, [token, decodedToken, guardia]);
 
     if (!guardia) {
         return (
@@ -90,27 +124,26 @@ export function Guardia() {
             }
         })
             .then((res) => {
-                    if (!res.ok) {
-                        throw new Error('Error al asignar la guardia');
-                    }
-                    if (profesorAsignadoModificado === 9999) {
-                        toast.update(toastGuardia, {
-                            render: 'Guardia desasignada',
-                            type: 'success',
-                            isLoading: false,
-                            autoClose: 3000,
-                        });
-                    } else {
-                        toast.update(toastGuardia, {
-                            render: 'Guardia asignada',
-                            type: 'success',
-                            isLoading: false,
-                            autoClose: 3000,
-                        });
-                    }
-                    navigate('/guardias');
+                if (!res.ok) {
+                    throw new Error('Error al asignar la guardia');
                 }
-            )
+                if (profesorAsignadoModificado === 9999) {
+                    toast.update(toastGuardia, {
+                        render: 'Guardia desasignada',
+                        type: 'success',
+                        isLoading: false,
+                        autoClose: 3000,
+                    });
+                } else {
+                    toast.update(toastGuardia, {
+                        render: 'Guardia asignada',
+                        type: 'success',
+                        isLoading: false,
+                        autoClose: 3000,
+                    });
+                }
+                navigate('/guardias');
+            })
             .catch(() => {
                 toast.update(toastGuardia, {
                     render: 'Error al asignar la guardia',
@@ -119,9 +152,17 @@ export function Guardia() {
                     autoClose: 3000,
                 });
             });
+        if (decodedToken?.rol === 'PROFESOR' && guardia.profesor_sustituto.id_profesor !== decodedToken.sub && guardia.profesor_sustituto.id_profesor !== 9999) {
+            setProfesoresDisponibles([guardia.profesor_sustituto]);
+            setProfesorAsignadoModificado(guardia.profesor_sustituto.id_profesor);
+        }
     };
 
     const manejarRechazar = () => {
+        if (decodedToken?.rol === 'PROFESOR') {
+            navigate('/guardias');
+            return;
+        }
         setProfesorAsignadoModificado(guardia.profesor_sustituto?.id_profesor || 9999);
     };
 
@@ -135,7 +176,6 @@ export function Guardia() {
     console.log('guardia.profesor_sustituto?.id_profesor')
     console.log(guardia.profesor_sustituto?.id_profesor ?? 'yippie')
     console.log(profesorAsignadoModificado)
-
 
     return (
         <Card className='max-w-4xl lg:max-h-[calc(100vh-300px)] m-auto'>
@@ -159,20 +199,35 @@ export function Guardia() {
                         sustituto:</b></Typography>
                     <FormControl className='max-w-96'>
                         <InputLabel id="etiqueta">Sustituto</InputLabel>
-                        <Select
-                            ref={campoSustituto}
-                            labelId="etiqueta"
-                            label="Sustituto"
-                            value={profesorAsignadoModificado}
-                            onChange={handleCambioProfesorSustituto}
-                        >
-                            <MenuItem className='h-16' value={9999}>Sin asignar</MenuItem>
-                            {profesoresDisponibles.map((profesor) => (
-                                <MenuItem className='h-16' value={profesor.id_profesor} key={profesor.id_profesor}>
-                                    <AvatarModificado disableOnClick className='inline' profesor={profesor}/>
-                                </MenuItem>
-                            ))}
-                        </Select>
+                        {profesoresDisponibles.length === 0
+                            ? (
+                                <Select
+                                    ref={campoSustituto}
+                                    labelId="etiqueta"
+                                    label="Sustituto"
+                                    value={9999}
+                                    onChange={handleCambioProfesorSustituto}
+                                    disabled
+                                >
+                                    <MenuItem className='h-16' value={9999}>Sin asignar</MenuItem>
+                                </Select>
+                            )
+                            : <Select
+                                ref={campoSustituto}
+                                labelId="etiqueta"
+                                label="Sustituto"
+                                value={profesorAsignadoModificado}
+                                onChange={handleCambioProfesorSustituto}
+                                {...(decodedToken?.rol === 'PROFESOR' ? {disabled: true} : {disabled: false})}
+                            >
+                                <MenuItem className='h-16' value={9999}>Sin asignar</MenuItem>
+                                {profesoresDisponibles.map((profesor) => (
+                                    <MenuItem className='h-16' value={profesor.id_profesor} key={profesor.id_profesor}>
+                                        <AvatarModificado disableOnClick className='inline' profesor={profesor}/>
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        }
                     </FormControl>
                 </div>
                 {(profesorAsignadoModificado ?? 9999) !== (guardia.profesor_sustituto?.id_profesor ?? 9999) && (
