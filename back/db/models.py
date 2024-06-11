@@ -1,7 +1,10 @@
+import uuid
+
 from sqlalchemy import Column, String, Integer, Date, Boolean, ForeignKey, Time
 from sqlalchemy.orm import relationship
 from db.database import Base
 from security.hash import Hash
+
 
 class Rol(Base):
     """
@@ -41,9 +44,17 @@ class Profesor(Base):
     :param activo: Indica si el profesor está activo.
     :type activo: bool
     """
+
+    def generate_unique_username(self):
+        """
+        Genera un nombre de usuario único utilizando UUID.
+        """
+        return f"user_{uuid.uuid4().hex[:8]}"
+
+
     __tablename__ = 'profesores'
     id_profesor = Column(Integer, primary_key=True)
-    username = Column(String(64), unique=True)
+    username = Column(String(64), unique=True, default=generate_unique_username)
     password = Column(String(255), nullable=False, default=Hash.argon2("Sampedro.1234"))
     nombre = Column(String(64))
     password_temporal = Column(Boolean, nullable=False, default=True)
