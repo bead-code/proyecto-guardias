@@ -6,10 +6,11 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import esLocale from '@fullcalendar/core/locales/es';
 import AppGlobal from "../../App.jsx";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export function CalendarioGuardias() {
     const navigate = useNavigate();
-    const { token } = useContext(AppGlobal);
+    const { token, decodedToken } = useContext(AppGlobal);
     const [guardias, setGuardias] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -23,6 +24,7 @@ export function CalendarioGuardias() {
                         'Authorization': 'Bearer ' + token
                     }
                 });
+
                 if (!response.ok) {
                     throw new Error('Error al obtener los datos de guardias');
                 }
@@ -35,7 +37,7 @@ export function CalendarioGuardias() {
             }
         };
         fetchGuardias();
-    }, [token]);
+    }, [token, decodedToken]);
 
     const handleEventClick = (info) => {
         console.log(info.event.extendedProps.url);
