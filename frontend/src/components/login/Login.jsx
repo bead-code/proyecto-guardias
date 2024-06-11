@@ -45,11 +45,10 @@ export function Login({ setToken }) {
             if (response.ok) {
                 setToken(data.access_token);
                 localStorage.setItem('tokenAppGuardias', data.access_token);
-                mostrarToast('Login correcto', 'success');
                 navigate('/');
             } else {
                 console.error(data.error);
-                mostrarToast('Error en el login', 'error');
+                mostrarToast('Credenciales erroneas', 'error');
             }
         } catch (error) {
             mostrarToast('No se ha podido comunicar con el servidor', 'error');
