@@ -25,7 +25,7 @@ async def get_guardia_by_fecha_tramo(
         id_profesor: int,
         fecha: date,
         id_tramo_horario: int,
-        current_user: ProfesorDTO = Depends(check_admin_role),
+        current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)):
     """
     Obtiene la guardia de un profesor filtrada por fecha, tramo horario e ID del profesor.
@@ -52,16 +52,21 @@ async def get_guardia_by_fecha_tramo(
     response_description="Lista de todas las guardias de la base de datos",
     response_model=List[CalendarioDTO],
     status_code=status.HTTP_200_OK)
-async def get_guardias(db: Session = Depends(get_db)):
+async def get_guardias(
+        current_user: ProfesorDTO = Depends(get_current_profesor),
+        db: Session = Depends(get_db)
+):
     """
     Obtiene todas las guardias activas.
 
+    :param current_user
+    :type current_user: ProfesorDTO
     :param db: La sesión de la base de datos.
     :type db: Session
     :returns: Una lista de todas las guardias activas.
     :rtype: List[CalendarioDTO]
     """
-    logging.info(f"Request recibida....")
+    logger.info(f"Request recibida de {current_user.username}: Obtener todas las guardias")
     return dao_guardia.get_guardias(db)
 
 @router.get(
@@ -72,7 +77,7 @@ async def get_guardias(db: Session = Depends(get_db)):
     response_model=List[CalendarioDTO],
     status_code=status.HTTP_200_OK)
 async def get_guardias_asignadas(
-        current_user: ProfesorDTO = Depends(check_admin_role),
+        current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
     """
@@ -96,7 +101,7 @@ async def get_guardias_asignadas(
     response_model=List[CalendarioDTO],
     status_code=status.HTTP_200_OK)
 async def get_guardias_pendientes(
-        current_user: ProfesorDTO = Depends(check_admin_role),
+        current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)
 ):
     """
@@ -155,7 +160,7 @@ async def create_guardia(
         fecha_fin: date,
         hora_inicio: time,
         hora_fin: time,
-        current_user: ProfesorDTO = Depends(check_admin_role),
+        current_user: ProfesorDTO = Depends(get_current_profesor),
         db: Session = Depends(get_db)):
     """
     Crea una nueva guardia.
