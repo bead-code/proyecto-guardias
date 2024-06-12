@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { BasicLayout } from "./layouts/BasicLayout.jsx";
 import { LoginPage } from "./components/pages/login/LoginPage.jsx";
 import { AsignaturasUsuario } from "./components/pages/asignaturas/AsignaturasUsuario.jsx";
-import { ProtectedRoute } from "./components/protectedRoute/ProtectedRoute.jsx";
+import { ProtectedRoute } from "./components/rutasProtegidas/ProtectedRoute.jsx";
 import { Guardia } from "./components/pages/guardias/Guardia.jsx";
 import { ListaGuardias } from "./components/listas/ListaGuardias.jsx";
 import { GrupoGuardia } from "./components/pages/gruposGuardias/GrupoGuardia.jsx";

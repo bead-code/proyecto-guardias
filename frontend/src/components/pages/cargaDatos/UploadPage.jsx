@@ -1,4 +1,4 @@
-import {EtiquetaPersonalizada} from "../../formField/EtiquetaPersonalizada.jsx";
+import {EtiquetaPersonalizada} from "../../camposFormulario/EtiquetaPersonalizada.jsx";
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {styled} from '@mui/material/styles';
