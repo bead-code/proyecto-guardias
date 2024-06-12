@@ -7,7 +7,7 @@ import AppGlobal from "../../App.jsx";
 
 const navItems = [
     {id: 7, url: '/guardias', content: 'Guardias', allowedRoles: ["ADMIN", "JEFE_DE_ESTUDIOS", "DIRECTOR", "PROFESOR"]},
-    {id: 9, url: '/uploadData', content: 'UploadData', allowedRoles: ["ADMIN"]},
+    {id: 9, url: '/cargaDatos', content: 'Cargar datos', allowedRoles: ["ADMIN"]},
     {id: 10, url: '/profesor', content: 'Profesores', allowedRoles: ["ADMIN", "JEFE_DE_ESTUDIOS", "DIRECTOR"]}
 ];
 

@@ -49,7 +49,7 @@ export function App() {
                             <Route path="/ausencia/crear/:idProfesor" element={<AusenciaUsuario />} />
                             <Route path="/profesor/:idProfesor/mod" element={<UsuarioUnico modify={true} />} />
                             <Route path="/asignaturas" element={<AsignaturasUsuario />} />
-                            <Route path="/uploadData" element={<UploadPage />} />
+                            <Route path="/cargaDatos" element={<UploadPage />} />
                         </Route>
                         <Route path="*" element={<h1>404</h1>} />
                     </Routes>
