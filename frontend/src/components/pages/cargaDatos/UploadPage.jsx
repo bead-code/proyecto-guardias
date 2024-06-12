@@ -1,10 +1,11 @@
 import {EtiquetaPersonalizada} from "../../formField/EtiquetaPersonalizada.jsx";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {styled} from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-
+import AppGlobal from "../../../App.jsx";
+import {toast} from "react-toastify";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -18,15 +19,12 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-
 function FileShow({fichero, handleRemove}) {
-    // Limitar la longitud del nombre del fichero a mostrar
     const MAX_LENGTH = 20;
     const nombreFichero = fichero.name.length > MAX_LENGTH
         ? fichero.name.substring(0, MAX_LENGTH) + '...'
         : fichero.name;
 
-    // Componente que muestra el nombre del fichero subido y permite eliminarlo
     return (
         <div className='flex gap-2 justify-between items-center'>
             <span>{nombreFichero}</span>
@@ -38,7 +36,6 @@ function FileShow({fichero, handleRemove}) {
 }
 
 function InputFile({texto, fichero, setFichero, props}) {
-    // Manejar la eliminacion del fichero
     const handleRemove = () => {
         setFichero(null);
     }
@@ -46,7 +43,6 @@ function InputFile({texto, fichero, setFichero, props}) {
         const fileUploaded = event.target.files[0];
         console.log(fileUploaded)
         setFichero(fileUploaded);
-        // handleFile(fileUploaded);
     };
     return (
         <div className={'flex flex-col lg:w-1/2 w-full gap-2 min-h-full justify-between'}>
@@ -71,30 +67,61 @@ export function UploadPage({handleFile}) {
     const [ficheroIds, setFicheroIds] = useState(null);
     const [ficheroRelaciones, setFicheroRelaciones] = useState(null);
     const navigate = useNavigate();
+    const {token} = useContext(AppGlobal);
+    let toastUpload = null;
 
     const manejarSubida = (e) => {
         e.preventDefault();
-        // enviar los ficheros al servidor mediante una peticion POST con application/json
+
+        if (!ficheroIds || !ficheroRelaciones) {
+            toast.error('Por favor, sube ambos ficheros.');
+            return;
+        }
+
         const formData = new FormData();
-        formData.append('ficheroIds', ficheroIds);
-        formData.append('ficheroRelaciones', ficheroRelaciones);
-        fetch('http://localhost:8000/horario/upload_xml', {
+        formData.append('tablas', ficheroIds);
+        formData.append('calendario', ficheroRelaciones);
+
+        toastUpload = toast.loading('Procesando subida de información', {position: "bottom-right"});
+
+        fetch('http://localhost:8000/calendario/generar_calendario/', {
             method: 'POST',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
             body: formData
         }).then((res) => {
             if (res.ok) {
                 console.log('Datos subidos correctamente');
+                navigate("/");
+                toast.update(toastUpload, {
+                    render: 'Datos subidos correctamente',
+                    type: 'success',
+                    isLoading: false,
+                    autoClose: 3000,
+                });
             } else {
                 console.error('Error al subir los datos');
+                toast.update(toastUpload, {
+                    render: 'Error al subir los datos',
+                    type: 'error',
+                    isLoading: false,
+                    autoClose: 3000,
+                });
             }
         }).catch((error) => {
-            console.error('Error al subir los datos');
+            console.error('Error al subir los datos', error);
+            toast.update(toastUpload, {
+                render: 'Error al subir los datos',
+                type: 'error',
+                isLoading: false,
+                autoClose: 3000,
+            });
         });
-        navigate("/");
     }
 
-
-    return (<>
+    return (
+        <>
             <form onSubmit={manejarSubida}
                   className='flex flex-col gap-5 w-full max-w-xl m-auto bg-white shadow-md rounded p-8 items-center'>
                 <div className='flex lg:flex-nowrap flex-wrap justify-center w-full gap-5'>
@@ -104,8 +131,8 @@ export function UploadPage({handleFile}) {
                                setFichero={setFicheroRelaciones}/>
                 </div>
                 <Button type='submit' variant='outlined'
-                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2'>Cargar
-                    datos
+                        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-1/2'>
+                    Cargar datos
                 </Button>
             </form>
         </>
