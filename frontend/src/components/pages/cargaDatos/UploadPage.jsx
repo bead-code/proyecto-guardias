@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import AppGlobal from "../../../App.jsx";
 import {toast} from "react-toastify";
+import {mostrarToast} from "../../../utils/Notificaciones.js";
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -74,7 +75,7 @@ export function UploadPage({handleFile}) {
         e.preventDefault();
 
         if (!ficheroIds || !ficheroRelaciones) {
-            toast.error('Por favor, sube ambos ficheros.');
+            mostrarToast('Debes subir ambos ficheros', 'error');
             return;
         }
 
