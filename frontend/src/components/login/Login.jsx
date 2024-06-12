@@ -69,7 +69,7 @@ export function Login({ setToken }) {
             <form onSubmit={manejarSubmit}>
                 <CardBody className="flex flex-col gap-4">
                     <Input
-                        label="Email"
+                        label="Username"
                         size="lg"
                         value={nombreUsuario}
                         onChange={(e) => setNombreUsuario(e.target.value)}
