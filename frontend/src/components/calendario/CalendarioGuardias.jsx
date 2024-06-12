@@ -49,9 +49,9 @@ export function CalendarioGuardias() {
         if (guardia.profesor_sustituto.id_profesor === 9999) {
             color = 'orange';
         }
-
+        let tituloGuardia = guardia.aula.nombre + ' - ' + guardia.clase.nombre + ' - ' + guardia.curso.nombre + ' - ' + guardia.profesor_sustituto.nombre;
         return {
-            title: guardia.profesor.nombre,
+            title: tituloGuardia,
             start: guardia.fecha + ' ' + guardia.tramo_horario.hora_inicio,
             end: guardia.fecha + ' ' + guardia.tramo_horario.hora_fin,
             extendedProps: {
