@@ -22,8 +22,30 @@ release = '1.0'
 
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
+    'docxbuilder'
+
 ]
+
+docx_documents = [
+    ('index', 'output', {
+        'title': 'Guardias',
+        'author': 'Enrique Cillero Dorado',
+    }, True),
+]
+
+latex_elements = {
+    'papersize': 'a4paper',
+    'pointsize': '10pt',
+    'preamble': r'''
+        \usepackage{amsmath}
+        \usepackage{amssymb}
+        \usepackage{graphicx}
+        % Otros paquetes necesarios pueden ser añadidos aquí
+    ''',
+    'figure_align': 'htbp',
+}
 
 templates_path = ['_templates']
 exclude_patterns = []

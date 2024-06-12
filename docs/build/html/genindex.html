@@ -44,13 +44,14 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contenidos:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Utilidades de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Bienvenido a la documentación del proyecto Guardias-back!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-security.hash">Utilidades de Seguridad</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#autenticacion-y-autorizacion">Autenticación y Autorización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-db.models">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-db.schemas">Schemas</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#daos">DAOS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#routers">Routers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#base-de-datos">Base de datos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#modelos-de-la-base-de-datos">Modelos de la base de datos</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#schemas-para-la-validacion-de-los-datos-de-entrada-y-salida-de-las-rutas">Schemas para la validación de los datos de entrada y salida de las rutas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-db.database">Base de datos</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#generador-de-calendario">Generador de calendario</a></li>
 </ul>
 
@@ -84,11 +85,16 @@
  <a href="#A"><strong>A</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
+ | <a href="#H"><strong>H</strong></a>
+ | <a href="#I"><strong>I</strong></a>
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
@@ -97,7 +103,17 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.schemas.Token.access_token">access_token (atributo de db.schemas.Token)</a>
+</li>
+      <li><a href="modules.html#db.models.Calendario.actividad">actividad (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.actividad">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Actividad">Actividad (clase en db.models)</a>
+</li>
+      <li><a href="modules.html#db.schemas.ActividadCalendario">ActividadCalendario (clase en db.schemas)</a>
 </li>
       <li><a href="modules.html#db.schemas.ActividadCreate">ActividadCreate (clase en db.schemas)</a>
 </li>
@@ -105,14 +121,42 @@
 </li>
       <li><a href="modules.html#db.schemas.ActividadUpdate">ActividadUpdate (clase en db.schemas)</a>
 </li>
-      <li><a href="modules.html#security.hash.Hash.argon2">argon2() (en el módulo security.hash.Hash)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#dao.dao_guardia.assign_profesor_sustituto">assign_profesor_sustituto() (en el módulo dao.dao_guardia)</a>
+      <li><a href="modules.html#db.models.Actividad.activo">activo (atributo de db.models.Actividad)</a>
 
       <ul>
-        <li><a href="modules.html#routers.guardia.assign_profesor_sustituto">(en el módulo routers.guardia)</a>
+        <li><a href="modules.html#db.models.Aula.activo">(atributo de db.models.Aula)</a>
+</li>
+        <li><a href="modules.html#db.models.Calendario.activo">(atributo de db.models.Calendario)</a>
+</li>
+        <li><a href="modules.html#db.models.Clase.activo">(atributo de db.models.Clase)</a>
+</li>
+        <li><a href="modules.html#db.models.Curso.activo">(atributo de db.models.Curso)</a>
+</li>
+        <li><a href="modules.html#db.models.Profesor.activo">(atributo de db.models.Profesor)</a>
+</li>
+        <li><a href="modules.html#db.models.Rol.activo">(atributo de db.models.Rol)</a>
+</li>
+        <li><a href="modules.html#db.models.TramoHorario.activo">(atributo de db.models.TramoHorario)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.schemas.TramoHorarioCreate.Config.arbitrary_types_allowed">arbitrary_types_allowed (atributo de db.schemas.TramoHorarioCreate.Config)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.Config.arbitrary_types_allowed">(atributo de db.schemas.TramoHorarioDTO.Config)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.Config.arbitrary_types_allowed">(atributo de db.schemas.TramoHorarioUpdate.Config)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#security.hash.Hash.argon2">argon2() (método estático de security.hash.Hash)</a>
+</li>
+      <li><a href="modules.html#routers.guardia.assign_profesor_sustituto">assign_profesor_sustituto() (en el módulo routers.guardia)</a>
+</li>
+      <li><a href="modules.html#db.models.Calendario.aula">aula (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.aula">(atributo de db.schemas.CalendarioDTO)</a>
 </li>
       </ul></li>
       <li><a href="modules.html#db.models.Aula">Aula (clase en db.models)</a>
@@ -123,20 +167,52 @@
 </li>
       <li><a href="modules.html#db.schemas.AulaUpdate">AulaUpdate (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.models.Calendario.ausencia">ausencia (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.ausencia">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.ausencia">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Actividad.calendario">calendario (atributo de db.models.Actividad)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Aula.calendario">(atributo de db.models.Aula)</a>
+</li>
+        <li><a href="modules.html#db.models.Clase.calendario">(atributo de db.models.Clase)</a>
+</li>
+        <li><a href="modules.html#db.models.Curso.calendario">(atributo de db.models.Curso)</a>
+</li>
+        <li><a href="modules.html#db.models.Profesor.calendario">(atributo de db.models.Profesor)</a>
+</li>
+        <li><a href="modules.html#db.models.TramoHorario.calendario">(atributo de db.models.TramoHorario)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Calendario">Calendario (clase en db.models)</a>
+</li>
+      <li><a href="modules.html#db.models.Profesor.calendario_sustituto">calendario_sustituto (atributo de db.models.Profesor)</a>
 </li>
       <li><a href="modules.html#db.schemas.CalendarioCreate">CalendarioCreate (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.schemas.CalendarioCreate.Config">CalendarioCreate.Config (clase en db.schemas)</a>
+</li>
       <li><a href="modules.html#db.schemas.CalendarioDTO">CalendarioDTO (clase en db.schemas)</a>
 </li>
-      <li><a href="modules.html#security.oauth2.check_admin_role">check_admin_role() (en el módulo security.oauth2)</a>
+      <li><a href="modules.html#db.schemas.CalendarioDTO.Config">CalendarioDTO.Config (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.models.Calendario.clase">clase (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.clase">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Clase">Clase (clase en db.models)</a>
 </li>
       <li><a href="modules.html#db.schemas.ClaseCreate">ClaseCreate (clase en db.schemas)</a>
@@ -145,14 +221,22 @@
 </li>
       <li><a href="modules.html#db.schemas.ClaseUpdate">ClaseUpdate (clase en db.schemas)</a>
 </li>
-      <li><a href="modules.html#security.oauth2.create_access_token">create_access_token() (en el módulo security.oauth2)</a>
+      <li><a href="modules.html#db.models.Profesor.color">color (atributo de db.models.Profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.color">(atributo de db.schemas.ProfesorDTO)</a>
 </li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.color">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_actividad.create_actividad">create_actividad() (en el módulo dao.dao_actividad)</a>
 
       <ul>
         <li><a href="modules.html#routers.actividad.create_actividad">(en el módulo routers.actividad)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_aula.create_aula">create_aula() (en el módulo dao.dao_aula)</a>
 
       <ul>
@@ -165,8 +249,6 @@
         <li><a href="modules.html#routers.calendario.create_calendario">(en el módulo routers.calendario)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_clase.create_clase">create_clase() (en el módulo dao.dao_clase)</a>
 
       <ul>
@@ -179,12 +261,8 @@
         <li><a href="modules.html#routers.curso.create_curso">(en el módulo routers.curso)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.create_guardia">create_guardia() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.create_guardia">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#routers.guardia.create_guardia">create_guardia() (en el módulo routers.guardia)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_profesor.create_profesor">create_profesor() (en el módulo dao.dao_profesor)</a>
 
       <ul>
@@ -203,6 +281,12 @@
         <li><a href="modules.html#routers.tramo_horario.create_tramo_horario">(en el módulo routers.tramo_horario)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#db.models.Calendario.curso">curso (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.curso">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Curso">Curso (clase en db.models)</a>
 </li>
       <li><a href="modules.html#db.schemas.CursoCreate">CursoCreate (clase en db.schemas)</a>
@@ -217,6 +301,92 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    dao.dao_actividad
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_actividad">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_aula
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_aula">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_calendario
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_calendario">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_clase
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_clase">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_curso
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_curso">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_grupo_guardia
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_grupo_guardia">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_profesor
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_profesor">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_rol
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_rol">module</a>
+</li>
+      </ul></li>
+      <li>
+    dao.dao_tramo_horario
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_tramo_horario">module</a>
+</li>
+      </ul></li>
+      <li>
+    db.database
+
+      <ul>
+        <li><a href="modules.html#module-db.database">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    db.models
+
+      <ul>
+        <li><a href="modules.html#module-db.models">module</a>
+</li>
+      </ul></li>
+      <li>
+    db.schemas
+
+      <ul>
+        <li><a href="modules.html#module-db.schemas">module</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#dao.dao_actividad.delete_actividad">delete_actividad() (en el módulo dao.dao_actividad)</a>
 
       <ul>
@@ -241,8 +411,6 @@
         <li><a href="modules.html#routers.curso.delete_curso">(en el módulo routers.curso)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_profesor.delete_profesor">delete_profesor() (en el módulo dao.dao_profesor)</a>
 
       <ul>
@@ -261,12 +429,109 @@
         <li><a href="modules.html#routers.tramo_horario.delete_tramo_horario">(en el módulo routers.tramo_horario)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#db.models.Calendario.dia">dia (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.dia">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.schemas.CalendarioCreate.dia_semana">dia_semana (atributo de db.schemas.CalendarioCreate)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Calendario.fecha">fecha (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.fecha">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.fecha">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.schemas.CalendarioCreate.Config.from_attributes">from_attributes (atributo de db.schemas.CalendarioCreate.Config)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.Config.from_attributes">(atributo de db.schemas.CalendarioDTO.Config)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.Config.from_attributes">(atributo de db.schemas.ProfesorAuth.Config)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.Config.from_attributes">(atributo de db.schemas.ProfesorDTO.Config)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.Config.from_attributes">(atributo de db.schemas.TramoHorarioDTO.Config)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    generador_calendario.conversor_xml_to_df
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.conversor_xml_to_df">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_actividades
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_actividades">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_aulas
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_aulas">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_calendario
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_calendario">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_clases
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_clases">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_cursos
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_cursos">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_profesores
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_profesores">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_roles
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_roles">module</a>
+</li>
+      </ul></li>
+      <li>
+    generador_calendario.generador_tramos_horarios
+
+      <ul>
+        <li><a href="modules.html#module-generador_calendario.generador_tramos_horarios">module</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#generador_calendario.generador_actividades.generate_actividades_from_dataframe">generate_actividades_from_dataframe() (en el módulo generador_calendario.generador_actividades)</a>
 </li>
       <li><a href="modules.html#generador_calendario.generador_aulas.generate_aulas_from_dataframe">generate_aulas_from_dataframe() (en el módulo generador_calendario.generador_aulas)</a>
@@ -281,11 +546,9 @@
 </li>
       <li><a href="modules.html#generador_calendario.generador_roles.generate_roles">generate_roles() (en el módulo generador_calendario.generador_roles)</a>
 </li>
-      <li><a href="modules.html#generador_calendario.generador_tablas.generate_tables_from_files">generate_tables_from_files() (en el módulo generador_calendario.generador_tablas)</a>
-</li>
-      <li><a href="modules.html#generador_calendario.generador_tablas.generate_tables_from_path">generate_tables_from_path() (en el módulo generador_calendario.generador_tablas)</a>
-</li>
       <li><a href="modules.html#generador_calendario.generador_tramos_horarios.generate_tramos_horarios_from_dataframe">generate_tramos_horarios_from_dataframe() (en el módulo generador_calendario.generador_tramos_horarios)</a>
+</li>
+      <li><a href="modules.html#db.models.Profesor.generate_unique_username">generate_unique_username() (método de db.models.Profesor)</a>
 </li>
       <li><a href="modules.html#dao.dao_actividad.get_actividad_by_id">get_actividad_by_id() (en el módulo dao.dao_actividad)</a>
 
@@ -341,6 +604,8 @@
         <li><a href="modules.html#routers.calendario.get_calendario_by_id_profesor">(en el módulo routers.calendario)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_clase.get_clase_by_id">get_clase_by_id() (en el módulo dao.dao_clase)</a>
 
       <ul>
@@ -359,8 +624,6 @@
         <li><a href="modules.html#routers.clase.get_clases">(en el módulo routers.clase)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#security.oauth2.get_current_profesor">get_current_profesor() (en el módulo security.oauth2)</a>
-</li>
       <li><a href="modules.html#dao.dao_curso.get_curso_by_id">get_curso_by_id() (en el módulo dao.dao_curso)</a>
 
       <ul>
@@ -373,8 +636,6 @@
         <li><a href="modules.html#routers.curso.get_curso_by_nombre">(en el módulo routers.curso)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_curso.get_cursos">get_cursos() (en el módulo dao.dao_curso)</a>
 
       <ul>
@@ -395,44 +656,26 @@
         <li><a href="modules.html#routers.grupo_guardia.get_grupos_guardia">(en el módulo routers.grupo_guardia)</a>
 </li>
       </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardia_by_fecha_tramo">get_guardia_by_fecha_tramo() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.get_guardia_by_fecha_tramo">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#dao.dao_grupo_guardia.get_grupos_guardia_by_id_profesor">get_grupos_guardia_by_id_profesor() (en el módulo dao.dao_grupo_guardia)</a>
 </li>
-      </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardia_by_id">get_guardia_by_id() (en el módulo dao.dao_guardia)</a>
+      <li><a href="modules.html#routers.guardia.get_guardia_by_fecha_tramo">get_guardia_by_fecha_tramo() (en el módulo routers.guardia)</a>
 </li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardias">get_guardias() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.get_guardias">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#routers.guardia.get_guardias">get_guardias() (en el módulo routers.guardia)</a>
 </li>
-      </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardias_asignadas">get_guardias_asignadas() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.get_guardias_asignadas">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#routers.guardia.get_guardias_asignadas">get_guardias_asignadas() (en el módulo routers.guardia)</a>
 </li>
-      </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardias_by_profesor">get_guardias_by_profesor() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.get_guardias_by_profesor">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#routers.guardia.get_guardias_by_profesor">get_guardias_by_profesor() (en el módulo routers.guardia)</a>
 </li>
-      </ul></li>
-      <li><a href="modules.html#dao.dao_guardia.get_guardias_pendientes">get_guardias_pendientes() (en el módulo dao.dao_guardia)</a>
-
-      <ul>
-        <li><a href="modules.html#routers.guardia.get_guardias_pendientes">(en el módulo routers.guardia)</a>
+      <li><a href="modules.html#routers.guardia.get_guardias_pendientes">get_guardias_pendientes() (en el módulo routers.guardia)</a>
 </li>
-      </ul></li>
       <li><a href="modules.html#dao.dao_profesor.get_profesor_by_id">get_profesor_by_id() (en el módulo dao.dao_profesor)</a>
 
       <ul>
         <li><a href="modules.html#routers.profesor.get_profesor_by_id">(en el módulo routers.profesor)</a>
 </li>
       </ul></li>
+      <li><a href="modules.html#dao.dao_profesor.get_profesor_by_username">get_profesor_by_username() (en el módulo dao.dao_profesor)</a>
+</li>
       <li><a href="modules.html#dao.dao_profesor.get_profesores">get_profesores() (en el módulo dao.dao_profesor)</a>
 
       <ul>
@@ -486,6 +729,128 @@
   </ul></td>
 </tr></table>
 
+<h2 id="H">H</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#security.hash.Hash">Hash (clase en security.hash)</a>
+</li>
+      <li><a href="modules.html#db.models.TramoHorario.hora_fin">hora_fin (atributo de db.models.TramoHorario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.hora_fin">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.hora_fin">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.hora_fin">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.TramoHorario.hora_inicio">hora_inicio (atributo de db.models.TramoHorario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.hora_inicio">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.hora_inicio">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.hora_inicio">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Actividad.id_actividad">id_actividad (atributo de db.models.Actividad)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Calendario.id_actividad">(atributo de db.models.Calendario)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadDTO.id_actividad">(atributo de db.schemas.ActividadDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_actividad">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Aula.id_aula">id_aula (atributo de db.models.Aula)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Calendario.id_aula">(atributo de db.models.Calendario)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaDTO.id_aula">(atributo de db.schemas.AulaDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_aula">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Calendario.id_calendario">id_calendario (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.id_calendario">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Calendario.id_clase">id_clase (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Clase.id_clase">(atributo de db.models.Clase)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_clase">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseDTO.id_clase">(atributo de db.schemas.ClaseDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Calendario.id_curso">id_curso (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Curso.id_curso">(atributo de db.models.Curso)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_curso">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoDTO.id_curso">(atributo de db.schemas.CursoDTO)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Calendario.id_profesor">id_profesor (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Profesor.id_profesor">(atributo de db.models.Profesor)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_profesor">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.id_profesor">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Calendario.id_profesor_sustituto">id_profesor_sustituto (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_profesor_sustituto">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Profesor.id_rol">id_rol (atributo de db.models.Profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Rol.id_rol">(atributo de db.models.Rol)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.id_rol">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.id_rol">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolDTO.id_rol">(atributo de db.schemas.RolDTO)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Calendario.id_tramo_horario">id_tramo_horario (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.TramoHorario.id_tramo_horario">(atributo de db.models.TramoHorario)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.id_tramo_horario">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.id_tramo_horario">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -505,23 +870,368 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#generador_calendario.generador_tramos_horarios.minutos_a_hora">minutos_a_hora() (en el módulo generador_calendario.generador_tramos_horarios)</a>
 </li>
+      <li><a href="modules.html#db.schemas.ActividadCalendario.model_computed_fields">model_computed_fields (atributo de db.schemas.ActividadCalendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.ActividadCreate.model_computed_fields">(atributo de db.schemas.ActividadCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadDTO.model_computed_fields">(atributo de db.schemas.ActividadDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadUpdate.model_computed_fields">(atributo de db.schemas.ActividadUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaCreate.model_computed_fields">(atributo de db.schemas.AulaCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaDTO.model_computed_fields">(atributo de db.schemas.AulaDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaUpdate.model_computed_fields">(atributo de db.schemas.AulaUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.model_computed_fields">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.model_computed_fields">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseCreate.model_computed_fields">(atributo de db.schemas.ClaseCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseDTO.model_computed_fields">(atributo de db.schemas.ClaseDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseUpdate.model_computed_fields">(atributo de db.schemas.ClaseUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoCreate.model_computed_fields">(atributo de db.schemas.CursoCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoDTO.model_computed_fields">(atributo de db.schemas.CursoDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoUpdate.model_computed_fields">(atributo de db.schemas.CursoUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.LoginData.model_computed_fields">(atributo de db.schemas.LoginData)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.model_computed_fields">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.model_computed_fields">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.model_computed_fields">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.model_computed_fields">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdatePassword.model_computed_fields">(atributo de db.schemas.ProfesorUpdatePassword)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolCreate.model_computed_fields">(atributo de db.schemas.RolCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolDTO.model_computed_fields">(atributo de db.schemas.RolDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolUpdate.model_computed_fields">(atributo de db.schemas.RolUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.Token.model_computed_fields">(atributo de db.schemas.Token)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.model_computed_fields">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.model_computed_fields">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.model_computed_fields">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.schemas.ActividadCalendario.model_config">model_config (atributo de db.schemas.ActividadCalendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.ActividadCreate.model_config">(atributo de db.schemas.ActividadCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadDTO.model_config">(atributo de db.schemas.ActividadDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadUpdate.model_config">(atributo de db.schemas.ActividadUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaCreate.model_config">(atributo de db.schemas.AulaCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaDTO.model_config">(atributo de db.schemas.AulaDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaUpdate.model_config">(atributo de db.schemas.AulaUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.model_config">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.model_config">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseCreate.model_config">(atributo de db.schemas.ClaseCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseDTO.model_config">(atributo de db.schemas.ClaseDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseUpdate.model_config">(atributo de db.schemas.ClaseUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoCreate.model_config">(atributo de db.schemas.CursoCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoDTO.model_config">(atributo de db.schemas.CursoDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoUpdate.model_config">(atributo de db.schemas.CursoUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.LoginData.model_config">(atributo de db.schemas.LoginData)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.model_config">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.model_config">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.model_config">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.model_config">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdatePassword.model_config">(atributo de db.schemas.ProfesorUpdatePassword)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolCreate.model_config">(atributo de db.schemas.RolCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolDTO.model_config">(atributo de db.schemas.RolDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolUpdate.model_config">(atributo de db.schemas.RolUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.Token.model_config">(atributo de db.schemas.Token)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.model_config">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.model_config">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.model_config">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.schemas.ActividadCalendario.model_fields">model_fields (atributo de db.schemas.ActividadCalendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.ActividadCreate.model_fields">(atributo de db.schemas.ActividadCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadDTO.model_fields">(atributo de db.schemas.ActividadDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadUpdate.model_fields">(atributo de db.schemas.ActividadUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaCreate.model_fields">(atributo de db.schemas.AulaCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaDTO.model_fields">(atributo de db.schemas.AulaDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaUpdate.model_fields">(atributo de db.schemas.AulaUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioCreate.model_fields">(atributo de db.schemas.CalendarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.model_fields">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseCreate.model_fields">(atributo de db.schemas.ClaseCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseDTO.model_fields">(atributo de db.schemas.ClaseDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseUpdate.model_fields">(atributo de db.schemas.ClaseUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoCreate.model_fields">(atributo de db.schemas.CursoCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoDTO.model_fields">(atributo de db.schemas.CursoDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoUpdate.model_fields">(atributo de db.schemas.CursoUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.LoginData.model_fields">(atributo de db.schemas.LoginData)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.model_fields">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.model_fields">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.model_fields">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.model_fields">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdatePassword.model_fields">(atributo de db.schemas.ProfesorUpdatePassword)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolCreate.model_fields">(atributo de db.schemas.RolCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolDTO.model_fields">(atributo de db.schemas.RolDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolUpdate.model_fields">(atributo de db.schemas.RolUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.Token.model_fields">(atributo de db.schemas.Token)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.model_fields">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.model_fields">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.model_fields">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="modules.html#module-dao.dao_actividad">dao.dao_actividad</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_aula">dao.dao_aula</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_calendario">dao.dao_calendario</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_clase">dao.dao_clase</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_curso">dao.dao_curso</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_grupo_guardia">dao.dao_grupo_guardia</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_profesor">dao.dao_profesor</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_rol">dao.dao_rol</a>
+</li>
+        <li><a href="modules.html#module-dao.dao_tramo_horario">dao.dao_tramo_horario</a>
+</li>
+        <li><a href="modules.html#module-db.database">db.database</a>
+</li>
+        <li><a href="modules.html#module-db.models">db.models</a>
+</li>
+        <li><a href="modules.html#module-db.schemas">db.schemas</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.conversor_xml_to_df">generador_calendario.conversor_xml_to_df</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_actividades">generador_calendario.generador_actividades</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_aulas">generador_calendario.generador_aulas</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_calendario">generador_calendario.generador_calendario</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_clases">generador_calendario.generador_clases</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_cursos">generador_calendario.generador_cursos</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_profesores">generador_calendario.generador_profesores</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_roles">generador_calendario.generador_roles</a>
+</li>
+        <li><a href="modules.html#module-generador_calendario.generador_tramos_horarios">generador_calendario.generador_tramos_horarios</a>
+</li>
+        <li><a href="modules.html#module-routers.actividad">routers.actividad</a>
+</li>
+        <li><a href="modules.html#module-routers.aula">routers.aula</a>
+</li>
+        <li><a href="modules.html#module-routers.calendario">routers.calendario</a>
+</li>
+        <li><a href="modules.html#module-routers.clase">routers.clase</a>
+</li>
+        <li><a href="modules.html#module-routers.curso">routers.curso</a>
+</li>
+        <li><a href="modules.html#module-routers.grupo_guardia">routers.grupo_guardia</a>
+</li>
+        <li><a href="modules.html#module-routers.guardia">routers.guardia</a>
+</li>
+        <li><a href="modules.html#module-routers.login">routers.login</a>
+</li>
+        <li><a href="modules.html#module-routers.profesor">routers.profesor</a>
+</li>
+        <li><a href="modules.html#module-routers.rol">routers.rol</a>
+</li>
+        <li><a href="modules.html#module-routers.tramo_horario">routers.tramo_horario</a>
+</li>
+        <li><a href="modules.html#module-security.hash">security.hash</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Actividad.nombre">nombre (atributo de db.models.Actividad)</a>
+
+      <ul>
+        <li><a href="modules.html#db.models.Aula.nombre">(atributo de db.models.Aula)</a>
+</li>
+        <li><a href="modules.html#db.models.Clase.nombre">(atributo de db.models.Clase)</a>
+</li>
+        <li><a href="modules.html#db.models.Curso.nombre">(atributo de db.models.Curso)</a>
+</li>
+        <li><a href="modules.html#db.models.Profesor.nombre">(atributo de db.models.Profesor)</a>
+</li>
+        <li><a href="modules.html#db.models.Rol.nombre">(atributo de db.models.Rol)</a>
+</li>
+        <li><a href="modules.html#db.models.TramoHorario.nombre">(atributo de db.models.TramoHorario)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadCalendario.nombre">(atributo de db.schemas.ActividadCalendario)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadCreate.nombre">(atributo de db.schemas.ActividadCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadDTO.nombre">(atributo de db.schemas.ActividadDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ActividadUpdate.nombre">(atributo de db.schemas.ActividadUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaCreate.nombre">(atributo de db.schemas.AulaCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaDTO.nombre">(atributo de db.schemas.AulaDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.AulaUpdate.nombre">(atributo de db.schemas.AulaUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseCreate.nombre">(atributo de db.schemas.ClaseCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseDTO.nombre">(atributo de db.schemas.ClaseDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ClaseUpdate.nombre">(atributo de db.schemas.ClaseUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoCreate.nombre">(atributo de db.schemas.CursoCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoDTO.nombre">(atributo de db.schemas.CursoDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.CursoUpdate.nombre">(atributo de db.schemas.CursoUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.nombre">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.nombre">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.nombre">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdate.nombre">(atributo de db.schemas.ProfesorUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolCreate.nombre">(atributo de db.schemas.RolCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolDTO.nombre">(atributo de db.schemas.RolDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.RolUpdate.nombre">(atributo de db.schemas.RolUpdate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioCreate.nombre">(atributo de db.schemas.TramoHorarioCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioDTO.nombre">(atributo de db.schemas.TramoHorarioDTO)</a>
+</li>
+        <li><a href="modules.html#db.schemas.TramoHorarioUpdate.nombre">(atributo de db.schemas.TramoHorarioUpdate)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Profesor.password">password (atributo de db.models.Profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.LoginData.password">(atributo de db.schemas.LoginData)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorUpdatePassword.password">(atributo de db.schemas.ProfesorUpdatePassword)</a>
+</li>
+      </ul></li>
+      <li><a href="modules.html#db.models.Profesor.password_temporal">password_temporal (atributo de db.models.Profesor)</a>
+</li>
+      <li><a href="modules.html#db.models.Calendario.profesor">profesor (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.profesor">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Profesor">Profesor (clase en db.models)</a>
 </li>
-      <li><a href="modules.html#db.schemas.ProfesorAuth">ProfesorAuth (clase en db.schemas)</a>
+      <li><a href="modules.html#db.models.Calendario.profesor_sustituto">profesor_sustituto (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.profesor_sustituto">(atributo de db.schemas.CalendarioDTO)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.schemas.ProfesorAuth">ProfesorAuth (clase en db.schemas)</a>
+</li>
+      <li><a href="modules.html#db.schemas.ProfesorAuth.Config">ProfesorAuth.Config (clase en db.schemas)</a>
+</li>
       <li><a href="modules.html#db.schemas.ProfesorCreate">ProfesorCreate (clase en db.schemas)</a>
 </li>
       <li><a href="modules.html#db.schemas.ProfesorDTO">ProfesorDTO (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.schemas.ProfesorDTO.Config">ProfesorDTO.Config (clase en db.schemas)</a>
+</li>
+      <li><a href="modules.html#db.models.Rol.profesores">profesores (atributo de db.models.Rol)</a>
+</li>
       <li><a href="modules.html#db.schemas.ProfesorUpdate">ProfesorUpdate (clase en db.schemas)</a>
+</li>
+      <li><a href="modules.html#db.schemas.ProfesorUpdatePassword">ProfesorUpdatePassword (clase en db.schemas)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -529,16 +1239,114 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.models.Profesor.rol">rol (atributo de db.models.Profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.rol">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.rol">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.Rol">Rol (clase en db.models)</a>
 </li>
       <li><a href="modules.html#db.schemas.RolCreate">RolCreate (clase en db.schemas)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#db.schemas.RolDTO">RolDTO (clase en db.schemas)</a>
 </li>
       <li><a href="modules.html#db.schemas.RolUpdate">RolUpdate (clase en db.schemas)</a>
 </li>
+      <li>
+    routers.actividad
+
+      <ul>
+        <li><a href="modules.html#module-routers.actividad">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.aula
+
+      <ul>
+        <li><a href="modules.html#module-routers.aula">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.calendario
+
+      <ul>
+        <li><a href="modules.html#module-routers.calendario">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.clase
+
+      <ul>
+        <li><a href="modules.html#module-routers.clase">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    routers.curso
+
+      <ul>
+        <li><a href="modules.html#module-routers.curso">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.grupo_guardia
+
+      <ul>
+        <li><a href="modules.html#module-routers.grupo_guardia">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.guardia
+
+      <ul>
+        <li><a href="modules.html#module-routers.guardia">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.login
+
+      <ul>
+        <li><a href="modules.html#module-routers.login">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.profesor
+
+      <ul>
+        <li><a href="modules.html#module-routers.profesor">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.rol
+
+      <ul>
+        <li><a href="modules.html#module-routers.rol">module</a>
+</li>
+      </ul></li>
+      <li>
+    routers.tramo_horario
+
+      <ul>
+        <li><a href="modules.html#module-routers.tramo_horario">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    security.hash
+
+      <ul>
+        <li><a href="modules.html#module-security.hash">module</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -547,15 +1355,29 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#db.schemas.Token">Token (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.schemas.Token.token_type">token_type (atributo de db.schemas.Token)</a>
+</li>
+      <li><a href="modules.html#db.models.Calendario.tramo_horario">tramo_horario (atributo de db.models.Calendario)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.CalendarioDTO.tramo_horario">(atributo de db.schemas.CalendarioDTO)</a>
+</li>
+      </ul></li>
       <li><a href="modules.html#db.models.TramoHorario">TramoHorario (clase en db.models)</a>
 </li>
       <li><a href="modules.html#db.schemas.TramoHorarioCreate">TramoHorarioCreate (clase en db.schemas)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules.html#db.schemas.TramoHorarioCreate.Config">TramoHorarioCreate.Config (clase en db.schemas)</a>
+</li>
       <li><a href="modules.html#db.schemas.TramoHorarioDTO">TramoHorarioDTO (clase en db.schemas)</a>
 </li>
+      <li><a href="modules.html#db.schemas.TramoHorarioDTO.Config">TramoHorarioDTO.Config (clase en db.schemas)</a>
+</li>
       <li><a href="modules.html#db.schemas.TramoHorarioUpdate">TramoHorarioUpdate (clase en db.schemas)</a>
+</li>
+      <li><a href="modules.html#db.schemas.TramoHorarioUpdate.Config">TramoHorarioUpdate.Config (clase en db.schemas)</a>
 </li>
       <li><a href="modules.html#db.database.truncate_all_tables">truncate_all_tables() (en el módulo db.database)</a>
 </li>
@@ -589,14 +1411,14 @@
         <li><a href="modules.html#routers.curso.update_curso">(en el módulo routers.curso)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_profesor.update_profesor">update_profesor() (en el módulo dao.dao_profesor)</a>
 
       <ul>
         <li><a href="modules.html#routers.profesor.update_profesor">(en el módulo routers.profesor)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules.html#dao.dao_rol.update_rol">update_rol() (en el módulo dao.dao_rol)</a>
 
       <ul>
@@ -611,17 +1433,25 @@
       </ul></li>
       <li><a href="modules.html#routers.calendario.upload_tables">upload_tables() (en el módulo routers.calendario)</a>
 </li>
+      <li><a href="modules.html#db.models.Profesor.username">username (atributo de db.models.Profesor)</a>
+
+      <ul>
+        <li><a href="modules.html#db.schemas.LoginData.username">(atributo de db.schemas.LoginData)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorAuth.username">(atributo de db.schemas.ProfesorAuth)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorCreate.username">(atributo de db.schemas.ProfesorCreate)</a>
+</li>
+        <li><a href="modules.html#db.schemas.ProfesorDTO.username">(atributo de db.schemas.ProfesorDTO)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#security.hash.Hash.verify">verify() (en el módulo security.hash.Hash)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules.html#security.oauth2.verify_access_token">verify_access_token() (en el módulo security.oauth2)</a>
+      <li><a href="modules.html#security.hash.Hash.verify">verify() (método estático de security.hash.Hash)</a>
 </li>
   </ul></td>
 </tr></table>
