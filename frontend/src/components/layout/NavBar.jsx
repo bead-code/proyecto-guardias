@@ -11,9 +11,9 @@ const navItems = [
     {id: 10, url: '/profesor', content: 'Profesores', allowedRoles: ["ADMIN", "JEFE_DE_ESTUDIOS", "DIRECTOR"]}
 ];
 
-function NavList({decodedToken, isUserAuthenticated, setToken, onElementClicked}) {
+function NavList({isUserAuthenticated, setToken, onElementClicked}) {
     const navigate = useNavigate();
-    const {token} = useContext(AppGlobal);
+    const {decodedToken} = useContext(AppGlobal);
     const handleLogout = () => {
         setToken(null);
         localStorage.removeItem('tokenAppGuardias');
