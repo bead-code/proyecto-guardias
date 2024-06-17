@@ -15,6 +15,42 @@ from db.models import Profesor
 from security.hash import Hash
 from utils.logger import logger
 
+def generate_base_users():
+    """
+    Genera los usuarios base para la aplicación.
+
+    La función crea un usuario admin con nombre de usuario "admin" y contraseña "1234" y un profesor "No asignado".
+
+    Ejemplo de uso:
+
+    .. code-block:: python
+
+        generate_base_users()
+    """
+    db = Session()
+
+    new_profesor = Profesor(
+        id_profesor=9999,
+        nombre="No asignado",
+        id_rol=4
+    )
+
+    new_admin = Profesor(
+        id_profesor=1,
+        username="admin",
+        nombre="admin",
+        password=Hash.argon2("1234"),
+        id_rol=1
+    )
+
+    db.add_all([new_profesor, new_admin])
+
+    try:
+        db.commit()
+        logger.info("Usuarios base insertados")
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Error occurred: {str(e)}")
 
 def generate_profesores_from_dataframe(dataframes: Dict[str, pd.DataFrame]):
     """

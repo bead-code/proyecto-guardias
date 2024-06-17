@@ -17,7 +17,7 @@ from generador_calendario.generador_aulas import generate_aulas_from_dataframe
 from generador_calendario.generador_calendario import generate_calendario_from_dataframe
 from generador_calendario.generador_clases import generate_clases_from_dataframe
 from generador_calendario.generador_cursos import generate_cursos_from_dataframe
-from generador_calendario.generador_profesores import generate_profesores_from_dataframe
+from generador_calendario.generador_profesores import generate_profesores_from_dataframe, generate_base_users
 from generador_calendario.generador_roles import generate_roles
 from generador_calendario.generador_tramos_horarios import generate_tramos_horarios_from_dataframe
 
@@ -35,17 +35,18 @@ def generate_tables_from_path():
 
         generate_tables_from_path()
     """
-    tablas_df = load_tables()
-    calendario_df = load_calendario()
+    # tablas_df = load_tables()
+    # calendario_df = load_calendario()
     truncate_all_tables()
     generate_roles()
-    generate_profesores_from_dataframe(tablas_df)
-    generate_aulas_from_dataframe(tablas_df)
-    generate_cursos_from_dataframe(tablas_df)
-    generate_actividades_from_dataframe(tablas_df)
-    generate_tramos_horarios_from_dataframe(tablas_df)
-    generate_clases_from_dataframe(tablas_df)
-    generate_calendario_from_dataframe(calendario_df)
+    generate_base_users()
+    # generate_profesores_from_dataframe(tablas_df)
+    # generate_aulas_from_dataframe(tablas_df)
+    # generate_cursos_from_dataframe(tablas_df)
+    # generate_actividades_from_dataframe(tablas_df)
+    # generate_tramos_horarios_from_dataframe(tablas_df)
+    # generate_clases_from_dataframe(tablas_df)
+    # generate_calendario_from_dataframe(calendario_df)
 
 
 def generate_tables_from_files(tablas: BytesIO, calendario: BytesIO):

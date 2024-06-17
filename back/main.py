@@ -36,7 +36,7 @@ app.add_middleware(
 Base.metadata.create_all(bind=engine)
 
 
-# @app.on_event("startup")
-# def on_startup():
-#     generate_tables_from_path()
+@app.on_event("startup")
+def on_startup():
+    generate_tables_from_path()
 
