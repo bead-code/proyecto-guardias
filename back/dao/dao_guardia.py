@@ -110,6 +110,7 @@ def get_guardias(db: Session):
         db.query(Calendario)
         .filter(Calendario.ausencia == True)
         .filter(Calendario.activo == True)
+        .filter(Calendario.id_actividad != 65)
         .group_by(Calendario.id_profesor, Calendario.fecha, Calendario.id_tramo_horario)
         .all()
     )
