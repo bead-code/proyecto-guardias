@@ -42,7 +42,7 @@ export function ListaProfesores() {
     }
     const deleteProfesor = (profesorEliminado) => {
         setProfesores(profesores.filter(profesor => profesor.id_profesor !== profesorEliminado.id_profesor));
-        fetch(`http://localhost:8000/profesor/${profesorEliminado.id_profesor}`, {
+        fetch(`http://192.168.1.94:8000/profesor/${profesorEliminado.id_profesor}`, {
             method: 'DELETE', headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token,
@@ -61,7 +61,7 @@ export function ListaProfesores() {
     const loadProfesores = () => {
         console.log("token")
         console.log(token)
-        fetch(`http://localhost:8000/profesor/all`, {
+        fetch(`http://192.168.1.94:8000/profesor/all`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

@@ -85,7 +85,7 @@ export function UploadPage({handleFile}) {
 
         toastUpload = toast.loading('Procesando subida de información', {position: "bottom-right"});
 
-        fetch('http://localhost:8000/calendario/generar_calendario/', {
+        fetch('http://192.168.1.94:8000/calendario/generar_calendario/', {
             method: 'POST',
             headers: {
                 'Authorization': 'Bearer ' + token

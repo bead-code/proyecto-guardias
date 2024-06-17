@@ -17,7 +17,7 @@ export function CalendarioGuardias() {
     useEffect(() => {
         const fetchGuardias = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/guardias/all`, {
+                const response = await fetch(`http://192.168.1.94:8000/guardias/all`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

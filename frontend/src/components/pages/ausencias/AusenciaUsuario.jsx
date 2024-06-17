@@ -27,7 +27,7 @@ export function AusenciaUsuario() {
     useEffect(() => {
         const fetchUsuario = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/profesor/${idProfesor}`, {
+                const response = await fetch(`http://192.168.1.94:8000/profesor/${idProfesor}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ export function AusenciaUsuario() {
                 hora_fin: horaFin,
             }).toString();
 
-            const response = await fetch(`http://localhost:8000/guardias?${queryParams}`, {
+            const response = await fetch(`http://192.168.1.94:8000/guardias?${queryParams}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

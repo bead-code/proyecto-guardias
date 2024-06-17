@@ -20,7 +20,7 @@ export function Guardia() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`http://localhost:8000/guardias?id_profesor=${idProfesor}&fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+        fetch(`http://192.168.1.94:8000/guardias?id_profesor=${idProfesor}&fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export function Guardia() {
                 setProfesorAsignadoModificado(guardia.profesor_sustituto.id_profesor);
                 return;
             }
-            fetch(`http://localhost:8000/profesor/${decodedToken.sub}`, {
+            fetch(`http://192.168.1.94:8000/profesor/${decodedToken.sub}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -68,7 +68,7 @@ export function Guardia() {
                 });
 
         } else {
-            fetch(`http://localhost:8000/profesor/disponible?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
+            fetch(`http://192.168.1.94:8000/profesor/disponible?fecha=${fecha}&id_tramo_horario=${tramoHorario}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export function Guardia() {
 
         const toastGuardia = toast.loading('Procesando petición de tomar la guardia', {position: "bottom-right"});
 
-        fetch(`http://localhost:8000/guardias/${guardia.id_calendario}?id_profesor_sustituto=${profesorAsignadoModificado ?? 9999}`, {
+        fetch(`http://192.168.1.94:8000/guardias/${guardia.id_calendario}?id_profesor_sustituto=${profesorAsignadoModificado ?? 9999}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

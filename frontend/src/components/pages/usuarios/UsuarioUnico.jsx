@@ -25,7 +25,7 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
 
     useEffect(() => {
         if (!usuario) {
-            fetch(`http://localhost:8000/profesor/${idProfesor}`, {
+            fetch(`http://192.168.1.94:8000/profesor/${idProfesor}`, {
                 method: 'GET', headers: {
                     'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token,
                 }
@@ -54,7 +54,7 @@ export function UsuarioUnico({defaultUser = undefined, modify = false, ...prop})
 
     const handleSaveUser = (valueToChange, setEditingFunction) => {
         setEditingFunction(false);
-        fetch(`http://localhost:8000/profesor/${idProfesor}`, {
+        fetch(`http://192.168.1.94:8000/profesor/${idProfesor}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
