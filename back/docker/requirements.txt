@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sqlalchemy
+mysql-connector
+passlib[argon2]
+pymysql
+cryptography
+python-multipart
+pyjwt
+pandas
+pytest
+coverage

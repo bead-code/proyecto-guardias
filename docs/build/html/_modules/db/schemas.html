@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>db.schemas &mdash; documentación de guardias - 1.0</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../../_static/documentation_options.js?v=4936afed"></script>
+        <script src="../../_static/doctools.js?v=9a2dae69"></script>
+        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            guardias
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contenidos:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Bienvenido a la documentación del proyecto Guardias-back!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-security.hash">Utilidades de Seguridad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-security.oauth2">Autenticación y Autorización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-db.models">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-db.schemas">Schemas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#daos">DAOS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#routers">Routers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-db.database">Base de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#generador-de-calendario">Generador de calendario</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">guardias</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">db.schemas</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para db.schemas</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Schemas para la API.</span>
+
+<span class="sd">Este módulo define los schemas utilizados en la API para la validación y transferencia de datos.</span>
+
+<span class="sd">Schemas</span>
+<span class="sd">-------</span>
+
+<span class="sd">* **Token**: Modelo para representar un token de acceso.</span>
+<span class="sd">* **LoginData**: Modelo para representar los datos de inicio de sesión.</span>
+<span class="sd">* **RolCreate**: Modelo para crear un nuevo rol.</span>
+<span class="sd">* **RolUpdate**: Modelo para actualizar un rol existente.</span>
+<span class="sd">* **RolDTO**: Modelo de transferencia de datos para un rol.</span>
+<span class="sd">* **ProfesorCreate**: Modelo para crear un nuevo profesor.</span>
+<span class="sd">* **ProfesorUpdate**: Modelo para actualizar un profesor existente.</span>
+<span class="sd">* **ProfesorUpdatePassword**: Modelo para actualizar la contraseña de un profesor.</span>
+<span class="sd">* **ProfesorDTO**: Modelo de transferencia de datos para un profesor.</span>
+<span class="sd">* **ProfesorAuth**: Modelo para representar los datos de autenticación de un profesor.</span>
+<span class="sd">* **CursoCreate**: Modelo para crear un nuevo curso.</span>
+<span class="sd">* **CursoUpdate**: Modelo para actualizar un curso existente.</span>
+<span class="sd">* **CursoDTO**: Modelo de transferencia de datos para un curso.</span>
+<span class="sd">* **ActividadCreate**: Modelo para crear una nueva actividad.</span>
+<span class="sd">* **ActividadUpdate**: Modelo para actualizar una actividad existente.</span>
+<span class="sd">* **ActividadDTO**: Modelo de transferencia de datos para una actividad.</span>
+<span class="sd">* **ActividadCalendario**: Modelo para representar una actividad en el calendario.</span>
+<span class="sd">* **AulaCreate**: Modelo para crear un nuevo aula.</span>
+<span class="sd">* **AulaUpdate**: Modelo para actualizar un aula existente.</span>
+<span class="sd">* **AulaDTO**: Modelo de transferencia de datos para un aula.</span>
+<span class="sd">* **ClaseCreate**: Modelo para crear una nueva clase.</span>
+<span class="sd">* **ClaseUpdate**: Modelo para actualizar una clase existente.</span>
+<span class="sd">* **ClaseDTO**: Modelo de transferencia de datos para una clase.</span>
+<span class="sd">* **TramoHorarioCreate**: Modelo para crear un nuevo tramo horario.</span>
+<span class="sd">* **TramoHorarioUpdate**: Modelo para actualizar un tramo horario existente.</span>
+<span class="sd">* **TramoHorarioDTO**: Modelo de transferencia de datos para un tramo horario.</span>
+<span class="sd">* **CalendarioCreate**: Modelo para crear un nuevo registro en el calendario.</span>
+<span class="sd">* **CalendarioDTO**: Modelo de transferencia de datos para un registro en el calendario.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span><span class="p">,</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Annotated</span>
+
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">StringConstraints</span>
+
+<span class="n">Color</span> <span class="o">=</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">StringConstraints</span><span class="p">(</span><span class="n">pattern</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;^#(?:[0-9a-fA-F]</span><span class="si">{3}</span><span class="s1">){1,2}$&#39;</span><span class="p">)]</span>
+
+<span class="c1"># LOGIN</span>
+<div class="viewcode-block" id="Token">
+<a class="viewcode-back" href="../../modules.html#db.schemas.Token">[documentos]</a>
+<span class="k">class</span> <span class="nc">Token</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para representar un token de acceso.</span>
+
+<span class="sd">    :param access_token: El token de acceso.</span>
+<span class="sd">    :type access_token: str</span>
+<span class="sd">    :param token_type: El tipo de token.</span>
+<span class="sd">    :type token_type: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">access_token</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">token_type</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="LoginData">
+<a class="viewcode-back" href="../../modules.html#db.schemas.LoginData">[documentos]</a>
+<span class="k">class</span> <span class="nc">LoginData</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para representar los datos de inicio de sesión.</span>
+
+<span class="sd">    :param username: El nombre de usuario.</span>
+<span class="sd">    :type username: str</span>
+<span class="sd">    :param password: La contraseña.</span>
+<span class="sd">    :type password: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># ROLES</span>
+<div class="viewcode-block" id="RolCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.RolCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">RolCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo rol.</span>
+
+<span class="sd">    :param nombre: El nombre del rol.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="RolUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.RolUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">RolUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar un rol existente.</span>
+
+<span class="sd">    :param nombre: El nombre del rol.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="RolDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.RolDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">RolDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un rol.</span>
+
+<span class="sd">    :param id_rol: El ID del rol.</span>
+<span class="sd">    :type id_rol: int</span>
+<span class="sd">    :param nombre: El nombre del rol.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_rol</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># PROFESORES</span>
+<div class="viewcode-block" id="ProfesorCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProfesorCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo profesor.</span>
+
+<span class="sd">    :param username: El nombre de usuario del profesor.</span>
+<span class="sd">    :type username: str</span>
+<span class="sd">    :param nombre: El nombre del profesor.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    :param id_rol: El ID del rol asociado al profesor.</span>
+<span class="sd">    :type id_rol: int</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">id_rol</span><span class="p">:</span> <span class="nb">int</span></div>
+
+
+<div class="viewcode-block" id="ProfesorUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProfesorUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar un profesor existente.</span>
+
+<span class="sd">    :param nombre: El nombre del profesor.</span>
+<span class="sd">    :type nombre: Optional[str]</span>
+<span class="sd">    :param color: El color asociado al profesor.</span>
+<span class="sd">    :type color: Optional[Color]</span>
+<span class="sd">    :param id_rol: El ID del rol asociado al profesor.</span>
+<span class="sd">    :type id_rol: Optional[int]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Color</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">id_rol</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="ProfesorUpdatePassword">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorUpdatePassword">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProfesorUpdatePassword</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar la contraseña de un profesor.</span>
+
+<span class="sd">    :param password: La nueva contraseña.</span>
+<span class="sd">    :type password: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">password</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ProfesorDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProfesorDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un profesor.</span>
+
+<span class="sd">    :param id_profesor: El ID del profesor.</span>
+<span class="sd">    :type id_profesor: int</span>
+<span class="sd">    :param username: El nombre de usuario del profesor.</span>
+<span class="sd">    :type username: Optional[str]</span>
+<span class="sd">    :param nombre: El nombre del profesor.</span>
+<span class="sd">    :type nombre: Optional[str]</span>
+<span class="sd">    :param color: El color asociado al profesor.</span>
+<span class="sd">    :type color: Optional[Color]</span>
+<span class="sd">    :param rol: El rol asociado al profesor.</span>
+<span class="sd">    :type rol: Optional[RolDTO]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_profesor</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">username</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Color</span><span class="p">]</span>
+    <span class="n">rol</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">RolDTO</span><span class="p">]</span>
+
+<div class="viewcode-block" id="ProfesorDTO.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorDTO.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+<div class="viewcode-block" id="ProfesorAuth">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorAuth">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProfesorAuth</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para representar los datos de autenticación de un profesor.</span>
+
+<span class="sd">    :param username: El nombre de usuario del profesor.</span>
+<span class="sd">    :type username: str</span>
+<span class="sd">    :param nombre: El nombre del profesor.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    :param rol: El rol asociado al profesor.</span>
+<span class="sd">    :type rol: RolDTO</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">rol</span><span class="p">:</span> <span class="n">RolDTO</span>
+
+<div class="viewcode-block" id="ProfesorAuth.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ProfesorAuth.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+<span class="c1"># CURSOS</span>
+<div class="viewcode-block" id="CursoCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CursoCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">CursoCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo curso.</span>
+
+<span class="sd">    :param nombre: El nombre del curso.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="CursoUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CursoUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">CursoUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar un curso existente.</span>
+
+<span class="sd">    :param nombre: El nombre del curso.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="CursoDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CursoDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">CursoDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un curso.</span>
+
+<span class="sd">    :param id_curso: El ID del curso.</span>
+<span class="sd">    :type id_curso: int</span>
+<span class="sd">    :param nombre: El nombre del curso.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_curso</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># ACTIVIDAD</span>
+<div class="viewcode-block" id="ActividadCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ActividadCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ActividadCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear una nueva actividad.</span>
+
+<span class="sd">    :param nombre: El nombre de la actividad.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ActividadUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ActividadUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ActividadUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar una actividad existente.</span>
+
+<span class="sd">    :param nombre: El nombre de la actividad.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ActividadDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ActividadDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">ActividadDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para una actividad.</span>
+
+<span class="sd">    :param id_actividad: El ID de la actividad.</span>
+<span class="sd">    :type id_actividad: int</span>
+<span class="sd">    :param nombre: El nombre de la actividad.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_actividad</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ActividadCalendario">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ActividadCalendario">[documentos]</a>
+<span class="k">class</span> <span class="nc">ActividadCalendario</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para representar una actividad en el calendario.</span>
+
+<span class="sd">    :param nombre: El nombre de la actividad.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># AULAS</span>
+<div class="viewcode-block" id="AulaCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.AulaCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">AulaCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo aula.</span>
+
+<span class="sd">    :param nombre: El nombre del aula.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="AulaUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.AulaUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">AulaUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar un aula existente.</span>
+
+<span class="sd">    :param nombre: El nombre del aula.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="AulaDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.AulaDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">AulaDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un aula.</span>
+
+<span class="sd">    :param id_aula: El ID del aula.</span>
+<span class="sd">    :type id_aula: int</span>
+<span class="sd">    :param nombre: El nombre del aula.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_aula</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<span class="c1"># CLASES</span>
+<div class="viewcode-block" id="ClaseCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ClaseCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ClaseCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear una nueva clase.</span>
+
+<span class="sd">    :param nombre: El nombre de la clase.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ClaseUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ClaseUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">ClaseUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar una clase existente.</span>
+
+<span class="sd">    :param nombre: El nombre de la clase.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+<div class="viewcode-block" id="ClaseDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.ClaseDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">ClaseDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para una clase.</span>
+
+<span class="sd">    :param id_clase: El ID de la clase.</span>
+<span class="sd">    :type id_clase: int</span>
+<span class="sd">    :param nombre: El nombre de la clase.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_clase</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span></div>
+
+
+
+<span class="c1"># TRAMO HORARIO</span>
+<div class="viewcode-block" id="TramoHorarioCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">TramoHorarioCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo tramo horario.</span>
+
+<span class="sd">    :param nombre: El nombre del tramo horario.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    :param hora_inicio: La hora de inicio del tramo horario.</span>
+<span class="sd">    :type hora_inicio: time</span>
+<span class="sd">    :param hora_fin: La hora de fin del tramo horario.</span>
+<span class="sd">    :type hora_fin: time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hora_inicio</span><span class="p">:</span> <span class="n">time</span>
+    <span class="n">hora_fin</span><span class="p">:</span> <span class="n">time</span>
+
+<div class="viewcode-block" id="TramoHorarioCreate.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioCreate.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+<div class="viewcode-block" id="TramoHorarioUpdate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioUpdate">[documentos]</a>
+<span class="k">class</span> <span class="nc">TramoHorarioUpdate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para actualizar un tramo horario existente.</span>
+
+<span class="sd">    :param nombre: El nombre del tramo horario.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    :param hora_inicio: La hora de inicio del tramo horario.</span>
+<span class="sd">    :type hora_inicio: time</span>
+<span class="sd">    :param hora_fin: La hora de fin del tramo horario.</span>
+<span class="sd">    :type hora_fin: time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hora_inicio</span><span class="p">:</span> <span class="n">time</span>
+    <span class="n">hora_fin</span><span class="p">:</span> <span class="n">time</span>
+
+<div class="viewcode-block" id="TramoHorarioUpdate.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioUpdate.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+<div class="viewcode-block" id="TramoHorarioDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">TramoHorarioDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un tramo horario.</span>
+
+<span class="sd">    :param id_tramo_horario: El ID del tramo horario.</span>
+<span class="sd">    :type id_tramo_horario: int</span>
+<span class="sd">    :param nombre: El nombre del tramo horario.</span>
+<span class="sd">    :type nombre: str</span>
+<span class="sd">    :param hora_inicio: La hora de inicio del tramo horario.</span>
+<span class="sd">    :type hora_inicio: time</span>
+<span class="sd">    :param hora_fin: La hora de fin del tramo horario.</span>
+<span class="sd">    :type hora_fin: time</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_tramo_horario</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">nombre</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">hora_inicio</span><span class="p">:</span> <span class="n">time</span>
+    <span class="n">hora_fin</span><span class="p">:</span> <span class="n">time</span>
+
+<div class="viewcode-block" id="TramoHorarioDTO.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.TramoHorarioDTO.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">arbitrary_types_allowed</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+
+<span class="c1">#CALENDARIO</span>
+<div class="viewcode-block" id="CalendarioCreate">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CalendarioCreate">[documentos]</a>
+<span class="k">class</span> <span class="nc">CalendarioCreate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo para crear un nuevo registro en el calendario.</span>
+
+<span class="sd">    :param id_profesor: ID del profesor titular.</span>
+<span class="sd">    :type id_profesor: int</span>
+<span class="sd">    :param id_profesor_sustituto: ID del profesor sustituto.</span>
+<span class="sd">    :type id_profesor_sustituto: Optional[int]</span>
+<span class="sd">    :param id_actividad: ID de la actividad.</span>
+<span class="sd">    :type id_actividad: int</span>
+<span class="sd">    :param id_curso: ID del curso.</span>
+<span class="sd">    :type id_curso: int</span>
+<span class="sd">    :param id_aula: ID del aula.</span>
+<span class="sd">    :type id_aula: int</span>
+<span class="sd">    :param id_clase: ID de la clase.</span>
+<span class="sd">    :type id_clase: int</span>
+<span class="sd">    :param fecha: Fecha del calendario.</span>
+<span class="sd">    :type fecha: date</span>
+<span class="sd">    :param dia_semana: Día de la semana.</span>
+<span class="sd">    :type dia_semana: int</span>
+<span class="sd">    :param id_tramo_horario: ID del tramo horario.</span>
+<span class="sd">    :type id_tramo_horario: int</span>
+<span class="sd">    :param ausencia: Indica si hay ausencia del profesor.</span>
+<span class="sd">    :type ausencia: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_profesor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id del profesor titular&quot;</span><span class="p">)</span>
+    <span class="n">id_profesor_sustituto</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id del profesor sustituto&quot;</span><span class="p">)</span>
+    <span class="n">id_actividad</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id de la actividad&quot;</span><span class="p">)</span>
+    <span class="n">id_curso</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id del curso&quot;</span><span class="p">)</span>
+    <span class="n">id_aula</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id del aula&quot;</span><span class="p">)</span>
+    <span class="n">id_clase</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Id de la clase&quot;</span><span class="p">)</span>
+    <span class="n">fecha</span><span class="p">:</span> <span class="n">date</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Fecha del calendario&quot;</span><span class="p">)</span>
+    <span class="n">dia_semana</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Día de la semana&quot;</span><span class="p">)</span>
+    <span class="n">id_tramo_horario</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Hora del día&quot;</span><span class="p">)</span>
+    <span class="n">ausencia</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Indica si hay ausencia del profesor&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="CalendarioCreate.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CalendarioCreate.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+<div class="viewcode-block" id="CalendarioDTO">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CalendarioDTO">[documentos]</a>
+<span class="k">class</span> <span class="nc">CalendarioDTO</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Modelo de transferencia de datos para un registro en el calendario.</span>
+
+<span class="sd">    :param id_calendario: El ID del calendario.</span>
+<span class="sd">    :type id_calendario: int</span>
+<span class="sd">    :param profesor: El profesor asociado al calendario.</span>
+<span class="sd">    :type profesor: ProfesorDTO</span>
+<span class="sd">    :param profesor_sustituto: El profesor sustituto asociado al calendario.</span>
+<span class="sd">    :type profesor_sustituto: ProfesorDTO</span>
+<span class="sd">    :param actividad: La actividad asociada al calendario.</span>
+<span class="sd">    :type actividad: ActividadDTO</span>
+<span class="sd">    :param curso: El curso asociado al calendario.</span>
+<span class="sd">    :type curso: CursoDTO</span>
+<span class="sd">    :param clase: La clase asociada al calendario.</span>
+<span class="sd">    :type clase: ClaseDTO</span>
+<span class="sd">    :param aula: El aula asociada al calendario.</span>
+<span class="sd">    :type aula: AulaDTO</span>
+<span class="sd">    :param fecha: La fecha del calendario.</span>
+<span class="sd">    :type fecha: date</span>
+<span class="sd">    :param dia: El día de la semana del calendario.</span>
+<span class="sd">    :type dia: int</span>
+<span class="sd">    :param tramo_horario: El tramo horario asociado al calendario.</span>
+<span class="sd">    :type tramo_horario: TramoHorarioDTO</span>
+<span class="sd">    :param ausencia: Indica si hay ausencia en el calendario.</span>
+<span class="sd">    :type ausencia: bool</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">id_calendario</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">profesor</span><span class="p">:</span> <span class="n">ProfesorDTO</span>
+    <span class="n">profesor_sustituto</span><span class="p">:</span> <span class="n">ProfesorDTO</span>
+    <span class="n">actividad</span><span class="p">:</span> <span class="n">ActividadDTO</span>
+    <span class="n">curso</span><span class="p">:</span> <span class="n">CursoDTO</span>
+    <span class="n">clase</span><span class="p">:</span> <span class="n">ClaseDTO</span>
+    <span class="n">aula</span><span class="p">:</span> <span class="n">AulaDTO</span>
+    <span class="n">fecha</span><span class="p">:</span> <span class="n">date</span>
+    <span class="n">dia</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">tramo_horario</span><span class="p">:</span> <span class="n">TramoHorarioDTO</span>
+    <span class="n">ausencia</span><span class="p">:</span> <span class="nb">bool</span>
+
+<div class="viewcode-block" id="CalendarioDTO.Config">
+<a class="viewcode-back" href="../../modules.html#db.schemas.CalendarioDTO.Config">[documentos]</a>
+    <span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+        <span class="n">from_attributes</span> <span class="o">=</span> <span class="kc">True</span></div>
+</div>
+
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, Enrique Cillero Dorado.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
